@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+android:background="#d7dee2"
+    tools:context=".Activity.ProceedToAddress">
+
+    <TextView
+        android:id="@+id/clicktoAddress"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textAlignment="center"
+
+
+
+        android:padding="10dp"
+        android:text="Saved Address"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/cardview_dark_background"
+        android:fontFamily="@font/avenirltstd_medium"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerCategory"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+    <!--    <include-->
+    <!--        android:id="@+id/shimmerCategoryListItems"-->
+    <!--        layout="@layout/aftercategory_shimmer"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        tools:layout_editor_absoluteX="8dp" />-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCategory"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+
+
+        android:clipToPadding="false"
+        android:scrollbars="none"
+        app:layout_constraintTop_toBottomOf="@+id/clicktoAddress" />
+    <TextView
+        android:id="@+id/addnewaddress"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+
+
+
+        android:padding="10dp"
+        android:text="+ Add new address"
+
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#0D8FD9"
+        android:fontFamily="@font/avenirltstd_medium"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerCategory"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <TextView
+            android:id="@+id/confirmorder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_weight="0.5"
+
+            android:background="@drawable/clock_my_time_in_button"
+            android:padding="10dp"
+            android:text="Confirm Order"
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

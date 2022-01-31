@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.ProfileFragment">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/profile_imageView"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="56dp"
+            android:src="@drawable/ic_baseline_perm_identity_24"
+        />
+        <TextView
+            android:id="@+id/account_name"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_imageView"
+            android:fontFamily="@font/avenirltstd_heavy"
+            android:text="Akshay Garg"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="@dimen/text_12sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/your_order_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingTop="@dimen/settings_menu_inside_padding_vertical"
+        android:paddingEnd="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingBottom="@dimen/settings_menu_inside_padding_vertical"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/your_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenirltstd_heavy"
+            android:text="@string/your_orders"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="@dimen/text_12sp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:contentDescription="@string/click" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/AddressBook_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingTop="@dimen/settings_menu_inside_padding_vertical"
+        android:paddingEnd="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingBottom="@dimen/settings_menu_inside_padding_vertical"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/address_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenirltstd_heavy"
+            android:text="Address Book"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="@dimen/text_12sp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:contentDescription="@string/click" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/Favourite_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingTop="@dimen/settings_menu_inside_padding_vertical"
+        android:paddingEnd="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingBottom="@dimen/settings_menu_inside_padding_vertical"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/favourite_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenirltstd_heavy"
+            android:text="Favourite Orders"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="@dimen/text_12sp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:contentDescription="@string/click" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/edit_profile_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingTop="@dimen/settings_menu_inside_padding_vertical"
+        android:paddingEnd="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingBottom="@dimen/settings_menu_inside_padding_vertical"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/edit_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenirltstd_heavy"
+            android:text="Edit Profile"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="@dimen/text_12sp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:contentDescription="@string/click" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/account_setting_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingTop="@dimen/settings_menu_inside_padding_vertical"
+        android:paddingEnd="@dimen/settings_menu_inside_padding_horizontal"
+        android:paddingBottom="@dimen/settings_menu_inside_padding_vertical"
+        android:focusable="true">
+        <TextView
+            android:id="@+id/change_language_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/avenirltstd_heavy"
+            android:text="Account Setting"
+            android:textAllCaps="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textSize="@dimen/text_12sp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:contentDescription="@string/click" />
+    </RelativeLayout>
+
+</LinearLayout>

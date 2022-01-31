@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashBoardCategories">
+
+    <fragment
+        android:id="@+id/dashBoardCategories"
+        android:name="com.orders.ResturantOrder.Fragments.DashBoardCategories"
+        android:label="MyOrderFragment"
+        tools:layout="@layout/fragment_blank">
+        <action
+            android:id="@+id/action_dashBoardCategories_to_MyOrderFragment"
+            app:destination="@id/MyOrderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/MyOrderFragment"
+        android:name="com.orders.ResturantOrder.Fragments.MyOrdersFragment"
+        android:label="MyOrderFragment"
+        tools:layout="@layout/fragment_my_orders">
+        <action
+            android:id="@+id/action_MyOrder_to_Dashboard"
+            app:destination="@id/dashBoardCategories" />
+    </fragment>
+    <fragment
+        android:id="@+id/CartFragment"
+        android:name="com.orders.ResturantOrder.Fragments.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_CartFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ProfileFragment"
+        android:name="com.orders.ResturantOrder.Fragments.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_ProfileFragment_to_addressBookFragment"
+            app:destination="@id/addressBookFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/addressBookFragment"
+        android:name="com.orders.ResturantOrder.Fragments.AddresssBook"
+        android:label="AddressBookFragment"
+        tools:layout="@layout/fragment_addresss_book"/>
+</navigation>

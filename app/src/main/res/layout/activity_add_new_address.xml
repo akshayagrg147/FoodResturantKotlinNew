@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.AddNewAddressActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/roundcorner_layout_profile_detail"
+            android:orientation="vertical"
+            android:weightSum="4"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            >
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:fillViewport="true"
+                android:isScrollContainer="true">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_unit"
+                    android:layout_marginTop="@dimen/margin_min"
+                    android:layout_marginEnd="@dimen/margin_unit"
+                    android:focusableInTouchMode="true">
+
+
+
+                    <EditText
+                        android:id="@+id/name_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_height"
+
+                        android:layout_marginTop="@dimen/margin_subunit"
+                        android:background="@drawable/rounded_corner_editext_profile"
+                        android:fontFamily="@font/avenirltstd_medium"
+                        android:hint="@string/enter_name"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:padding="@dimen/margin_min"
+                        android:paddingStart="@dimen/margin_subunit"
+                        android:paddingEnd="@dimen/margin_subunit"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="@dimen/text_14sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/phoneno_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_height"
+                        android:layout_below="@id/name_editText"
+                        android:layout_marginTop="@dimen/margin_subunit"
+                        android:background="@drawable/rounded_corner_editext_profile"
+                        android:fontFamily="@font/avenirltstd_medium"
+                        android:hint="@string/enter_phone_number"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:padding="@dimen/margin_min"
+                        android:paddingStart="@dimen/margin_subunit"
+                        android:paddingEnd="@dimen/margin_subunit"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="@dimen/text_14sp" />
+
+
+                    <EditText
+                        android:id="@+id/pincode_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_height"
+                        android:layout_below="@id/phoneno_editText"
+                        android:layout_marginTop="@dimen/margin_subunit"
+                        android:background="@drawable/rounded_corner_editext_profile"
+                        android:fontFamily="@font/avenirltstd_medium"
+                        android:hint="@string/enter_pin_code"
+                        android:imeOptions="actionNext"
+                        android:inputType="number"
+                        android:lines="1"
+                        android:padding="@dimen/margin_min"
+                        android:paddingStart="@dimen/margin_subunit"
+                        android:paddingEnd="@dimen/margin_subunit"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="@dimen/text_14sp" />
+
+
+                    <EditText
+                        android:id="@+id/address1_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_height"
+                        android:layout_below="@id/pincode_editText"
+                        android:layout_marginTop="@dimen/margin_subunit"
+                        android:background="@drawable/rounded_corner_editext_profile"
+
+                        android:fontFamily="@font/avenirltstd_medium"
+                        android:hint="@string/flat_house_no_building_company_apartment"
+                        android:imeOptions="actionNext"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:padding="@dimen/margin_min"
+                        android:paddingStart="@dimen/margin_subunit"
+                        android:paddingEnd="@dimen/margin_subunit"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="@dimen/text_14sp" />
+
+
+
+                    <EditText
+                        android:id="@+id/address2_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_height"
+                        android:layout_below="@id/address1_editText"
+                        android:layout_marginTop="@dimen/margin_subunit"
+                        android:background="@drawable/rounded_corner_editext_profile"
+                        android:fontFamily="@font/avenirltstd_medium"
+                        android:hint="@string/area_colony_street_sector_village"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:lines="1"
+                        android:padding="@dimen/margin_min"
+                        android:paddingStart="@dimen/margin_subunit"
+                        android:paddingEnd="@dimen/margin_subunit"
+                        android:paddingRight="@dimen/margin_subunit"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="@dimen/text_14sp"
+                        />
+
+
+
+
+
+
+                    <EditText
+                        android:id="@+id/lanMark"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/profile_height"
+
+
+                        android:layout_marginTop="@dimen/margin_subunit"
+                        android:background="@drawable/rounded_corner_editext_profile"
+                        android:fontFamily="@font/avenirltstd_medium"
+                        android:hint="LandMark"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:lines="1"
+                        android:layout_below="@+id/address2_editText"
+                        android:padding="@dimen/margin_min"
+                        android:paddingStart="@dimen/margin_subunit"
+                        android:paddingEnd="@dimen/margin_subunit"
+                        android:paddingRight="@dimen/margin_subunit"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/cardview_dark_background"
+                        android:textSize="@dimen/text_14sp" />
+
+                </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/address_update_button"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginStart="@dimen/margin_unit"
+                android:layout_marginEnd="@dimen/margin_unit"
+                android:layout_marginBottom="@dimen/margin_unit"
+                android:text="Add Address"
+
+                android:background="@drawable/rounded_corner_save_button"
+                android:fontFamily="@font/avenirltstd_roman"
+                android:textColor="@color/colorWhite" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/particular_detail_progress_bar"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
