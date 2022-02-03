@@ -16,6 +16,7 @@ import com.meetSuccess.Database.ProductDatabase
 import com.orders.ResturantOrder.Fragments.CartFragment
 
 import com.orders.ResturantOrder.R
+import com.squareup.picasso.Picasso
 
 
 class CartItemssAdapter(private var categories1: List<CartItems>, cartItemClickListnerr: cartItemClickListner, database1: ProductDatabase
@@ -36,8 +37,11 @@ class CartItemssAdapter(private var categories1: List<CartItems>, cartItemClickL
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+        var cartItems:CartItems= database.contactDao().getProductBasedId(categories1.get(position).ProductIdNumber)
         var totalNumber:Int= database.contactDao().getProductBasedIdCount(categories1.get(position).ProductIdNumber)
-        holder.totalquantity.text=totalNumber.toString()
+       holder.totalquantity.text=totalNumber.toString()
+        holder.priceCategory.text=(cartItems.strProductPrice?.times(totalNumber)).toString()
+        holder.cart_product_name.text=cartItems.strProductName
      holder.plusButton.setOnClickListener{
 //            totalNumber=totalNumber+1
 //            binding.totalquantity.text=totalNumber.toString()
@@ -49,6 +53,8 @@ class CartItemssAdapter(private var categories1: List<CartItems>, cartItemClickL
             itemclickListner.ClickedMinusButton(categories1.get(position))
 
         }
+        Picasso.get().load(cartItems.strCategoryThumb).placeholder(R.drawable.clock_my_time_in_button)
+                .into(holder.image)
 
     }
 
@@ -57,6 +63,9 @@ class CartItemssAdapter(private var categories1: List<CartItems>, cartItemClickL
         val minusButton: AppCompatButton = itemView.findViewById(R.id.minusButton)
         val plusButton: AppCompatButton = itemView.findViewById(R.id.plusButton)
         val totalquantity: TextView = itemView.findViewById(R.id.totalquantity)
+        val cart_product_name: TextView = itemView.findViewById(R.id.cart_product_name)
+        val priceCategory: TextView = itemView.findViewById(R.id.priceCategory)
+        val image:ImageView=itemView.findViewById(R.id.image)
     }
 
   override fun getItemCount(): Int {

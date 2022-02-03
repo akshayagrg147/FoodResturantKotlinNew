@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
@@ -14,11 +15,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.meetSuccess.FoodResturant.Adapter.CategoryAdapter
 import com.meetSuccess.FoodResturant.Model.Categories
+import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
 import com.orders.ResturantOrder.R
+import com.squareup.picasso.Picasso
 
 
 class ListItemsAfterCategorySelectionAdapter(
-    private var cntx: Context, private var categories1: List<Categories.Category>,
+    private var cntx: Context, private var categories1: List<cateogryAfterSelectionModal.cateogryAfterSelectionModal1>,
     onitemClicked1: ListItemsAfterCategorySelectionAdapter.onclick
 )
     : RecyclerView.Adapter<ListItemsAfterCategorySelectionAdapter.PostViewHolder>() {
@@ -34,14 +37,16 @@ class ListItemsAfterCategorySelectionAdapter(
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.itemView.findViewById<TextView>(R.id.address).setText(categories1.get(position).getStrCategory())
-
+        holder.itemView.findViewById<TextView>(R.id.address).setText(categories1.get(position).getstrname())
+        holder.priceCategory.text=categories1.get(position).getsale_price()
+        holder.description.text=categories1.get(position).getdescription()
 
         holder.itemView.findViewById<Button>(R.id.AddButton).setOnClickListener{
 
             holder.itemView.findViewById<Button>(R.id.AddButton).visibility=View.GONE
             holder.itemView.findViewById<Button>(R.id.ItemAdded).visibility=View.VISIBLE
-            Log.d("callingTest", "ddddddd--button" + position)
+            Log.d("callingTest", "ddddddd--button" + categories1.get(position).getstrname()+"---"+categories1.get(position).getidMeal())
+
             onitemClicked.itemclicked(categories1.get(position))
 
    };
@@ -49,8 +54,8 @@ class ListItemsAfterCategorySelectionAdapter(
 
 //        binding.categoryName.text=categories1.get(position).getStrCategory()
 //
-//        Picasso.get().load(categories1.get(position).getStrCategoryThumb()).placeholder(R.drawable.ic_circle)
-//            .into(binding.categoryThumb)
+        Picasso.get().load(categories1.get(position).getstrimage()).placeholder(R.drawable.ic_circle)
+            .into(holder.image)
 
     }
 
@@ -58,10 +63,12 @@ class ListItemsAfterCategorySelectionAdapter(
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-
+        val image: ImageView = itemView.findViewById(R.id.image)
+        val description: TextView = itemView.findViewById(R.id.description)
+        val priceCategory:TextView=itemView.findViewById(R.id.priceCategory)
     }
 
-    fun setData(categoriesList: List<Categories.Category>)
+    fun setData(categoriesList: List<cateogryAfterSelectionModal.cateogryAfterSelectionModal1>)
     {
         categories1=categoriesList
         notifyDataSetChanged()
@@ -73,7 +80,7 @@ class ListItemsAfterCategorySelectionAdapter(
 
     }
     interface onclick{
-        public fun itemclicked(item: Categories.Category)
+        public fun itemclicked(item: cateogryAfterSelectionModal.cateogryAfterSelectionModal1)
     }
 
 }

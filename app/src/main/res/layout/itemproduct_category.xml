@@ -15,14 +15,15 @@
        >
         <LinearLayout
             android:id="@+id/layout_linear"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
 
 
 
             android:orientation="vertical"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_height="wrap_content">
+           >
             <ImageView
                 android:id="@+id/image"
                 android:src="@drawable/sample_image_category"
@@ -76,18 +77,19 @@ android:visibility="gone"
         <LinearLayout
             android:id="@+id/infoSection"
             android:layout_width="wrap_content"
-            android:layout_marginTop="20dp"
 
 
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_linear"
+            android:layout_marginStart="@dimen/dp_10"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/layout_linear"
-            app:layout_constraintRight_toRightOf="parent"
 
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/layout_linear"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.235">
 
             <TextView
                 android:id="@+id/address"
@@ -119,11 +121,6 @@ android:visibility="gone"
                 android:textSize="15sp" />
 
         </LinearLayout>
-
-
-
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

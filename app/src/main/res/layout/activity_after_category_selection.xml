@@ -54,9 +54,7 @@
 
     <include
         android:id="@+id/shimmerCategoryListItems"
-        layout="@layout/aftercategory_shimmer"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="8dp" />
+        layout="@layout/aftercategoryitem_view_pager_header_shimmer"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

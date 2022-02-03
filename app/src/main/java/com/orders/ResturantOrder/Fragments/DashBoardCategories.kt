@@ -6,7 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.core.view.isVisible
+
+
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,6 +25,7 @@ import com.orders.ResturantOrder.adapter.RecyclerViewAdapter
 import com.orders.ResturantOrder.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_blank.*
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -37,6 +42,7 @@ class DashBoardCategories : Fragment() {
     private lateinit var categoryAdapter: CategoryAdapter
 
     private lateinit var MealsAdapter: ViewPagerHeaderAdapter
+
     private val linearLayoutManager:LinearLayoutManager?=null
     private lateinit var recyclerViewAdapter: RecyclerViewAdapter
 
@@ -56,13 +62,14 @@ class DashBoardCategories : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         if(arguments!=null)
         {val str:String=requireArguments().getString("typeDataSend").toString()
 
             Toast.makeText(context,str,Toast.LENGTH_SHORT).show()
         }
 
-        val mainViewModel  = ViewModelProvider(requireActivity()).get(MainActivityViewModel::class.java)
+        val mainViewModel  = ViewModelProvider((requireActivity() as MainActivity)).get(MainActivityViewModel::class.java)
 
         initRecyclerviewMeals()
         initRecyclerview()
@@ -73,28 +80,28 @@ class DashBoardCategories : Fragment() {
             val mealsCategory= async { mainViewModel._postStateFlow.collect { it->
                 when(it){
                     is ApiState.Loading -> {
-                        //  recyclerView.isVisible = false
-                        ////  binding.shimmerMeal.shimmerViewContainer2.isVisible = true
+
+                       // framelayout.setVisibility(View.VISIBLE)
+
                     }
                     is ApiState.Failure -> {
-                        //  recyclerView.isVisible = false
-                        //binding.shimmerMeal.shimmerViewContainer2.isVisible = true
-                        Log.d("maiqqqqqqqqqqn", "onCreate: ${it.msg}")
+
+
+                        //framelayout.setVisibility(View.VISIBLE)
+
                     }
                     is ApiState.SuccessCategories -> {
-                        Log.d("maiqqqqqqqqqqn", "onCreate: called1")
-                        //  binding.shimmerCategory.shimmerCategory .isVisible= true
 
 
-                        // recyclerView.isVisible = true
-                        //  binding.shimmerMeal.shimmerViewContainer2.isVisible = false
+                       //framelayout.setVisibility(View.GONE)
+
                         MealsAdapter.setData(it.data.categories)
-                       // val context:Context=  requireActivity()
-                        requireActivity().runOnUiThread { MealsAdapter.notifyDataSetChanged() }
-                        // MealsAdapter.notifyDataSetChanged()
-//                        recyclerView.post(Runnable { // Call smooth scroll
-//                            recyclerView.smoothScrollToPosition(it.data.categories.size - 1);
-//                        })
+
+                        ( requireActivity() as MainActivity).runOnUiThread { MealsAdapter.notifyDataSetChanged() }
+
+                        recyclerView.post(Runnable { // Call smooth scroll
+                            recyclerView.smoothScrollToPosition(it.data.categories.size - 1);
+                     })
 
 
                     }
@@ -103,27 +110,20 @@ class DashBoardCategories : Fragment() {
                     }
                 }
             } }
+            shimmer_view_containerheader.isVisible=false
+            shimmerCategory.isVisible=false
             val catergories=async { mainViewModel._postStateFlow.collect { it->
                 when(it){
                     is ApiState.Loading -> {
-                        //recyclerCategory.isVisible = false
-                        //  binding.shimmerCategory.shimmerCategory.isVisible = true
+
                     }
                     is ApiState.Failure -> {
-                        //   recyclerCategory.isVisible = false
-                        //binding.shimmerCategory.shimmerCategory.isVisible = true
 
-                        Log.d("maiqqqqqqqqqqn", "onCreate: ${it.msg}")
                     }
                     is ApiState.SuccessCategories -> {
-                        Log.d("maiqqqqqqqqqqn", "called")
-                        //  binding.shimmerCategory.shimmerCategory .isVisible= true
 
-
-                        //    recyclerCategory.isVisible = true
-                        //  binding.shimmerCategory.shimmerCategory.isVisible = false
                        categoryAdapter.setData(it.data.categories)
-                       // requireActivity().runOnUiThread { categoryAdapter.notifyDataSetChanged() }
+
 
                     }
                     is ApiState.Empty -> {
@@ -134,6 +134,7 @@ class DashBoardCategories : Fragment() {
             catergories.await()
             // mealsCategory.await()
             print("both api get called")
+
 
         }
         parentjob.invokeOnCompletion { print("api call completion") }

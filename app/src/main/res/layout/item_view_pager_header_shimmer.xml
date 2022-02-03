@@ -5,13 +5,14 @@
   Subscribe : https://www.youtube.com/haerulmuttaqin
   Copyright (c) 2019. All rights reserved
   -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/shimmer_view_container2"
+
     android:layout_width="match_parent"
+    android:layout_marginTop="@dimen/dp_20"
     android:layout_height="wrap_content"
     android:layout_below="@id/cardSearch"
-    android:layout_margin="10dp">
+   >
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -27,6 +28,7 @@
         <com.facebook.shimmer.ShimmerFrameLayout
 
             android:layout_width="match_parent"
+
             android:layout_height="match_parent">
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -51,4 +53,4 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
     </androidx.cardview.widget.CardView>
 
-</FrameLayout>
+</LinearLayout>

@@ -8,11 +8,10 @@ import android.view.LayoutInflater
 import android.view.Menu
 import androidx.lifecycle.coroutineScope
 import android.view.MenuItem
+import android.widget.*
 import kotlinx.coroutines.flow.collect
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.ActionBar
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,11 +20,13 @@ import com.meetSuccess.Database.CartItems
 import com.meetSuccess.Database.ProductDatabase
 
 import com.meetSuccess.FoodResturant.Model.Categories
+import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
 import com.meetSuccess.FoodResturant.Util.ApiState
 import com.orders.ResturantOrder.R
 import com.orders.ResturantOrder.adapter.ListItemsAfterCategorySelectionAdapter
 import com.orders.ResturantOrder.viewmodel.AfterCategorySelectionViewModel
 import com.rowland.cartcounter.view.CartCounterActionView
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_after_category_selection.*
 import kotlinx.coroutines.async
@@ -45,7 +46,7 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
 
 
         val categories:ArrayList<String> =ArrayList<String>()
-        categories.add("hii")
+        categories.add("hiijj")
         val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
 //        categoryAdapter =
 //            CustomYearSpinnerAdaptor(
@@ -67,32 +68,29 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
         initRecyclerview()
         //  initRecyclerviewMeals()
 
-
-        afterCategorySelectionViewModel.getPost()
+        var stringId: String? = intent.getStringExtra("categoryId")
+        if(stringId!=null)
+        afterCategorySelectionViewModel.getProductsAfterSelection(Integer.parseInt(stringId))
         // mainViewModel.getLatestMeals()
         val parentjob= lifecycleScope.launchWhenStarted {
 
-            val catergories=async { afterCategorySelectionViewModel._postStateFlow.collect { it->
+            val catergories=async { afterCategorySelectionViewModel._postStateflowAfterSelection.collect { it->
                 when(it){
                     is ApiState.Loading -> {
-                     //recyclerCategory.isVisible = false
-                     //  shimmerCategoryListItems.shimmerCategory.isVisible = true
+                        shimmerCategoryListItems.isVisible=true
+
                     }
                     is ApiState.Failure -> {
-                       // binding.recyclerCategory.isVisible = false
+                        Log.d("dsfddd", "dsfsd1");
+                        shimmerCategoryListItems.isVisible=true
                        // binding.shimmerCategoryListItems.shimmerCategory.isVisible = true
                         Log.d("main", "onCreate: ${it.msg}")
                     }
-                    is ApiState.SuccessCategories -> {
-                        Log.d("dsfddd", "dsfsd");
-                        //  binding.shimmerCategory.shimmerCategory .isVisible= true
+                    is ApiState.SuccessAfterSelection -> {
 
-
-                       // binding.recyclerCategory.isVisible = true
-                       // binding.shimmerCategoryListItems.shimmerCategory.isVisible = false
-                        //  it.data.categories.filter{it.getIdCategory().contentEquals("")}
-                        categorySelectAdapter.setData(it.data.categories)
-                        // categorySelectAdapter.notifyDataSetChanged()
+                        shimmerCategoryListItems.isVisible=false
+                       categorySelectAdapter.setData(it.data.meals)
+                        categorySelectAdapter.notifyDataSetChanged()
                     }
                     is ApiState.Empty -> {
 
@@ -109,7 +107,7 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        //return super.onOptionsItemSelected(item)
+
         return when(item.itemId){
             R.id.action_addcart -> {
                 val intent = Intent(this, CartItemss::class.java);
@@ -148,31 +146,31 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
     private  fun initRecyclerview() {
         categorySelectAdapter= ListItemsAfterCategorySelectionAdapter(baseContext, ArrayList(),
             object : ListItemsAfterCategorySelectionAdapter.onclick {
-                override fun itemclicked(item: Categories.Category) {
+                override fun itemclicked(item: cateogryAfterSelectionModal.cateogryAfterSelectionModal1) {
 
 
                     lifecycle.coroutineScope.launch {
                         // database.contactDao().getProductBasedId(1212).observe(this@AfterCategorySelectionActivity,{})
-                        val intger: Int = database.contactDao().getProductBasedIdCount("121212")
-                        if (intger == 0) {
+                        val intger: Int = database.contactDao().getProductBasedIdCount(item.getidMeal().toString())
+                       if (intger == 0) {
                             database.contactDao()
                                 .insertCartItem(
                                     CartItems(
-                                        "121212",
-                                        item.getStrCategoryThumb(),
+                                        item.getidMeal().toString(),
+                                        item.getstrimage(),
                                         intger + 1,
-                                        12,
-                                        "dddd"
+                                        Integer.parseInt(item.getsale_price()),
+                                            item.getstrname()
                                     )
                                 )
 
                         } else if (intger >= 1) {
 
                             database.contactDao()
-                                .updateCartItem(intger + 1, "121212")
+                                .updateCartItem(intger + 1,  item.getidMeal().toString())
                         }
 
-                        Log.d("countis",database.contactDao().getProductBasedIdCount("121212").toString())
+                        Log.d("countis",database.contactDao().getProductBasedIdCount( item.getidMeal().toString()).toString())
 
 
                     }
@@ -185,7 +183,12 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
 
                     val inflater = LayoutInflater.from(this@AfterCategorySelectionActivity)
                     val view = inflater.inflate(R.layout.bottom_sheet_dialog, null)
-                    view.findViewById<TextView>(R.id.idTVCourseName).setText(item.getStrCategory())
+
+                    view.findViewById<TextView>(R.id.idTVCourseName).setText(item.getstrname())
+
+                    Picasso.get().load(item.getstrimage()).placeholder(R.drawable.clock_my_time_in_button)
+                            .into(view.findViewById<ImageView>(R.id.idImageView))
+
                     view.findViewById<Button>(R.id.idBtnProceed).setOnClickListener {
                         database.contactDao().getAllAddress()
                             .observe(this@AfterCategorySelectionActivity, {

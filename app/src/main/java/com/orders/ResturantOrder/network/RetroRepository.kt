@@ -2,6 +2,7 @@ package com.orders.ResturantOrder.network
 
 import com.meetSuccess.FoodResturant.Model.Categories
 import com.meetSuccess.FoodResturant.Model.Meals
+import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -20,5 +21,9 @@ class RetroRepository @Inject constructor(private val apiServiceImpl: ApiService
 
     fun getLatestMeals():Flow<Meals> = flow {
         emit(apiServiceImpl.getLatestMeals())
+    }.flowOn(Dispatchers.IO)
+
+    fun getcateogryAfterSelectionMeals(productid: Int): Flow<cateogryAfterSelectionModal> = flow {
+        emit(apiServiceImpl.getAfterSelectCategory(productid))
     }.flowOn(Dispatchers.IO)
 }

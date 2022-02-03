@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class Categories(
-    @SerializedName("categories") @Expose
+    @SerializedName("data") @Expose
     public var categories: List<Category>
 
 
@@ -12,43 +12,54 @@ data class Categories(
 
 
     data class Category(
-        @SerializedName("idCategory")
-        private val idCategory: String,
-        @SerializedName("strCategory")
-        private val strCategory: String,
 
-        @SerializedName("strCategoryThumb")
-        private val strCategoryThumb: String ,
+            @SerializedName("id")
+            private val idCategory: Int,
+            @SerializedName("name")
+            private val name: String,
 
-        @SerializedName("strCategoryDescription")
-        private var strCategoryDescription: String
+            @SerializedName("description")
+            private val description: String ,
+
+            @SerializedName("image")
+            private var image: String,
+
+            @SerializedName("created_at")
+            private var created_at: String,
+            @SerializedName("updated_at")
+            private var updated_at: String
+
+
+
+
     )
     {
-        fun getIdCategory(): String {
+        fun getIdCategory(): Int {
             return idCategory
         }
 
 
 
-        fun getStrCategory(): String {
-            return strCategory
+        fun getname(): String {
+            return name
         }
 
 
 
-        fun getStrCategoryThumb(): String {
-            return strCategoryThumb
+        fun getdescription(): String {
+            return description
+        }
+        fun getPrice(): String {
+            return description
         }
 
 
 
-        fun getStrCategoryDescription(): String {
-            return strCategoryDescription
+        fun getStrimage(): String {
+            return image
         }
 
-        fun setStrCategoryDescription(strCategoryDescription: String) {
-            this.strCategoryDescription = strCategoryDescription
-        }
+
     }
 
 }

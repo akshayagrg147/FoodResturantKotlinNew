@@ -11,25 +11,25 @@ data class CartItems(
     @PrimaryKey(autoGenerate = true)
     val id: Long,
     @ColumnInfo(name = "ProductIdNumber")
-    val ProductIdNumber: String,
+    val ProductIdNumber: String?=null,
     @ColumnInfo(name = "strCategoryThumb")
-    val strCategoryThumb: String,
+    val strCategoryThumb: String?=null,
     @ColumnInfo(name = "totalCount")
-    val totalCount: Int,
+    val totalCount: Int?=0,
     @ColumnInfo(name = "productPrice")
-    var strProductPrice: Int,
+    var strProductPrice: Int?=0,
 
-    @ColumnInfo(name = "strCategoryDescription")
-    var strCategoryDescription: String,
+    @ColumnInfo(name = "strProductName")
+    var strProductName: String?=null,
 
 
 ) {
     constructor(
-        ProductIdNumber: String,
-        strCategoryThumb: String,
-        totalCount: Int,
-        price:Int,
-        strCategoryDescription: String,
+        ProductIdNumber: String?,
+        strCategoryThumb: String?,
+        totalCount: Int?,
+        price:Int?,
+        strCategoryDescription: String?,
 
     ) : this(0, ProductIdNumber, strCategoryThumb, totalCount, price,strCategoryDescription)
 }

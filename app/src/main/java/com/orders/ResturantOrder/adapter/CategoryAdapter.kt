@@ -28,16 +28,20 @@ class CategoryAdapter(private var categories1: List<Categories.Category>,val con
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.categoryName.text=categories1.get(position).getStrCategory()
+        holder.categoryName.text=categories1.get(position).getname()
 
 
-        Picasso.get().load(categories1.get(position).getStrCategoryThumb()).placeholder(R.drawable.clock_my_time_in_button)
+
+//categories1.get(position).getStrimage()
+        Picasso.get().load(categories1.get(position).getStrimage()).placeholder(R.drawable.clock_my_time_in_button)
             .into(holder.imageView)
         holder.itemView.setOnClickListener{
 
 
 
             val intent = Intent(context, AfterCategorySelectionActivity::class.java);
+            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
+
 
             context.startActivity(intent);
 
@@ -50,6 +54,7 @@ class CategoryAdapter(private var categories1: List<Categories.Category>,val con
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val imageView: ImageView = itemView.findViewById(R.id.categoryThumb)
         val categoryName: TextView = itemView.findViewById(R.id.categoryName)
+
     }
 
     fun setData(categoriesList: List<Categories.Category>)

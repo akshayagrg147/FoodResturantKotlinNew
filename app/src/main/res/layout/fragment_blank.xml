@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".BlankFragment">
+    >
 
 
 
@@ -88,10 +88,10 @@
 
 
 
-                        <!--            <include android:id="@+id/shimmerMeal"-->
+                                    <include
+                                        android:id="@+id/shimmer_view_containerheader"
 
-
-                        <!--                layout="@layout/item_view_pager_header_shimmer" />-->
+                                        layout="@layout/item_view_pager_header_shimmer" />
 
                         <TextView
                             android:id="@+id/titleCategory"
@@ -119,8 +119,8 @@
                             android:layout_marginRight="8dp"
                             android:layout_marginBottom="50dp" />
 
-                        <!--            <include android:id="@+id/shimmerCategory"-->
-                        <!--                layout="@layout/item_recycler_category_shimmer" />-->
+                                    <include android:id="@+id/shimmerCategory"
+                                        layout="@layout/item_recycler_category_shimmer" />
 
 
 

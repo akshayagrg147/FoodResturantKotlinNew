@@ -30,9 +30,9 @@ class ViewPagerHeaderAdapter(private var categories1: List<Categories.Category>,
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
        // binding.mealName.text=categories1.get(position).getStrCategory()
 
-        holder.categoryName.text=categories1.get(position).getStrCategory()
-
-        Picasso.get().load(categories1.get(position).getStrCategoryThumb()).placeholder(R.drawable.clock_my_time_in_button)
+        holder.categoryName.text=categories1.get(position).getname()
+//categories1.get(position).getStrimage()
+        Picasso.get().load(categories1.get(position).getStrimage()).placeholder(R.drawable.clock_my_time_in_button)
             .into(holder.imageView)
         holder.itemView.setOnClickListener{
 

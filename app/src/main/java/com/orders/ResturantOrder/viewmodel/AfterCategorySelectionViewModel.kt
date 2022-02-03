@@ -1,5 +1,6 @@
 package com.orders.ResturantOrder.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.orders.ResturantOrder.network.RetroRepository
@@ -19,30 +20,23 @@ class AfterCategorySelectionViewModel @Inject constructor(private val mainReposi
     : ViewModel(){
 
 
-    private val postStateFlow: MutableStateFlow<ApiState>
+    private val postStateFlowAfterSelection: MutableStateFlow<ApiState>
             = MutableStateFlow(ApiState.Empty)
 
-    val _postStateFlow: StateFlow<ApiState> = postStateFlow
+    val _postStateflowAfterSelection: StateFlow<ApiState> = postStateFlowAfterSelection
 
     //suspend function always called with courtines
 
-    fun getPost() = viewModelScope.launch {
-        postStateFlow.value = ApiState.Loading
-        mainRepository.getPost()
+    fun getProductsAfterSelection( productid: Int) = viewModelScope.launch {
+        postStateFlowAfterSelection.value = ApiState.Loading
+        mainRepository.getcateogryAfterSelectionMeals(productid)
                 .catch { e->
-                    postStateFlow.value=ApiState.Failure(e)
-                }.collect { data->
-                    postStateFlow.value=ApiState.SuccessCategories(data)
-                }
-    }
-    fun getLatestMeals() = viewModelScope.launch {
-        postStateFlow.value = ApiState.Loading
-        mainRepository.getLatestMeals()
-                .catch { e->
-                    postStateFlow.value=ApiState.Failure(e)
+                    postStateFlowAfterSelection.value=ApiState.Failure(e)
+                }.collect {
 
-                }.collect { data->
-                    postStateFlow.value=ApiState.SuccessMeals(data)
+                    data->
+                    postStateFlowAfterSelection.value=ApiState.SuccessAfterSelection(data)
                 }
     }
+
 }

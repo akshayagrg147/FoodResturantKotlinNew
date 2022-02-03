@@ -29,7 +29,7 @@ class AppModule {
         return appDatabase.getAppDao()
     }
 
-    val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
+    val BASE_URL = "https://chuimui.in/public/api/"
 
     @Provides
     @Singleton
