@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.orders.ResturantOrder.R
 
 import com.meetSuccess.FoodResturant.Model.Categories
+import com.meetSuccess.FoodResturant.Model.CategoriesHeader
 import com.orders.ResturantOrder.Activity.AfterCategorySelectionActivity
 import com.squareup.picasso.Picasso
 
 
-class CategoryAdapter(private var categories1: List<Categories.Category>,val context: Context)
+class CategoryAdapter(private var categories1: List<Categories.Category>, val context: Context)
     : RecyclerView.Adapter<CategoryAdapter.PostViewHolder>() {
 
   //  private lateinit var binding:ItemRecyclerCategoryBinding
@@ -36,7 +38,7 @@ class CategoryAdapter(private var categories1: List<Categories.Category>,val con
         Picasso.get().load(categories1.get(position).getStrimage()).placeholder(R.drawable.clock_my_time_in_button)
             .into(holder.imageView)
         holder.itemView.setOnClickListener{
-
+Toast.makeText(context,categories1.get(position).getIdCategory().toString(),Toast.LENGTH_SHORT).show()
 
 
             val intent = Intent(context, AfterCategorySelectionActivity::class.java);

@@ -4,6 +4,7 @@
 
 
     <color name="colorPrimaryDark">#4598E6</color>
+    <color name="colorRedSalmon">#FA8072</color>
     <color name="colorAccent">#0D8FD9</color>
     <color name="colorNull">#00000000</color>
     <color name="colorIcons">#7C7F81</color>

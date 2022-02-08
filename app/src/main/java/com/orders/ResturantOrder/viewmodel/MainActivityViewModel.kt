@@ -19,30 +19,34 @@ class MainActivityViewModel @Inject constructor(private val mainRepository: Retr
     : ViewModel(){
 
 
-    private val postStateFlow: MutableStateFlow<ApiState>
+    private val categoriesheader: MutableStateFlow<ApiState>
+            = MutableStateFlow(ApiState.Empty)
+    private val categoriesL: MutableStateFlow<ApiState>
             = MutableStateFlow(ApiState.Empty)
 
-    val _postStateFlow: StateFlow<ApiState> = postStateFlow
+
+    val _postStateFlowHeader: StateFlow<ApiState> = categoriesheader
+    val _postStateFlowLower: StateFlow<ApiState> = categoriesL
 
     //suspend function always called with courtines
 
-    fun getPost() = viewModelScope.launch {
-        postStateFlow.value = ApiState.Loading
+    fun getproductOffersHeader() = viewModelScope.launch {
+        categoriesheader.value = ApiState.Loading
         mainRepository.getPost()
                 .catch { e->
-                    postStateFlow.value=ApiState.Failure(e)
+                    categoriesheader.value=ApiState.Failure(e)
                 }.collect { data->
-                    postStateFlow.value=ApiState.SuccessCategories(data)
+                categoriesheader.value=ApiState.SuccessCategoriesHeader(data)
                 }
     }
-    fun getLatestMeals() = viewModelScope.launch {
-        postStateFlow.value = ApiState.Loading
+    fun getLowestCategory() = viewModelScope.launch {
+        categoriesL.value = ApiState.Loading
         mainRepository.getLatestMeals()
                 .catch { e->
-                    postStateFlow.value=ApiState.Failure(e)
+                    categoriesL.value=ApiState.Failure(e)
 
                 }.collect { data->
-                    postStateFlow.value=ApiState.SuccessMeals(data)
+                categoriesL.value=ApiState.SuccessCategories(data)
                 }
     }
 }

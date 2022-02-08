@@ -40,12 +40,12 @@ class ListItemsAfterCategorySelectionAdapter(
         holder.itemView.findViewById<TextView>(R.id.address).setText(categories1.get(position).getstrname())
         holder.priceCategory.text=categories1.get(position).getsale_price()
         holder.description.text=categories1.get(position).getdescription()
+        Log.d("callingTest", "ddddddd--button" + categories1.get(position).getstrname()+"---"+categories1.get(position).getidMeal())
 
         holder.itemView.findViewById<Button>(R.id.AddButton).setOnClickListener{
 
             holder.itemView.findViewById<Button>(R.id.AddButton).visibility=View.GONE
             holder.itemView.findViewById<Button>(R.id.ItemAdded).visibility=View.VISIBLE
-            Log.d("callingTest", "ddddddd--button" + categories1.get(position).getstrname()+"---"+categories1.get(position).getidMeal())
 
             onitemClicked.itemclicked(categories1.get(position))
 

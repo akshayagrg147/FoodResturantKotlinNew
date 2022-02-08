@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "303253378309",
+    "project_id": "chuimui-539d5",
+    "storage_bucket": "chuimui-539d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303253378309:android:4608d132b28e2ccd43936c",
+        "android_client_info": {
+          "package_name": "com.orders.ResturantOrder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303253378309-3aq3vh85q30u2dhea8il1o6ru0s3l1me.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClkUfpNLydum729BbEna9LT4Nz0O4FKhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303253378309-3aq3vh85q30u2dhea8il1o6ru0s3l1me.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

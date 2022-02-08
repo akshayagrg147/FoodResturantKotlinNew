@@ -12,19 +12,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Demo">
-        <activity android:name=".Activity.AddNewAddressActivity"
-            android:label="Add New Address"></activity>
-        <activity android:name=".Activity.ProceedToAddress"
-            android:label="Confirm Address"/>
-        <activity android:name=".Activity.CartItemss" />
-        <activity android:name=".Activity.AfterCategorySelectionActivity"
-            android:label="Product List"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.SplashScreenActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Activity.MobileNumberIntegration"  android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+
+
+        </activity>
+        <activity
+            android:name=".Activity.AddNewAddressActivity"
+            android:label="Add New Address" />
+        <activity
+            android:name=".Activity.ProceedToAddress"
+            android:label="Confirm Address" />
+        <activity android:name=".Activity.CartItemss" />
+        <activity
+            android:name=".Activity.AfterCategorySelectionActivity"
+            android:label="Product List" />
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 

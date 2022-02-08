@@ -7,17 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.orders.ResturantOrder.R
 
 import com.meetSuccess.FoodResturant.Model.Categories
+import com.meetSuccess.FoodResturant.Model.CategoriesHeader
 import com.orders.ResturantOrder.Activity.AfterCategorySelectionActivity
 import com.squareup.picasso.Picasso
 
 
-class ViewPagerHeaderAdapter(private var categories1: List<Categories.Category>, val context: Context)
-    : RecyclerView.Adapter<ViewPagerHeaderAdapter.PostViewHolder>() {
+class CategoryHeaderAdapter(private var categories1: List<CategoriesHeader.Category>, val context: Context)
+    : RecyclerView.Adapter<com.meetSuccess.FoodResturant.Adapter.CategoryHeaderAdapter.PostViewHolder>() {
 
 
 
@@ -53,7 +53,7 @@ class ViewPagerHeaderAdapter(private var categories1: List<Categories.Category>,
         val categoryName: TextView = itemView.findViewById(R.id.categoryName)
     }
 
-    fun setData(categoriesList: List<Categories.Category>)
+    fun setData(categoriesList: List<CategoriesHeader.Category>)
     {
         categories1=categoriesList
       //  notifyDataSetChanged()

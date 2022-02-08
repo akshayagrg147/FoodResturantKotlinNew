@@ -1,13 +1,14 @@
 package com.orders.ResturantOrder.network
 
-import com.meetSuccess.FoodResturant.Model.Categories
-import com.meetSuccess.FoodResturant.Model.Meals
-import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
+import com.meetSuccess.FoodResturant.Model.*
 import javax.inject.Inject
 
 class ApiServiceImpl @Inject constructor(private val apiService: RetroServiceInterface) {
 
-    suspend fun getPost():Categories = apiService.getCategories()
-    suspend fun getLatestMeals():Meals = apiService.getMeal()
+    suspend fun getPost():CategoriesHeader = apiService.getproductOffers()
+    suspend fun getLatestMeals():Categories = apiService.getCategories()
     suspend fun getAfterSelectCategory(productid: Int): cateogryAfterSelectionModal = apiService.getMealBasedCategory(productid)
+    suspend fun SaveUserInformations(mobileNumberData: MobileNumberPassingData): MobileNumberResponse = apiService.SaveUserInformation(mobileNumberData)
+    suspend fun CheckMobileNumberExist(mobileNumberData: String): MobileNumberExistCheck = apiService.getmobileVerify(mobileNumberData)
+
 }

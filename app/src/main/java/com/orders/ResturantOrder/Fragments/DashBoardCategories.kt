@@ -1,12 +1,9 @@
 package com.orders.ResturantOrder.Fragments
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.view.isVisible
 
@@ -17,7 +14,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.meetSuccess.FoodResturant.Adapter.CategoryAdapter
-import com.meetSuccess.FoodResturant.Adapter.ViewPagerHeaderAdapter
+
+import com.meetSuccess.FoodResturant.Adapter.CategoryHeaderAdapter
+import com.meetSuccess.FoodResturant.Model.Categories
 import com.meetSuccess.FoodResturant.Util.ApiState
 import com.orders.ResturantOrder.MainActivity
 import com.orders.ResturantOrder.R
@@ -41,7 +40,7 @@ class DashBoardCategories : Fragment() {
     private var param2: String? = null
     private lateinit var categoryAdapter: CategoryAdapter
 
-    private lateinit var MealsAdapter: ViewPagerHeaderAdapter
+    private lateinit var headerpart: CategoryHeaderAdapter
 
     private val linearLayoutManager:LinearLayoutManager?=null
     private lateinit var recyclerViewAdapter: RecyclerViewAdapter
@@ -74,10 +73,10 @@ class DashBoardCategories : Fragment() {
         initRecyclerviewMeals()
         initRecyclerview()
 
-        mainViewModel.getPost()
-        // mainViewModel.getLatestMeals()
+        mainViewModel.getproductOffersHeader()
+         mainViewModel.getLowestCategory()
         val parentjob= CoroutineScope(Dispatchers.IO).launch {
-            val mealsCategory= async { mainViewModel._postStateFlow.collect { it->
+            val headercategory= async { mainViewModel._postStateFlowHeader.collect { it->
                 when(it){
                     is ApiState.Loading -> {
 
@@ -90,14 +89,16 @@ class DashBoardCategories : Fragment() {
                         //framelayout.setVisibility(View.VISIBLE)
 
                     }
-                    is ApiState.SuccessCategories -> {
-
+                    is ApiState.SuccessCategoriesHeader -> {
 
                        //framelayout.setVisibility(View.GONE)
 
-                        MealsAdapter.setData(it.data.categories)
+                        headerpart.setData(it.data.categories)
 
-                        ( requireActivity() as MainActivity).runOnUiThread { MealsAdapter.notifyDataSetChanged() }
+                        ( requireActivity() as MainActivity).runOnUiThread {
+                            shimmer_view_containerheader.isVisible=false
+
+                            headerpart.notifyDataSetChanged() }
 
                         recyclerView.post(Runnable { // Call smooth scroll
                             recyclerView.smoothScrollToPosition(it.data.categories.size - 1);
@@ -110,9 +111,10 @@ class DashBoardCategories : Fragment() {
                     }
                 }
             } }
-            shimmer_view_containerheader.isVisible=false
-            shimmerCategory.isVisible=false
-            val catergories=async { mainViewModel._postStateFlow.collect { it->
+
+
+
+            val lowercategory=async { mainViewModel._postStateFlowLower.collect { it->
                 when(it){
                     is ApiState.Loading -> {
 
@@ -121,8 +123,12 @@ class DashBoardCategories : Fragment() {
 
                     }
                     is ApiState.SuccessCategories -> {
-
+                      //  shimmerCategory.isVisible=false
                        categoryAdapter.setData(it.data.categories)
+                        ( requireActivity() as MainActivity).runOnUiThread {
+                            shimmerCategory.isVisible=false
+
+                            categoryAdapter.notifyDataSetChanged() }
 
 
                     }
@@ -131,8 +137,9 @@ class DashBoardCategories : Fragment() {
                     }
                 }
             } }
-            catergories.await()
-            // mealsCategory.await()
+
+          ////  headercategory.await()
+            lowercategory.await()
             print("both api get called")
 
 
@@ -140,17 +147,18 @@ class DashBoardCategories : Fragment() {
         parentjob.invokeOnCompletion { print("api call completion") }
     }
     private fun initRecyclerviewMeals() {
-        MealsAdapter= ViewPagerHeaderAdapter(ArrayList(), requireContext())
+        headerpart= CategoryHeaderAdapter(ArrayList(), requireContext())
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager= StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
-            adapter=MealsAdapter
+            adapter=headerpart
 
         }
     }
 
     private fun initRecyclerview() {
-        categoryAdapter= CategoryAdapter(ArrayList(), requireContext())
+        categoryAdapter=
+            CategoryAdapter(ArrayList(), requireContext())
         recyclerCategory.apply {
             setHasFixedSize(true)
             layoutManager= GridLayoutManager(requireContext(), 3)
