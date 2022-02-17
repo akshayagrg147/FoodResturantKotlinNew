@@ -31,4 +31,7 @@ class RetroRepository @Inject constructor(private val apiServiceImpl: ApiService
     fun CheckMobileNumberExist(mobileNumberData: String): Flow<MobileNumberExistCheck> = flow {
         emit(apiServiceImpl.CheckMobileNumberExist(mobileNumberData))
     }.flowOn(Dispatchers.IO)
+    fun SearchProductPassingString(searchingPassingData: SearchingPassingData): Flow<SerchingResponse> = flow {
+        emit(apiServiceImpl.SearchProductPassingString(searchingPassingData))
+    }.flowOn(Dispatchers.IO)
 }

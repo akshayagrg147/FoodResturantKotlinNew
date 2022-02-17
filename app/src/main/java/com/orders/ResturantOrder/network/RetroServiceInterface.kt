@@ -21,4 +21,6 @@ interface RetroServiceInterface {
     suspend fun SaveUserInformation(@Body mobileNumberData:MobileNumberPassingData): MobileNumberResponse
     @GET("mobileVerify/{mobile}")
     suspend fun getmobileVerify(@Path("mobile")mobile: String): MobileNumberExistCheck
+    @POST("productAll")
+    suspend fun getSearchProductPassingString(@Body searchingPassingData: SearchingPassingData): SerchingResponse
 }

@@ -10,5 +10,6 @@ class ApiServiceImpl @Inject constructor(private val apiService: RetroServiceInt
     suspend fun getAfterSelectCategory(productid: Int): cateogryAfterSelectionModal = apiService.getMealBasedCategory(productid)
     suspend fun SaveUserInformations(mobileNumberData: MobileNumberPassingData): MobileNumberResponse = apiService.SaveUserInformation(mobileNumberData)
     suspend fun CheckMobileNumberExist(mobileNumberData: String): MobileNumberExistCheck = apiService.getmobileVerify(mobileNumberData)
+    suspend fun SearchProductPassingString(searchingPassingData: SearchingPassingData): SerchingResponse = apiService.getSearchProductPassingString(searchingPassingData)
 
 }

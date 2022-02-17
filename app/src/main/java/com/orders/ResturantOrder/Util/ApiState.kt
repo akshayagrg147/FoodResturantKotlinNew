@@ -10,6 +10,7 @@ sealed class ApiState{
     class SuccessAfterSelection(val data: cateogryAfterSelectionModal) : ApiState()
     class SuccessMobileRespnse(val data: MobileNumberResponse) : ApiState()
     class CheckExistMobileRespnse(val data: MobileNumberExistCheck) : ApiState()
+    class GetResultBasedOnKeywords(val data: SerchingResponse) : ApiState()
     class SuccessMeals(val data: Meals) : ApiState()
 //    class Success(val data: Meals) : ApiState()
     object Empty : ApiState()

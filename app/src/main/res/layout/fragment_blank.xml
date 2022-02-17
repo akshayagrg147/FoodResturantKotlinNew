@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+<!--        <androidx.appcompat.widget.Toolbar-->
+<!--            android:id="@+id/toolbar_home"-->
+<!--            android:visibility="invisible"-->
 
+
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"-->
+
+<!--            app:menu="@menu/menu" />-->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/searchlistView"
+            android:visibility="gone"
+
+
+            android:scrollbars="none"
+            android:layout_marginTop="10dp"
+            android:clipToPadding="false"
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="50dp" />
 
         <ScrollView
+            android:layout_below="@+id/searchlistView"
+            android:id="@+id/scrollview"
 
 
             android:fillViewport="true"
@@ -87,11 +111,10 @@
                             android:layout_height="150dp" />
 
 
+                        <include
+                            android:id="@+id/shimmer_view_containerheader"
 
-                                    <include
-                                        android:id="@+id/shimmer_view_containerheader"
-
-                                        layout="@layout/item_view_pager_header_shimmer" />
+                            layout="@layout/item_view_pager_header_shimmer" />
 
                         <TextView
                             android:id="@+id/titleCategory"
@@ -128,4 +151,4 @@
         </ScrollView>
 
 
-</FrameLayout>
+</RelativeLayout>
