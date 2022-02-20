@@ -106,7 +106,7 @@ appContext=context
         shimmer_view_containerheader=view.findViewById(R.id.shimmer_view_containerheader)
         shimmerCategory=view.findViewById(R.id.shimmerCategory)
         mainViewModel =
-            ViewModelProvider((requireActivity() as MainActivity)).get(MainActivityViewModel::class.java)
+            ViewModelProvider((appContext as MainActivity)).get(MainActivityViewModel::class.java)
 
         initRecyclerviewMeals()
         initRecyclerview()
@@ -122,6 +122,15 @@ appContext=context
             scrollview.visibility = View.VISIBLE
 //            toolbar_home.visibility=View.VISIBLE
             searchlistView.visibility = View.GONE
+
+        })
+        mainViewModel.getItemClicked().observe(requireActivity(), Observer {
+            Log.d("callijjjngjrrrr","nnnnnnnnnnnn"+it)
+            if(it) {
+                scrollview.visibility = View.VISIBLE
+//            toolbar_home.visibility=View.VISIBLE
+                searchlistView.visibility = View.GONE
+            }
 
         })
         cardSearch.setOnClickListener {
@@ -217,7 +226,10 @@ appContext=context
                         is ApiState.GetResultBasedOnKeywords -> {
 //                        shimmerCategory.isVisible=false
                             ContextCompat.getMainExecutor(appContext).execute {
-                                searchAdapter.setData(it.data)
+
+                                 val mainViewModel: MainActivityViewModel = ViewModelProvider((appContext as MainActivity)).get(MainActivityViewModel::class.java)
+                                searchAdapter.setData(it.data,mainViewModel)
+
 
                                 searchAdapter.notifyDataSetChanged()
                                 // do something
@@ -266,7 +278,14 @@ appContext=context
 
 
     private fun initSearchRecyclerView() {
-        searchAdapter = SearchAdapter(ArrayList(), requireContext())
+        searchAdapter = SearchAdapter(ArrayList(), requireContext(),object :SearchAdapter.onclick{
+            override fun itemclicked(value: Boolean) {
+                if(value)
+                mainViewModel.itemclicked(true)
+
+            }
+
+        })
         searchlistView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())

@@ -50,6 +50,11 @@ public var message:String,
             return image
         }
 
+        fun getIdCategory(): Int? {
+            return idMeal
+
+        }
+
 
     }
 

@@ -73,6 +73,11 @@ class ListItemsAfterCategorySelectionAdapter(
         categories1=categoriesList
         notifyDataSetChanged()
     }
+    fun getData():List<cateogryAfterSelectionModal.cateogryAfterSelectionModal1>
+    {
+      return categories1
+    }
+
 
     override fun getItemCount(): Int {
 

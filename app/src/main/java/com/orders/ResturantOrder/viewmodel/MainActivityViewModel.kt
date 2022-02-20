@@ -21,6 +21,7 @@ import javax.inject.Inject
 class MainActivityViewModel @Inject constructor(private val mainRepository: RetroRepository)
     : ViewModel(){
     private  val mutable: MutableLiveData<String> =MutableLiveData("Default value")
+    private  val itemclicked: MutableLiveData<Boolean> =MutableLiveData(false)
     private  val mutableBoolean: MutableLiveData<Boolean> =MutableLiveData(false)
 
 
@@ -72,6 +73,14 @@ class MainActivityViewModel @Inject constructor(private val mainRepository: Retr
     }
     fun passingValue(string:String){
         mutable.value=string
+
+    }
+    fun itemclicked(vslue:Boolean){
+        itemclicked.value=vslue
+
+    }
+    fun getItemClicked(): LiveData<Boolean> {
+        return itemclicked
 
     }
     fun passingSearchClose(boolean: Boolean)

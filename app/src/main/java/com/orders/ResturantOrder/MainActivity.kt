@@ -1,6 +1,7 @@
 package com.orders.ResturantOrder
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -9,10 +10,17 @@ import android.widget.PopupMenu
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.meetSuccess.Database.ProductDatabase
+import com.orders.ResturantOrder.Activity.AddNewAddressActivity
+import com.orders.ResturantOrder.Activity.ProceedToAddress
 import com.orders.ResturantOrder.Fragments.DashBoardCategories
 import com.orders.ResturantOrder.viewmodel.MainActivityViewModel
 import com.orders.ResturantOrder.viewmodel.MobileNumberIntegrationViewModel
@@ -26,15 +34,16 @@ class MainActivity : AppCompatActivity(),DashBoardCategories.passingclick{
 
     private lateinit var navController: NavController
     private lateinit var  view:SearchView
+    lateinit var database: ProductDatabase
     lateinit  var passingSearchObject: passingSearchText
     private var mainViewModel: MainActivityViewModel? = null
-    private lateinit var   bottomview:SmoothBottomBar
+    private lateinit var   bottomview: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
+        database= ProductDatabase.getInstance(this@MainActivity)
 
 
         navController = findNavController(R.id.my_nav_host_fragment)
@@ -59,6 +68,24 @@ class MainActivity : AppCompatActivity(),DashBoardCategories.passingclick{
                     bottomview.visibility=View.VISIBLE
                     return true
 
+                }
+
+            })
+            database.contactDao().getTotalProductItems().observe(this@MainActivity
+            ) {
+                if ((it != null) && (it > 0)) {
+                    bottomview.getOrCreateBadge(R.id.CartFragment).number = it
+
+
+                } else
+                    bottomview.getOrCreateBadge(R.id.CartFragment).number = 0
+
+
+            }
+            mainViewModel?.getItemClicked()?.observe(this, Observer {
+                if(it) {
+                    supportActionBar!!.hide();
+                    bottomview.visibility=View.VISIBLE
                 }
 
             })
@@ -100,9 +127,11 @@ class MainActivity : AppCompatActivity(),DashBoardCategories.passingclick{
     private fun setupSmoothBottomMenu() {
         val popupMenu = PopupMenu(this, null)
         popupMenu.inflate(R.menu.bottom_nav_menu)
-         bottomview=findViewById<SmoothBottomBar>(R.id.bottomBar)
+         bottomview=findViewById<BottomNavigationView>(R.id.bottomBar)
        val menu = popupMenu.menu
-        bottomview.setupWithNavController( menu,navController)
+        bottomview.setupWithNavController( navController)
+
+
 
 
 

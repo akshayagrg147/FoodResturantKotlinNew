@@ -77,7 +77,7 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
                     recyclerCategory.visibility = View.GONE
                     emptyLayout.visibility = View.VISIBLE
                     linearlayout.visibility = View.GONE
-                    table_invoice.visibility=View.GONE
+                    table_invoice1.visibility=View.GONE
                     linearLayoutButton.visibility = View.GONE
 
 
@@ -93,7 +93,7 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
                 recyclerCategory.visibility = View.GONE
                 emptyLayout.visibility = View.VISIBLE
                 linearlayout.visibility = View.GONE
-                table_invoice.visibility=View.GONE
+                table_invoice1.visibility=View.GONE
                 linearLayoutButton.visibility = View.GONE
             }
 
@@ -107,9 +107,9 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
             if(it!=null) {
                 val totaltaxvalue=it-10;
                 priceAmount.setText("₹$it")
-                item_total_price.setText("₹$it")
-                tax_and_charges_amount.setText("₹"+totaltaxvalue)
-                toPay_amount.setText((it+totaltaxvalue+12).toString())
+                item_total_price1.setText("₹$it")
+                item_total_price1.setText("₹"+totaltaxvalue)
+                toPay_amount1.setText((it+totaltaxvalue+12).toString())
             }
 
         })
@@ -120,7 +120,6 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
 
             //  binding.recyclerCategory.isVisible = true
             //  binding.shimmerCategoryListItems.shimmerCategory.isVisible = false
-            Toast.makeText(requireContext(),"call 2",Toast.LENGTH_SHORT).show()
 
             recyclerCategory.apply {
                 setHasFixedSize(true)
@@ -176,7 +175,7 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
             {   database.contactDao()
                         .deleteCartItem(cartitems.ProductIdNumber)
                 linearlayout.visibility = View.GONE
-                table_invoice.visibility=View.GONE
+                table_invoice1.visibility=View.GONE
                 linearLayoutButton.visibility = View.GONE
                 emptyLayout.visibility = View.VISIBLE
 

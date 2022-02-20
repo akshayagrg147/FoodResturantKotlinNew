@@ -1,25 +1,22 @@
 package com.orders.ResturantOrder.Activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
-import androidx.lifecycle.coroutineScope
 import android.view.MenuItem
 import android.widget.*
-import kotlinx.coroutines.flow.collect
 import androidx.appcompat.app.ActionBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.meetSuccess.Database.CartItems
 import com.meetSuccess.Database.ProductDatabase
-
-import com.meetSuccess.FoodResturant.Model.Categories
 import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
 import com.meetSuccess.FoodResturant.Util.ApiState
 import com.orders.ResturantOrder.R
@@ -30,7 +27,11 @@ import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_after_category_selection.*
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import java.util.*
+import kotlin.Comparator
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class AfterCategorySelectionActivity : AppCompatActivity() {
@@ -45,17 +46,17 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
         val afterCategorySelectionViewModel  = ViewModelProvider(this).get(AfterCategorySelectionViewModel::class.java)
 
 
-        val categories:ArrayList<String> =ArrayList<String>()
-        categories.add("hiijj")
-        val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
+//        val categories:ArrayList<String> =ArrayList<String>()
+//        categories.add("hiijj")
+//        val dataAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
 //        categoryAdapter =
 //            CustomYearSpinnerAdaptor(
 //                this@AfterCategorySelectionActivity,
 //                android.R.layout.simple_spinner_item,
 //                categories
 //            )
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-       spinnerStatus.setAdapter(dataAdapter)
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+//       spinnerStatus.setAdapter(dataAdapter)
 
        database= ProductDatabase.getInstance(this@AfterCategorySelectionActivity)
 
@@ -90,7 +91,7 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
 
                         shimmerCategoryListItems.isVisible=false
                        categorySelectAdapter.setData(it.data.meals)
-                        categorySelectAdapter.notifyDataSetChanged()
+//                        categorySelectAdapter.notifyDataSetChanged()
                     }
                     is ApiState.Empty -> {
 
@@ -112,7 +113,18 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
             R.id.action_addcart -> {
                 val intent = Intent(this, CartItemss::class.java);
                 this.startActivity(intent);
+                true
 
+            }
+            R.id.byPrice-> {
+
+//                Collections.sort(categorySelectAdapter.getData(), object : Comparator() {
+//                    fun compare(o1: Any, o2: Any): Int {
+//                        val p1: cateogryAfterSelectionModal.cateogryAfterSelectionModal1 = o1 as cateogryAfterSelectionModal.cateogryAfterSelectionModal1
+//                        val p2: cateogryAfterSelectionModal.cateogryAfterSelectionModal1 = o2 as cateogryAfterSelectionModal.cateogryAfterSelectionModal1
+//                        return p1.getdprice()!!.compareTo(p2.getdprice()?)
+//                    }
+//                })
 
 
                 true
@@ -125,12 +137,12 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
         val itemData = menu?.findItem(R.id.action_addcart)
         actionView = itemData?.actionView as CartCounterActionView
         actionView.setItemData(menu, itemData)
-        database.contactDao().getTotalProductItems().observe(this@AfterCategorySelectionActivity, {
+        database.contactDao().getTotalProductItems().observe(this@AfterCategorySelectionActivity) {
             if (it != null)
                 actionView.count = it.toString().toIntOrNull()!!
             else
                 actionView.count = 0
-        })
+        }
         actionView.setCount(0)
         return super.onPrepareOptionsMenu(menu)
     }
@@ -193,18 +205,18 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
                         database.contactDao().getAllAddress()
                             .observe(this@AfterCategorySelectionActivity, {
                                 if ((it != null) && (it.size > 0)) {
-//                                    val intent = Intent(
-//                                        this@AfterCategorySelectionActivity,
-//                                        ProceedToAddress::class.java
-//                                    );
-//                                    this@AfterCategorySelectionActivity.startActivity(intent);
+                                    val intent = Intent(
+                                        this@AfterCategorySelectionActivity,
+                                        ProceedToAddress::class.java
+                                    );
+                                    this@AfterCategorySelectionActivity.startActivity(intent);
 
                                 } else {
-//                                    val intent = Intent(
-//                                        this@AfterCategorySelectionActivity,
-//                                        AddNewAddressActivity::class.java
-//                                    );
-//                                    this@AfterCategorySelectionActivity.startActivity(intent);
+                                    val intent = Intent(
+                                        this@AfterCategorySelectionActivity,
+                                        AddNewAddressActivity::class.java
+                                    );
+                                    this@AfterCategorySelectionActivity.startActivity(intent);
                                 }
                             })
                     }

@@ -1,5 +1,6 @@
 package com.orders.ResturantOrder.Activity
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -158,11 +159,15 @@ class MobileNumberIntegration : AppCompatActivity() {
 
         }
 
+        resendsms.setOnClickListener{
+            sendCode("+91"+phonenumber!!)
+        }
         btnSignIn.setOnClickListener {
 
             val code = editText!!.text.toString()
             if (code.isEmpty() || code.length < 6) {
                 Toast.makeText(this, "Enter Code", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
             }
             progressBar!!.visibility = View.VISIBLE
             btnSignIn.visibility=View.GONE
@@ -197,6 +202,8 @@ class MobileNumberIntegration : AppCompatActivity() {
 
     }
 
+
+
     private fun sendCode(number: String) {
 
         PhoneAuthProvider.getInstance()
@@ -213,6 +220,7 @@ class MobileNumberIntegration : AppCompatActivity() {
 
         override fun onCodeSent(p0: String?, p1: PhoneAuthProvider.ForceResendingToken?) {
             super.onCodeSent(p0, p1)
+            Toast.makeText(this@MobileNumberIntegration,"Code Sent",Toast.LENGTH_LONG).show()
             verificationId = p0
         }
 

@@ -10,5 +10,9 @@
 
 
         app:showAsAction="ifRoom" />
+    <item
+android:id="@+id/byPrice"
+        android:title="Sort By Price"
+     />
 
 </menu>

@@ -35,7 +35,7 @@
                 tools:layout_editor_absoluteX="0dp" />
 
             <TableLayout
-                android:id="@+id/table_invoice"
+                android:id="@+id/table_invoice1"
                 android:layout_width="wrap_content"
                 android:layout_columnWeight="1"
                 android:layout_column="1"
@@ -75,7 +75,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/item_total_price"
+                        android:id="@+id/item_total_price1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
@@ -173,7 +173,7 @@
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <TextView
-                        android:id="@+id/toPay_amount"
+                        android:id="@+id/toPay_amount1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"

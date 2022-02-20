@@ -15,6 +15,13 @@ import com.orders.ResturantOrder.R
 import com.orders.ResturantOrder.adapter.CartItemssAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_cart_itemss.*
+import kotlinx.android.synthetic.main.activity_cart_itemss.emptyLayout
+import kotlinx.android.synthetic.main.activity_cart_itemss.linearLayoutButton
+import kotlinx.android.synthetic.main.activity_cart_itemss.linearlayout
+import kotlinx.android.synthetic.main.activity_cart_itemss.priceAmount
+import kotlinx.android.synthetic.main.activity_cart_itemss.recyclerCategory
+import kotlinx.android.synthetic.main.activity_cart_itemss.totalquantity
+import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class CartItemss : AppCompatActivity(), CartItemssAdapter.cartItemClickListner {
@@ -52,9 +59,14 @@ class CartItemss : AppCompatActivity(), CartItemssAdapter.cartItemClickListner {
                    recyclerCategory.visibility = View.GONE
                   emptyLayout.visibility = View.VISIBLE
                   linearlayout.visibility = View.GONE
+                    table_invoice.visibility=View.GONE
                    linearLayoutButton.visibility = View.GONE
 
 
+                }
+                else
+                {
+                    callingIfItemThere();
                 }
             }
         })
@@ -80,6 +92,34 @@ class CartItemss : AppCompatActivity(), CartItemssAdapter.cartItemClickListner {
 
 
     }
+
+    private fun callingIfItemThere() {
+        database.contactDao().getTotalPrice().observe(this,{
+            if(it!=null) {
+                val totaltaxvalue=it-10;
+                priceAmount.setText("₹$it")
+                item_total_price.setText("₹$it")
+                item_total_price.setText("₹"+totaltaxvalue)
+                toPay_amount.setText((it+totaltaxvalue+12).toString())
+            }
+
+        })
+
+
+        database.contactDao().getContact().observe(this,{
+            categorySelectAdapter= CartItemssAdapter(it,this,database)
+
+            //  binding.recyclerCategory.isVisible = true
+            //  binding.shimmerCategoryListItems.shimmerCategory.isVisible = false
+
+            recyclerCategory.apply {
+                setHasFixedSize(true)
+                layoutManager= LinearLayoutManager(this@CartItemss)
+                adapter=categorySelectAdapter
+            }
+        })
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -124,6 +164,7 @@ class CartItemss : AppCompatActivity(), CartItemssAdapter.cartItemClickListner {
                 database.contactDao()
                     .deleteCartItem(cartitems.ProductIdNumber)
                linearlayout.visibility = View.GONE
+                table_invoice.visibility=View.GONE
              linearLayoutButton.visibility = View.GONE
               emptyLayout.visibility = View.VISIBLE
 
