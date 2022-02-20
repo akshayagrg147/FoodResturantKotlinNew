@@ -14,7 +14,11 @@
         android:theme="@style/Theme.Demo">
         <activity android:name=".Activity.SplashScreenActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".Activity.MobileNumberIntegration"  android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
 
@@ -31,11 +35,7 @@
             android:name=".Activity.AfterCategorySelectionActivity"
             android:label="Product List" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>

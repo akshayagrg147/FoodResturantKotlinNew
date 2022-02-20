@@ -6,13 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.RecyclerView
 
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.meetSuccess.Database.CartItems
 import com.meetSuccess.FoodResturant.Adapter.CategoryAdapter
 import com.meetSuccess.FoodResturant.Model.Categories
 import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
@@ -45,11 +44,27 @@ class ListItemsAfterCategorySelectionAdapter(
         holder.itemView.findViewById<Button>(R.id.AddButton).setOnClickListener{
 
             holder.itemView.findViewById<Button>(R.id.AddButton).visibility=View.GONE
-            holder.itemView.findViewById<Button>(R.id.ItemAdded).visibility=View.VISIBLE
+            holder.itemView.findViewById<LinearLayout>(R.id.ItemAdded).visibility=View.VISIBLE
 
             onitemClicked.itemclicked(categories1.get(position))
 
    };
+        holder.itemView.findViewById<AppCompatButton>(R.id.minusButton).setOnClickListener{
+
+            holder.itemView.findViewById<Button>(R.id.AddButton).visibility=View.GONE
+            holder.itemView.findViewById<Button>(R.id.ItemAdded).visibility=View.VISIBLE
+
+            onitemClicked.itemclicked(categories1.get(position))
+
+        };
+        holder.itemView.findViewById<AppCompatButton>(R.id.plusButton).setOnClickListener{
+
+
+
+
+           // itemclickListner.ClickedPlusButton(categories1.get(position))
+
+        };
 
 
 //        binding.categoryName.text=categories1.get(position).getStrCategory()
@@ -86,6 +101,11 @@ class ListItemsAfterCategorySelectionAdapter(
     }
     interface onclick{
         public fun itemclicked(item: cateogryAfterSelectionModal.cateogryAfterSelectionModal1)
+    }
+    public interface cartItemClickListner{
+        fun  ClickedPlusButton(cartitems: CartItems)
+        fun  ClickedMinusButton(cartitems: CartItems)
+
     }
 
 }

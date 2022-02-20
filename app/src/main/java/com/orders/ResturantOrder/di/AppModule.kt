@@ -1,8 +1,9 @@
 package com.orders.ResturantOrder.di
 
 import android.app.Application
-import com.orders.ResturantOrder.db.AppDao
-import com.orders.ResturantOrder.db.AppDatabase
+import com.meetSuccess.Database.Dao
+import com.meetSuccess.Database.ProductDatabase
+
 import com.orders.ResturantOrder.network.RetroServiceInterface
 import dagger.Module
 import dagger.Provides
@@ -19,14 +20,14 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun getAppDatabase(context: Application): AppDatabase {
-        return AppDatabase.getAppDBInstance(context)
+    fun getAppDatabase(context: Application): ProductDatabase {
+        return ProductDatabase.getInstance(context)
     }
 
     @Provides
     @Singleton
-    fun getAppDao(appDatabase: AppDatabase): AppDao {
-        return appDatabase.getAppDao()
+    fun getAppDao(appDatabase: ProductDatabase): Dao {
+        return appDatabase.contactDao()
     }
 
     val BASE_URL = "https://chuimui.in/public/api/"

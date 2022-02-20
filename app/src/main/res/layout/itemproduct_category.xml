@@ -34,9 +34,10 @@
                 />
             <androidx.appcompat.widget.AppCompatButton
 
-                android:id="@+id/ItemAdded"
+                android:id="@+id/ItemAdded1"
 
                 android:textStyle="bold"
+
 
 
 
@@ -70,6 +71,51 @@ android:visibility="gone"
                 android:layout_marginStart="40dp"
                 android:layout_marginBottom="10dp"
                 android:text="ADD" />
+            <LinearLayout
+                android:id="@+id/ItemAdded"
+                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/layout_linear"
+                app:layout_constraintStart_toEndOf="@+id/infoSection"
+                app:layout_constraintTop_toTopOf="parent">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:background="@drawable/rounded_corner_editext_profile"
+                        android:layout_height="wrap_content">
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/minusButton"
+                            android:text="-"
+                            android:layout_width="@dimen/dp_50"
+                            android:layout_height="wrap_content"/>
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/plusButton"
+                            android:layout_marginStart="10dp"
+                            android:text="+"
+                            android:layout_width="@dimen/dp_50"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/totalquantity"
+                        android:textAlignment="center"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:text="5 PC"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

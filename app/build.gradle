@@ -66,8 +66,9 @@ dependencies {
     //navigation component
     implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
     implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
+    //splash screen
     implementation 'com.airbnb.android:lottie:3.7.0'
-
+//bottom navigation
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
 
 

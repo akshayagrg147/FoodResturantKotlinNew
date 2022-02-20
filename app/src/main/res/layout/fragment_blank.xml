@@ -45,22 +45,25 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="300dp">
+
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="220dp"
-                            android:background="@color/deep_orange" />
+                            android:layout_height="130dp"
+                            android:background="@color/black" />
+
 
                         <TextView
                             android:id="@+id/title"
-                            android:textColor="@color/colorWhite"
-                            android:text="CHUI-MUI"
-                            android:textStyle="bold"
-                            android:textSize="25sp"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="20dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginRight="16dp"
+                            android:text="CHUIMUI"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorWhite"
+                            android:textSize="25sp"
+                            android:textStyle="bold" />
 
                         <androidx.cardview.widget.CardView
                             android:id="@+id/cardSearch"
@@ -70,7 +73,7 @@
                             android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
                             android:layout_marginTop="15dp"
-                            app:cardBackgroundColor="@color/deep_orange"
+                            app:cardBackgroundColor="@color/white"
                             app:cardCornerRadius="10dp"
                             app:cardElevation="0dp">
                                 <TextView
@@ -78,7 +81,7 @@
                                     android:layout_height="50dp"
                                     android:padding="10dp"
                                     android:text="Search Receipies"
-                                    android:textColor="@color/colorPrimaryLight"
+                                    android:textColor="@color/black"
                                     android:gravity="center_vertical"
                                     android:drawableLeft="@drawable/ic_search_primary_light"
                                     android:drawableStart="@drawable/ic_search_primary_light"
@@ -88,17 +91,17 @@
                         <TextView
                             android:id="@+id/mealtext"
 
-                            android:text="Today Special"
-                            android:textSize="19sp"
-                            android:textColor="@color/colorWhite"
-                            android:textStyle="bold"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-
-                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/cardSearch"/>
+                            android:layout_below="@id/cardSearch"
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="7dp"
+                            android:layout_marginRight="16dp"
+
+                            android:text="Today Special"
+                            android:textColor="@color/black"
+                            android:textSize="19sp"
+                            android:textStyle="bold" />
                         <androidx.recyclerview.widget.RecyclerView
 
                             android:id="@+id/recyclerView"
@@ -118,17 +121,17 @@
 
                         <TextView
                             android:id="@+id/titleCategory"
-                            android:text="Meal Categories"
-                            android:textSize="19sp"
-                            android:textColor="@color/deep_orange"
-
-                            android:textStyle="bold"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/recyclerView"/>
+                            android:layout_below="@id/recyclerView"
+
+                            android:layout_marginLeft="16dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="16dp"
+                            android:text="Meal Categories"
+                            android:textColor="@color/black"
+                            android:textSize="19sp"
+                            android:textStyle="bold" />
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerCategory"
