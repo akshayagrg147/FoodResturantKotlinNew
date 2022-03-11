@@ -26,11 +26,10 @@ import com.rowland.cartcounter.view.CartCounterActionView
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_after_category_selection.*
+import kotlinx.android.synthetic.main.activity_after_category_selection.recyclerCategory
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import java.util.*
-import kotlin.Comparator
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
@@ -156,7 +155,7 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
 
 
     private  fun initRecyclerview() {
-        categorySelectAdapter= ListItemsAfterCategorySelectionAdapter(baseContext, ArrayList(),
+        categorySelectAdapter= ListItemsAfterCategorySelectionAdapter(baseContext, database, ArrayList(),
             object : ListItemsAfterCategorySelectionAdapter.onclick {
                 override fun itemclicked(item: cateogryAfterSelectionModal.cateogryAfterSelectionModal1) {
 
@@ -191,44 +190,110 @@ class AfterCategorySelectionActivity : AppCompatActivity() {
                             if (it != null)
                                 actionView.count = it.toString().toIntOrNull()!!
                         })
-                    val dialog = BottomSheetDialog(this@AfterCategorySelectionActivity)
+//                    val dialog = BottomSheetDialog(this@AfterCategorySelectionActivity)
+//
+//                    val inflater = LayoutInflater.from(this@AfterCategorySelectionActivity)
+//                    val view = inflater.inflate(R.layout.bottom_sheet_dialog, null)
+//
+//                    view.findViewById<TextView>(R.id.idTVCourseName).setText(item.getstrname())
+//
+//                    Picasso.get().load(item.getstrimage()).placeholder(R.drawable.clock_my_time_in_button)
+//                            .into(view.findViewById<ImageView>(R.id.idImageView))
+//
+//                    view.findViewById<Button>(R.id.idBtnProceed).setOnClickListener {
+//                        database.contactDao().getAllAddress()
+//                            .observe(this@AfterCategorySelectionActivity, {
+//                                if ((it != null) && (it.size > 0)) {
+//                                    val intent = Intent(
+//                                        this@AfterCategorySelectionActivity,
+//                                        ProceedToAddress::class.java
+//                                    );
+//                                    this@AfterCategorySelectionActivity.startActivity(intent);
+//
+//                                } else {
+//                                    val intent = Intent(
+//                                        this@AfterCategorySelectionActivity,
+//                                        AddNewAddressActivity::class.java
+//                                    );
+//                                    this@AfterCategorySelectionActivity.startActivity(intent);
+//                                }
+//                            })
+//                    }
+//                    //  dialog.setCancelable(false)
+//                    dialog.setContentView(view)
+//                    dialog.show()
 
-                    val inflater = LayoutInflater.from(this@AfterCategorySelectionActivity)
-                    val view = inflater.inflate(R.layout.bottom_sheet_dialog, null)
 
-                    view.findViewById<TextView>(R.id.idTVCourseName).setText(item.getstrname())
+                }
 
-                    Picasso.get().load(item.getstrimage()).placeholder(R.drawable.clock_my_time_in_button)
-                            .into(view.findViewById<ImageView>(R.id.idImageView))
+                override fun ClickedPlusButton(cartitems: cateogryAfterSelectionModal.cateogryAfterSelectionModal1) {
+                    lifecycle.coroutineScope.launch {
+                        // database.contactDao().getProductBasedId(1212).observe(this@AfterCategorySelectionActivity,{})
+                        val intger: Int = database.contactDao().getProductBasedIdCount(cartitems.getidMeal().toString())
+                        Log.d("jdjdjd",intger.toString());
+                        if (intger == 0) {
+                            database.contactDao()
+                                .insertCartItem(
+                                    CartItems(
+                                        cartitems.getidMeal().toString(),
+                                        cartitems.getstrimage(),
+                                        intger + 1,
+                                        Integer.parseInt(cartitems.getsale_price()),
+                                        cartitems.getstrname()
+                                    )
+                                )
 
-                    view.findViewById<Button>(R.id.idBtnProceed).setOnClickListener {
-                        database.contactDao().getAllAddress()
-                            .observe(this@AfterCategorySelectionActivity, {
-                                if ((it != null) && (it.size > 0)) {
-                                    val intent = Intent(
-                                        this@AfterCategorySelectionActivity,
-                                        ProceedToAddress::class.java
-                                    );
-                                    this@AfterCategorySelectionActivity.startActivity(intent);
+                        } else if (intger >= 1) {
 
-                                } else {
-                                    val intent = Intent(
-                                        this@AfterCategorySelectionActivity,
-                                        AddNewAddressActivity::class.java
-                                    );
-                                    this@AfterCategorySelectionActivity.startActivity(intent);
-                                }
-                            })
+                            database.contactDao()
+                                .updateCartItem(intger + 1,  cartitems.getidMeal().toString())
+                        }
+
+                        Log.d("countis",database.contactDao().getProductBasedIdCount( cartitems.getidMeal().toString()).toString())
+
+
                     }
-                    //  dialog.setCancelable(false)
-                    dialog.setContentView(view)
-                    dialog.show()
+                    database.contactDao().getTotalProductItems()
+                        .observe(this@AfterCategorySelectionActivity, {
+                            if (it != null)
+                                actionView.count = it.toString().toIntOrNull()!!
+                        })
+                }
 
+                override fun ClickedMinusButton(cartitems: cateogryAfterSelectionModal.cateogryAfterSelectionModal1) {
+                    lifecycle.coroutineScope.launch {
+                        // database.contactDao().getProductBasedId(1212).observe(this@AfterCategorySelectionActivity,{})
+
+                        var intger: Int = database.contactDao().getProductBasedIdCount(cartitems.getidMeal().toString())
+
+                        intger=intger - 1
+
+                        if(intger>=1) {
+                            database.contactDao()
+                                .updateCartItem(intger, cartitems.getidMeal().toString())
+
+
+
+
+                        }
+                        else if(intger==0)
+                        {
+                            database.contactDao()
+                                .deleteCartItem(cartitems.getidMeal().toString())
+//                            linearlayout.visibility = View.GONE
+//                            table_invoice.visibility= View.GONE
+//                            linearLayoutButton.visibility = View.GONE
+//                            emptyLayout.visibility = View.VISIBLE
+
+
+                        }
+                    }
 
                 }
 
 
             })
+
         recyclerCategory.apply {
             setHasFixedSize(true)
             layoutManager= LinearLayoutManager(this@AfterCategorySelectionActivity)

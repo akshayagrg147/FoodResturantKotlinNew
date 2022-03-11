@@ -2,25 +2,17 @@ package com.meetSuccess.FoodResturant.Adapter
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.orders.ResturantOrder.R
 
-import com.meetSuccess.FoodResturant.Model.Categories
-import com.meetSuccess.FoodResturant.Model.CategoriesHeader
 import com.meetSuccess.FoodResturant.Model.SerchingResponse
-import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
 import com.orders.ResturantOrder.Activity.AfterCategorySelectionActivity
-import com.orders.ResturantOrder.adapter.ListItemsAfterCategorySelectionAdapter
 import com.orders.ResturantOrder.viewmodel.MainActivityViewModel
-import com.squareup.picasso.Picasso
 
 
 class SearchAdapter(private var categories1: List<SerchingResponse.SearchResponseModal>, val context: Context,onitemClicked1: SearchAdapter.onclick)
@@ -40,25 +32,32 @@ class SearchAdapter(private var categories1: List<SerchingResponse.SearchRespons
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
+
         holder.categoryName.text=categories1.get(position).getname()
+        if(!categories1.get(position).getis_category().equals("No")) {
+            holder.cartImage.visibility = View.GONE
+            holder.arrowimage.visibility = View.VISIBLE
+        }
+        else{
+            holder.cartImage.visibility=View.VISIBLE
+            holder.arrowimage.visibility=View.GONE
 
-
-
-//categories1.get(position).getStrimage()
-//        Picasso.get().load(categories1.get(position).getImageUrl()).placeholder(R.drawable.clock_my_time_in_button)
-//            .into(holder.imageView)
+        }
         holder.itemView.setOnClickListener{
-            Log.d("ddddddxx","sss")
+            if(!categories1.get(position).getis_category().equals("No"))
+            {
 
-            onitemClicked.itemclicked(true)
-//Toast.makeText(context,categories1.get(position).getIdCategory().toString(),Toast.LENGTH_SHORT).show()
-//
-//
-//            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
-//            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
-//
-//
-//            context.startActivity(intent);
+            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
+            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
+                context.startActivity(intent);
+            }
+            else
+            {
+
+                onitemClicked.itemclicked(true,categories1.get(position))
+
+            }
+
 
         }
 
@@ -67,7 +66,8 @@ class SearchAdapter(private var categories1: List<SerchingResponse.SearchRespons
 //    override fun getItemCount(): Int = categories1.size
 
     class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-      //  val imageView: ImageView = itemView.findViewById(R.id.categoryThumb)
+       val cartImage: ImageView = itemView.findViewById(R.id.cartImage)
+        val arrowimage: ImageView = itemView.findViewById(R.id.rightarrow)
         val categoryName: TextView = itemView.findViewById(R.id.categoryName)
 
     }
@@ -84,7 +84,7 @@ class SearchAdapter(private var categories1: List<SerchingResponse.SearchRespons
 
     }
     interface onclick{
-        public fun itemclicked(value:Boolean)
+        public fun itemclicked(value: Boolean, get: SerchingResponse.SearchResponseModal)
     }
 
 }

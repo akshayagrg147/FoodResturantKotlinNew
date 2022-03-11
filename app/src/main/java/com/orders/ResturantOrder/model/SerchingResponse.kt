@@ -38,6 +38,8 @@ public var message:String,
         private val ingredients: String? = null,
         @SerializedName("menu_status")
         private val menu_status: String? = null,
+        @SerializedName("is_category")
+        private val is_category: String? = null,
 
 
         ) {
@@ -46,15 +48,66 @@ public var message:String,
         fun getname(): String? {
             return name
         }
-        fun getImageUrl(): String? {
-            return image
+        fun getImage(): String? {
+            return image_name
+        }
+        fun getis_category(): String? {
+            return is_category
+        }
+        fun getProductCategory(): String? {
+            return product_category_id
         }
 
         fun getIdCategory(): Int? {
             return idMeal
 
         }
+        fun getidMeal(): Int? {
+            return idMeal
+        }
 
+
+
+        fun getstrproduct_category_id(): String ?{
+            return product_category_id
+        }
+
+
+
+        fun getstrname(): String? {
+            return name
+        }
+
+        fun getdescription(): String? {
+            return description
+        }
+
+
+
+        fun getstrprice(): String? {
+            return price
+        }
+
+
+
+        fun getsale_price(): String? {
+            return sale_price
+        }
+        fun getdprice(): String? {
+            return dprice
+        }
+
+
+
+        fun getstrdiscount(): String? {
+            return discount
+        }
+
+
+
+        fun getstrimage(): String?{
+            return image
+        }
 
     }
 

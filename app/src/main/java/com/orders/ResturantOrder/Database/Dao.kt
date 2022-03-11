@@ -22,6 +22,8 @@ interface Dao {
 
   @Query("SELECT SUM(totalCount) FROM CartItems")
      fun getTotalProductItems(): LiveData<Int>
+    @Query("SELECT SUM(totalCount) FROM CartItems")
+    fun getTotalCartItems():Int
     @Query("SELECT * FROM CartItems")
     fun getContact():LiveData<List<CartItems>>
     @Query("SELECT totalCount FROM CartItems where ProductIdNumber=:ProductIdNumber")

@@ -70,7 +70,6 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
         // initRecyclerview()
         database.contactDao().getTotalProductItems().observe(viewLifecycleOwner,{
             if(it!=null) {
-                Toast.makeText(requireContext(),"call 1",Toast.LENGTH_SHORT).show()
                 totalquantity.setText(it.toString())
                 if (it <= 0) {
 
@@ -174,13 +173,13 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
             else if(intger==0)
             {   database.contactDao()
                         .deleteCartItem(cartitems.ProductIdNumber)
-                linearlayout.visibility = View.GONE
-                table_invoice1.visibility=View.GONE
-                linearLayoutButton.visibility = View.GONE
-                emptyLayout.visibility = View.VISIBLE
+//                linearlayout.visibility = View.GONE
+//                table_invoice1.visibility=View.GONE
+//                linearLayoutButton.visibility = View.GONE
+//                emptyLayout.visibility = View.VISIBLE
 
                 //  binding.recyclerCategory.visibility = View.GONE
-                categorySelectAdapter.notifyDataSetChanged()
+               // categorySelectAdapter.notifyDataSetChanged()
             }
         }
     }

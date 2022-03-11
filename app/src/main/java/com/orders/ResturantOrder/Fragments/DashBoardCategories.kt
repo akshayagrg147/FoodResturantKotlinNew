@@ -3,11 +3,11 @@ package com.orders.ResturantOrder.Fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.Toast
@@ -20,14 +20,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.meetSuccess.Database.CartItems
+import com.meetSuccess.Database.ProductDatabase
 import com.meetSuccess.FoodResturant.Adapter.CategoryAdapter
 import com.meetSuccess.FoodResturant.Adapter.CategoryHeaderAdapter
 import com.meetSuccess.FoodResturant.Adapter.SearchAdapter
 import com.meetSuccess.FoodResturant.Model.SearchingPassingData
+import com.meetSuccess.FoodResturant.Model.SerchingResponse
 import com.meetSuccess.FoodResturant.Util.ApiState
 import com.orders.ResturantOrder.MainActivity
 import com.orders.ResturantOrder.R
-import com.orders.ResturantOrder.adapter.RecyclerViewAdapter
 import com.orders.ResturantOrder.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_blank.*
@@ -48,6 +50,7 @@ class DashBoardCategories : Fragment() {
     private lateinit var scrollview:ScrollView
     private lateinit var recyclerView:RecyclerView
     private lateinit var searchlistView:RecyclerView
+    lateinit var database: ProductDatabase
 
 
     private lateinit var mainViewModel: MainActivityViewModel
@@ -58,6 +61,7 @@ class DashBoardCategories : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        database= ProductDatabase.getInstance(requireContext())
     }
     companion object {
 
@@ -202,6 +206,7 @@ appContext=context
                                 categoryAdapter.setData(it.data.categories)
                                 shimmerCategory.isVisible = false
 
+
                                 categoryAdapter.notifyDataSetChanged()
                             }
 
@@ -260,6 +265,18 @@ appContext=context
         headerpart = CategoryHeaderAdapter(ArrayList(), requireContext())
         recyclerView.apply {
             setHasFixedSize(true)
+
+            //animation
+            val list = listOf(
+                R.anim.layout_animation_fall_down,
+                R.anim.layout_animation_from_bottom,
+                R.anim.layout_animation_from_left,
+                R.anim.layout_animation_from_right
+            )
+            val animation = AnimationUtils.loadLayoutAnimation(context, list.random())
+            recyclerCategory.layoutAnimation = animation
+            recyclerCategory.scheduleLayoutAnimation()
+
             layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
             adapter = headerpart
 
@@ -271,6 +288,17 @@ appContext=context
             CategoryAdapter(ArrayList(), requireContext())
         recyclerCategory.apply {
             setHasFixedSize(true)
+            //animation
+            val list = listOf(
+                R.anim.layout_animation_fall_down,
+                R.anim.layout_animation_from_bottom,
+                R.anim.layout_animation_from_left,
+                R.anim.layout_animation_from_right
+            )
+            val animation = AnimationUtils.loadLayoutAnimation(context, list.random())
+            recyclerCategory.layoutAnimation = animation
+            recyclerCategory.scheduleLayoutAnimation()
+
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = categoryAdapter
         }
@@ -279,9 +307,28 @@ appContext=context
 
     private fun initSearchRecyclerView() {
         searchAdapter = SearchAdapter(ArrayList(), requireContext(),object :SearchAdapter.onclick{
-            override fun itemclicked(value: Boolean) {
-                if(value)
-                mainViewModel.itemclicked(true)
+            override fun itemclicked(value: Boolean, item: SerchingResponse.SearchResponseModal) {
+                if(value) {
+                    val intger: Int = database.contactDao().getProductBasedIdCount(item.getidMeal().toString())
+                    if (intger == 0) {
+                        database.contactDao()
+                            .insertCartItem(
+                                CartItems(
+                                    item.getidMeal().toString(),
+                                    item.getstrimage(),
+                                    intger + 1,
+                                    Integer.parseInt(item.getsale_price()),
+                                    item.getstrname()
+                                )
+                            )
+
+                    } else if (intger >= 1) {
+
+                        database.contactDao()
+                            .updateCartItem(intger + 1,  item.getidMeal().toString())
+                    }
+                    mainViewModel.itemclicked(true)
+                }
 
             }
 

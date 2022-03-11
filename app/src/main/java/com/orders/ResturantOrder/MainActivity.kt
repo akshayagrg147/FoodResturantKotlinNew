@@ -118,10 +118,12 @@ class MainActivity : AppCompatActivity(),DashBoardCategories.passingclick{
         return true
     }
 
-
-
-
-
+    override fun onBackPressed() {
+       // super.onBackPressed()
+        mainViewModel?.passingSearchClose(true)
+        supportActionBar!!.hide();
+        bottomview.visibility=View.VISIBLE
+    }
 
 
     private fun setupSmoothBottomMenu() {

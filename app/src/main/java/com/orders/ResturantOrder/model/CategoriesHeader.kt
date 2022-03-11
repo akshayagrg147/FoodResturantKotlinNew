@@ -38,8 +38,8 @@ data class CategoriesHeader(
 
     )
     {
-        fun getIdCategory(): Int {
-            return idCategory
+        fun getIdCategory(): String {
+            return product_category_id
         }
 
 

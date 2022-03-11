@@ -39,7 +39,7 @@ class CategoryHeaderAdapter(private var categories1: List<CategoriesHeader.Categ
 
 
             val intent = Intent(context, AfterCategorySelectionActivity::class.java);
-            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
+            intent.putExtra("categoryId",categories1.get(position).getIdCategory())
 
             context.startActivity(intent);
 

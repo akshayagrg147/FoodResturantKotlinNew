@@ -3,20 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <ScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="80dp"
-        android:fillViewport="true">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:paddingBottom="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-
-
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -26,9 +28,9 @@
                 android:layout_height="wrap_content"
 
 
+                android:layout_marginTop="@dimen/margin_15dp"
                 android:clipToPadding="false"
                 android:scrollbars="none"
-                android:layout_marginTop="@dimen/margin_15dp"
                 app:layout_constraintBottom_toTopOf="@+id/table_invoice"
                 app:layout_constraintTop_toBottomOf="@+id/parent"
                 app:layout_constraintVertical_bias="0.078"
@@ -37,34 +39,35 @@
             <TableLayout
                 android:id="@+id/table_invoice1"
                 android:layout_width="wrap_content"
-                android:layout_columnWeight="1"
-                android:layout_column="1"
-
-                app:layout_constraintTop_toBottomOf="@+id/recyclerCategory"
-
                 android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_columnWeight="1"
+
                 android:layout_marginTop="@dimen/margin_15dp"
 
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:orientation="vertical"
                 android:padding="4sp"
-                android:stretchColumns="*"
+
+                android:paddingBottom="@dimen/dp_10"
                 android:shrinkColumns="0"
-                >
+                android:stretchColumns="*"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recyclerCategory">
+
                 <TextView
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:text="Bill Details"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_invoice_date_label"
@@ -86,32 +89,30 @@
                 <!-- 2 columns -->
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tv_invoice_num_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textColor="@color/blue_200"
                         android:text="Delivery partner fee"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/blue_200" />
 
                     <TextView
                         android:id="@+id/delivery_parner_fee"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="₹12"
                         android:paddingLeft="6dp"
+                        android:text="₹12"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </TableRow>
                 <!-- 2 columns -->
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/delivery_Tip"
@@ -127,8 +128,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:text="₹0"
                         android:paddingLeft="6dp"
+                        android:text="₹0"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </TableRow>
 
@@ -136,18 +137,17 @@
 
 
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/tax_and_charges"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/blue_200"
-                        android:textStyle="italic"
                         android:gravity="left"
                         android:text="Taxes and Charges"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/blue_200"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/tax_and_charges_amount"
@@ -158,19 +158,19 @@
                         android:text="₹19"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
                 </TableRow>
+
                 <TableRow
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    >
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/toPay"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="left"
-                        android:textStyle="bold"
                         android:text="To Pay"
-                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/toPay_amount1"
@@ -190,36 +190,37 @@
             <RelativeLayout
                 android:id="@+id/emptyLayout"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/linearLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearlayout"
-                app:layout_constraintVertical_bias="0.0"
-                android:layout_height="wrap_content">
+                app:layout_constraintVertical_bias="0.0">
+
                 <ImageView
                     android:id="@+id/cartAdded"
                     android:layout_width="wrap_content"
-                    android:layout_centerHorizontal="true"
-
-
                     android:layout_height="wrap_content"
-                    android:src="@drawable/emptycart"
-                    />
+
+
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/emptycart" />
+
                 <TextView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
                     android:layout_below="@+id/cartAdded"
+                    android:layout_margin="20dp"
 
+                    android:fontFamily="@font/avenirltstd_medium"
                     android:padding="10dp"
                     android:text="cart is empty"
-                    android:fontFamily="@font/avenirltstd_medium"
+                    android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/cardview_dark_background"
-                    android:textAlignment="center"
 
                     android:textSize="16sp" />
 
@@ -231,14 +232,15 @@
     <LinearLayout
         android:id="@+id/linearLayoutButton"
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
 
 
-
-        app:layout_constraintBottom_toBottomOf="@+id/scrollview"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:id="@+id/linearlayout"
@@ -357,24 +359,19 @@
             android:id="@+id/reply_textview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:layout_weight="0.5"
 
+            android:background="@drawable/roundshape"
             android:padding="10dp"
             android:text="Proceed to Address"
-            android:background="@drawable/clock_my_time_in_button"
             android:textAlignment="center"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
     </LinearLayout>
-
-
-
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,8 +40,8 @@ class CartItemssAdapter(private var categories1: List<CartItems>, cartItemClickL
         var cartItems:CartItems= database.contactDao().getProductBasedId(categories1.get(position).ProductIdNumber)
         var totalNumber:Int= database.contactDao().getProductBasedIdCount(categories1.get(position).ProductIdNumber)
        holder.totalquantity.text=totalNumber.toString()
-        holder.priceCategory.text=(cartItems.strProductPrice?.times(totalNumber)).toString()
-        holder.cart_product_name.text=cartItems.strProductName
+        holder.priceCategory.text=(cartItems?.let { it.strProductPrice?.times(totalNumber) }).toString()
+        holder.cart_product_name.text=cartItems.let { it.strProductName }
      holder.plusButton.setOnClickListener{
 //            totalNumber=totalNumber+1
 //            binding.totalquantity.text=totalNumber.toString()
