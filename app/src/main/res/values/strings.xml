@@ -1,32 +1,11 @@
 <resources>
     <string name="app_name">Chui Mui</string>
-    <string name="search_your_recipes">Search Your Recipes…</string>
-    <string name="meal_categories">Meal Categories</string>
-    <string name="category">Category</string>
-    <string name="country">Country</string>
-    <string name="instructions">INSTRUCTIONS</string>
-    <string name="dot_loading">...</string>
-    <string name="Ingredients">INGREDIENTS</string>
-    <string name="youtube">YOUTUBE</string>
-    <string name="otp_label_text">Enter the OTP received on Registered Mobile Number</string>
-    <string name="otp_otp_ph">6 Digit OTP</string>
-    <string name="otp_verify_btn_text">VERIFY</string>
-    <string name="otp_verify_error_text">Wrong OTP!</string>
-    <string name="otp_message_1">One Step to go…</string>
-    <string name="otp_message_2">O T P</string>
-    <string name="bg_img_desc">Image View</string>
-    <string name="success_img_desc">Success Tick Image</string>
-    <string name="source">SOURCE</string>
-    <string name="favorite">Favorite</string>
     <string name="flat_house_no_building_company_apartment">Flat,House no.,Building ,Company,Apartment</string>
     <string name="enter_pin_code">Enter Pin Code</string>
     <string name="enter_phone_number">Enter Phone Number</string>
     <string name="enter_name">Enter Name</string>
     <string name="area_colony_street_sector_village">Area,Colony,Street,Sector,Village</string>
-    <string name="cart_is_empty">Cart Is Empty</string>
-    <string name="enter_otp">Enter 6 digit otp</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="click">Click</string>
     <string name="your_orders">Your Orders</string>
 </resources>

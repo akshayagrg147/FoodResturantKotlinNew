@@ -12,13 +12,4 @@
         <!-- Customize your theme here. -->
 
     </style>
-    <style name="emptyoveride" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
-    <style name="ThemeSpinner">
-        <!-- Color when pressed -->
-        <item name="colorAccent">@color/colorAccent</item>
-        <!-- Default color for the dropdown arrow and line -->
-        <item name="colorControlNormal">@color/black</item>
-    </style>
 </resources>

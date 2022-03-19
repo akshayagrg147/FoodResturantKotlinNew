@@ -1,152 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-
-    <dimen name="activity_vertical_margin">16dp</dimen>
-    <dimen name="nav_header_vertical_spacing">16dp</dimen>
-    <dimen name="nav_header_height">160dp</dimen>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="edittext_margin">-4dp</dimen>
-
     <dimen name="margin_min">5dp</dimen>
     <dimen name="margin_subunit">10dp</dimen>
-    <dimen name="margin_25">20dp</dimen>
     <dimen name="margin_unit">20dp</dimen>
-    <dimen name="margin_max">40dp</dimen>
-    <dimen name="margin_item">40dp</dimen>
-    <dimen name="margin_section">80dp</dimen>
-    <dimen name="padding_left_top">16dp</dimen>
-    <dimen name="padding_thirty">30dp</dimen>
-    <dimen name="padding_fifty">50dp</dimen>
-    <dimen name="padding_sixty">60dp</dimen>
-    <dimen name="padding_seventy">70dp</dimen>
-    <dimen name="padding_eighty">80dp</dimen>
-    <dimen name="padding_width">90dp</dimen>
 
-
-    <dimen name="margin_dashboard_header">5dp</dimen>
-    <dimen name="margin_dashboard_header_photo">2dp</dimen>
-
-    <dimen name="attachment_padding">16dp</dimen>
-    <dimen name="attachment_width">200dp</dimen>
-    <dimen name="attachment_top_margin">10dp</dimen>
-    <dimen name="attachment_close_button_width">32dp</dimen>
-
-    <dimen name="company_policy_Recycler_margin">50dp</dimen>
-    <dimen name="zero_dimension">0dp</dimen>
-
-    <dimen name="hint_text_height">40dp</dimen>
-    <dimen name="attendance_text_size">10dp</dimen>
-
-    <dimen name="particular_margin_unit">2dp</dimen>
-    <dimen name="camera_refresh_height">35dp</dimen>
-    <dimen name="camera_refresh_margin">8dp</dimen>
-    <dimen name="particular_name_text_size">10dp</dimen>
-    <dimen name="particular_detail_text_size">12dp</dimen>
-    <dimen name="particular_detail_edit_text_height">35dp</dimen>
-    <dimen name="particular_detail_spinner_height">50dp</dimen>
-    <dimen name="particular_check_box_left_margin">20dp</dimen>
-
-    <dimen name="claim_item_height">100dp</dimen>
-    <dimen name="claim_attachment_height">300dp</dimen>
-    <dimen name="claim_hint_text_size">10dp</dimen>
-    <dimen name="claim_text_size">12dp</dimen>
-    <dimen name="claim_margin_min">1dp</dimen>
-    <dimen name="claim_linked_to_payroll_text_size">16dp</dimen>
-
-    <dimen name="leave_balance_title_font">16sp</dimen>
-    <dimen name="leave_balance_title_large_font">16sp</dimen>
-    <dimen name="leave_balance_title_small_font">12sp</dimen>
-    <dimen name="leave_balance_title_small_width">80dp</dimen>
-    <dimen name="leave_balance_title_medium_width">100dp</dimen>
-
-    <dimen name="payslip_header_text_width">20dp</dimen>
-    <dimen name="payslip_header_text_large_width">110dp</dimen>
-
-    <dimen name="button_height">30dp</dimen>
-    <dimen name="small_text">12sp</dimen>
-    <dimen name="font_size_medium">14sp</dimen>
-    <dimen name="font_size_maximum">16sp</dimen>
-    <dimen name="font_size_maximum_large">18sp</dimen>
-
-    <dimen name="info_dialog_height">300dp</dimen>
-    <dimen name="info_dialog_width">200dp</dimen>
-    <dimen name="text_size_max">20sp</dimen>
-    <dimen name="text_size_dashboard_tms_12_sp">12sp</dimen>
-
-    <dimen name="padding_max">120dp</dimen>
-
-
-    <dimen name="capture_button_size">45dp</dimen>
-    <dimen name="capture_overlay_size">60dp</dimen>
-    <dimen name="indicator_size">8dp</dimen>
-    <dimen name="margin_16">16dp</dimen>
-    <dimen name="margin_14">14dp</dimen>
-    <dimen name="margin_8">8dp</dimen>
-    <dimen name="font_size_18">18sp</dimen>
 
     <!-- New Design-->
-    <dimen name="settings_margin_start">12.9pt</dimen>
-    <dimen name="settings_margin_end">14pt</dimen>
-    <dimen name="settings_textSize">20sp</dimen>
-    <dimen name="settings_textview_padding_top">6.4pt</dimen>
-    <dimen name="settings_textview_padding_bottom">6.6pt</dimen>
-    <dimen name="settings_layout_margin_top">1.3pt</dimen>
-    <dimen name="settings_padding_bottom">7.2pt</dimen>
-    <dimen name="settings_text_padding_top">9pt</dimen>
-    <dimen name="settings_image_padding_top">12pt</dimen>
-    <dimen name="profile_margin_left">10.5pt</dimen>
-    <dimen name="profile_margin_right">10pt</dimen>
     <dimen name="profile_height">53dp</dimen>
-    <dimen name="button_margin_bottom">25pt</dimen>
-    <dimen name="edit_text_size_login">48sp</dimen>
-    <dimen name="dashboard_menu_button_52">52dp</dimen>
-    <dimen name="dashboard_menu_button_48">48dp</dimen>
-    <dimen name="padding_fourty">40dp</dimen>
-    <dimen name="margin_3dp">3dp</dimen>
     <dimen name="margin_15dp">15dp</dimen>
-    <dimen name="margin_13dp">13dp</dimen>
-    <dimen name="margin_18dp">18dp</dimen>
-    <dimen name="padding_ninety">90dp</dimen>
-    <dimen name="text12sp">12sp</dimen>
-    <dimen name="margin_7dp">7dp</dimen>
-    <dimen name="margin_2dp">2dp</dimen>
 
     <!-- Text Size. -->
-    <dimen name="text_10sp">10sp</dimen>
     <dimen name="text_12sp">12sp</dimen>
-    <dimen name="text_13sp">13sp</dimen>
     <dimen name="text_14sp">14sp</dimen>
     <dimen name="text_15sp">15sp</dimen>
-    <dimen name="text_16sp">16sp</dimen>
-    <dimen name="text_18sp">18sp</dimen>
-    <dimen name="text_20sp">20sp</dimen>
-    <dimen name="text_26sp">26sp</dimen>
-    <dimen name="text_22sp">22sp</dimen>
-    <dimen name="text_15dp">15dp</dimen>
-    <dimen name="text_11sp">11sp</dimen>
-    <dimen name="text_12dp">12dp</dimen>
-    <dimen name="text_28sp">28sp</dimen>
-    <dimen name="text_24sp">24sp</dimen>
-    <dimen name="margin_50dp">50dp</dimen>
-    <dimen name="text_17sp">17sp</dimen>
-    <dimen name="claim_padding_3dp">3dp</dimen>
-    <dimen name="dashboard_bottom_top">20dp</dimen>
-
-    <dimen name="dashboard_menu_icon_size_for_tab">60dp</dimen>
-    <dimen name="dashboard_attendance_menu_icon_size_for_tab">76dp</dimen>
-
-    <dimen name="leave_apply_header_margin_top">14dp</dimen>
 
 
     <dimen name="settings_menu_inside_padding_horizontal">14dp</dimen>
     <dimen name="settings_menu_inside_padding_vertical">12dp</dimen>
     <dimen name="settings_menu_inside_padding_vertical_single_line">17dp</dimen>
-    <dimen name="slider_menu_max_height">220dp</dimen>
-    <dimen name="scanPadding">16dp</dimen>
-    <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_20">20dp</dimen>
     <dimen name="dp_10">10dp</dimen>
-    <dimen name="dp_50">50dp</dimen>
 </resources>

@@ -1,15 +1,19 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
-    id 'kotlin-kapt'
+   id 'kotlin-android-extensions'
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 
 
 }
 
 android {
+    dataBinding {
+        enabled = true
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -36,43 +40,91 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
-
+    //noinspection GradleDependency
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
+    implementation "androidx.core:core-ktx:$rootProject.core_ktx_version"
+
+    //app compact dependency
+    implementation "androidx.appcompat:appcompat:$rootProject.appcompat_version"
+
+    // material ui
+    implementation "com.google.android.material:material:$rootProject.material_version"
+
+    //constrain layout
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constrainlayout_version"
+
+    //
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    //lifecycle extension
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycle_extension_version"
+
+    //recycler view
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerview_version"
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$rootProject.hilt_version"
+    implementation 'androidx.test:core-ktx:1.3.0'
+    kapt "com.google.dagger:hilt-android-compiler:$rootProject.hilt_version"
+    kapt "androidx.hilt:hilt-compiler:$rootProject.hilt_viewmodels_version"
+
+    implementation "androidx.fragment:fragment-ktx:1.4.0-alpha01"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$rootProject.rxjava_version"
+    //ok http
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp_intercept_version"
+
+    //room
+    implementation "androidx.room:room-runtime:$rootProject.room_version"
+    implementation "androidx.room:room-ktx:$rootProject.room_version"
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
+
+    // work manager
+    implementation "androidx.work:work-runtime-ktx:$rootProject.work_manager_version"
+
+    //viewpager
+    implementation "androidx.viewpager2:viewpager2:$rootProject.viewPager_version"
+
+    //navigation component
+    implementation("androidx.navigation:navigation-fragment-ktx:$rootProject.nav_version")
+    implementation("androidx.navigation:navigation-ui-ktx:$rootProject.nav_version")
+
+    //firebase
+    implementation platform("com.google.firebase:firebase-bom:$rootProject.firebase_version")
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-messaging-ktx'
+
+
+
+
+
+    implementation 'com.airbnb.android:lottie:3.7.0'
+    implementation 'com.facebook.shimmer:shimmer:0.4.0'
+ //   implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'com.rowland.cartcounter:CartCounter:1.0.0-beta-2'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
 
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'androidx.room:room-runtime:2.4.0-alpha04'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    kapt 'androidx.room:room-compiler:2.4.0-alpha04'
-    implementation 'com.github.bumptech.glide:glide:4.12.0'
-    implementation 'com.google.dagger:hilt-android:2.33-beta'
-    kapt 'com.google.dagger:hilt-android-compiler:2.33-beta'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.rowland.cartcounter:CartCounter:1.0.0-beta-2'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-beta01'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0-alpha01'
-    implementation 'com.facebook.shimmer:shimmer:0.4.0'
-    //navigation component
-    implementation("androidx.navigation:navigation-fragment-ktx:2.3.0")
-    implementation("androidx.navigation:navigation-ui-ktx:2.3.0")
-    //splash screen
-    implementation 'com.airbnb.android:lottie:3.7.0'
-//bottom navigation
-    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.8'
+    // For control over item selection of both touch and mouse driven selection
+    implementation "androidx.recyclerview:recyclerview-selection:1.2.0-alpha01"
+    implementation 'com.github.dhaval2404:imagepicker-support:1.7.1'
 
-
-    testImplementation 'junit:junit:4.+'
+    // testing dependency
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation "com.google.truth:truth:1.1.2"
+    androidTestImplementation "com.google.truth:truth:1.1.2"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
+
