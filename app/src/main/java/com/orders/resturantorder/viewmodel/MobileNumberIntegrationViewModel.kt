@@ -45,7 +45,7 @@ class MobileNumberIntegrationViewModel @Inject constructor(private val mainRepos
                 }.collect {
 
                     data->
-                    mobilenumberCheck.value=ApiState.CheckExistMobileRespnse(data)
+                    mobilenumberCheck.value=ApiState.SuccessCategories(data)
                 }
     }
 
@@ -57,7 +57,7 @@ class MobileNumberIntegrationViewModel @Inject constructor(private val mainRepos
                 }.collect {
 
                     data->
-                    savedinformation.value=ApiState.SuccessMobileRespnse(data)
+                    savedinformation.value=ApiState.SuccessCategories(data)
                 }
     }
 

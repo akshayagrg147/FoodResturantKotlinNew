@@ -23,8 +23,7 @@ import com.meetSuccess.Database.ProductDatabase
 import com.meetSuccess.FoodResturant.Adapter.CategoryAdapter
 import com.meetSuccess.FoodResturant.Adapter.CategoryHeaderAdapter
 import com.meetSuccess.FoodResturant.Adapter.SearchAdapter
-import com.meetSuccess.FoodResturant.Model.SearchingPassingData
-import com.meetSuccess.FoodResturant.Model.SerchingResponse
+import com.meetSuccess.FoodResturant.Model.*
 import com.meetSuccess.FoodResturant.Util.ApiState
 import com.orders.resturantorder.MainActivity
 import com.orders.resturantorder.R
@@ -148,13 +147,15 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                             //framelayout.setVisibility(View.VISIBLE)
 
                         }
-                        is ApiState.SuccessCategoriesHeader -> {
+                        is ApiState.SuccessCategories <*>-> {
+                            val response =
+                                (it.data as CategoriesHeader)
 
                             //framelayout.setVisibility(View.GONE)
 
 
                             (appContext as MainActivity).runOnUiThread {
-                                headerpart.setData(it.data.categories)
+                                headerpart.setData(response.categories)
                                 shimmer_view_containerheader.isVisible = false
                                 headerpart.notifyDataSetChanged()
                             }
@@ -186,11 +187,13 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                         is ApiState.Failure -> {
 
                         }
-                        is ApiState.SuccessCategories -> {
-//                        shimmerCategory.isVisible=false
+                        is ApiState.SuccessCategories<*> -> {
+                            val response =
+                                (it.data as Categories)
+                          shimmerCategory.isVisible=false
 
                             (appContext as MainActivity).runOnUiThread {
-                                categoryAdapter.setData(it.data.categories)
+                                categoryAdapter.setData(response.categories)
                                 shimmerCategory.isVisible = false
 
 
@@ -214,7 +217,9 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                         is ApiState.Failure -> {
 
                         }
-                        is ApiState.GetResultBasedOnKeywords -> {
+                        is ApiState.SuccessCategories<*> -> {
+                            val response =
+                                (it.data as SerchingResponse)
 //                        shimmerCategory.isVisible=false
                             ContextCompat.getMainExecutor(appContext).execute {
 
@@ -222,7 +227,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                                     ViewModelProvider((appContext as MainActivity)).get(
                                         DashBoardCategoriesViewModal::class.java
                                     )
-                                searchAdapter.setData(it.data, mainViewModel)
+                                searchAdapter.setData(response, mainViewModel)
 
 
                                 searchAdapter.notifyDataSetChanged()

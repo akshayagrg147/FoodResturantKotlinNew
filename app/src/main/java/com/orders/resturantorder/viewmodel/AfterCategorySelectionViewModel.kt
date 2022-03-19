@@ -35,7 +35,7 @@ class AfterCategorySelectionViewModel @Inject constructor(private val mainReposi
                 }.collect {
 
                     data->
-                    postStateFlowAfterSelection.value=ApiState.SuccessAfterSelection(data)
+                    postStateFlowAfterSelection.value=ApiState.SuccessCategories(data)
                 }
     }
 

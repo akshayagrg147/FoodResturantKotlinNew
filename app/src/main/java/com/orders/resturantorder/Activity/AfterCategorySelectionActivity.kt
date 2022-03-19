@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.meetSuccess.Database.CartItems
 import com.meetSuccess.Database.ProductDatabase
+import com.meetSuccess.FoodResturant.Model.Meals
+import com.meetSuccess.FoodResturant.Model.MobileNumberExistCheck
 import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
 import com.meetSuccess.FoodResturant.Util.ApiState
 import com.orders.resturantorder.Base.BaseActivity
@@ -97,7 +99,9 @@ class AfterCategorySelectionActivity :  BaseActivity<ActivityAfterCategorySelect
                        // binding.shimmerCategoryListItems.shimmerCategory.isVisible = true
                         Log.d("main", "onCreate: ${it.msg}")
                     }
-                    is ApiState.SuccessAfterSelection -> {
+                    is ApiState.SuccessCategories<*> -> {
+                        val response =
+                            (it.data as cateogryAfterSelectionModal)
 
                         shimmerCategoryListItems.isVisible=false
                        categorySelectAdapter.setData(it.data.meals)

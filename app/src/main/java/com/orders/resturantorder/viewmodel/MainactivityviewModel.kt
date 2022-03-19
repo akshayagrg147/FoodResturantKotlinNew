@@ -41,7 +41,7 @@ class Mainactivityviewmodel @Inject constructor(private val mainRepository: Retr
                 searchResult.value=ApiState.Failure(e)
             }.collect {
                     data->
-                searchResult.value=ApiState.GetResultBasedOnKeywords(data)
+                searchResult.value=ApiState.SuccessCategories(data)
             }
     }
     fun passingValue(string:String){

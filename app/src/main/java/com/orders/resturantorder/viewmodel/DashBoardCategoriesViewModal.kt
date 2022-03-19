@@ -60,7 +60,7 @@ class DashBoardCategoriesViewModal @Inject constructor(private val mainRepositor
             .catch { e->
                 categoriesheader.value= ApiState.Failure(e)
             }.collect { data->
-                categoriesheader.value= ApiState.SuccessCategoriesHeader(data)
+                categoriesheader.value= ApiState.SuccessCategories(data)
             }
     }
     suspend  fun getLowestCategory() = withContext(Dispatchers.IO){
@@ -83,7 +83,7 @@ class DashBoardCategoriesViewModal @Inject constructor(private val mainRepositor
                 searchResult.value= ApiState.Failure(e)
             }.collect {
                     data->
-                searchResult.value= ApiState.GetResultBasedOnKeywords(data)
+                searchResult.value= ApiState.SuccessCategories(data)
             }
     }
     fun passingValue(string:String){

@@ -14,7 +14,9 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthProvider
+import com.meetSuccess.FoodResturant.Model.MobileNumberExistCheck
 import com.meetSuccess.FoodResturant.Model.MobileNumberPassingData
+import com.meetSuccess.FoodResturant.Model.MobileNumberResponse
 import com.meetSuccess.FoodResturant.Util.ApiState
 import com.orders.resturantorder.Base.BaseActivity
 import com.orders.resturantorder.MainActivity
@@ -147,7 +149,9 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
                                 Log.d("callingtest", "falure")
 
                             }
-                            is ApiState.SuccessMobileRespnse -> {
+                            is ApiState.SuccessCategories<*> -> {
+                                val response =
+                                    (it.data as MobileNumberResponse)
                                 Log.d("callingtest", "true")
 
 //                                sharedpreferenceCommon(this@MobileNumberIntegration).setUserData(phonenumber!!)
@@ -288,10 +292,12 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
                                 Log.d("callingtest", "falure"+it.msg)
 
                             }
-                            is ApiState.CheckExistMobileRespnse -> {
-                                Log.d("callingtest", "falure"+it.data.getexistance())
+                            is ApiState.SuccessCategories <*>-> {
+                                val response =
+                                    (it.data as MobileNumberExistCheck)
+                                Log.d("callingtest", "falure"+response.getexistance())
 
-                                if (it.data.getexistance()) {
+                                if (response.getexistance()) {
                                     sharedpreferenceCommon(this@MobileNumberIntegration).setUserData(phonenumber!!)
 
                                     startActivity(Intent(this@MobileNumberIntegration, MainActivity::class.java))
