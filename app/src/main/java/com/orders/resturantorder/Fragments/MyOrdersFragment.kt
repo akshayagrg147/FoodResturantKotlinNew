@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_my_orders.*
 class MyOrdersFragment : BaseFragment<FragmentMyOrdersBinding, FragmentMyOrderViewModal>(){
     private val mHomeViewModel: FragmentMyOrderViewModal by activityViewModels()
     override fun getBindingVariable(): Int = 2
-    override fun getLayoutId(): Int = R.layout.fragment_blank
+    override fun getLayoutId(): Int = R.layout.fragment_my_orders
     override fun getViewModel(): FragmentMyOrderViewModal = mHomeViewModel
     override fun getLifeCycleOwner(): LifecycleOwner = this
     private var fragmentmyorderbinding: FragmentMyOrdersBinding? = null

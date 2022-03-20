@@ -22,5 +22,5 @@ interface RetroServiceInterface {
     @GET("mobileVerify/{mobile}")
     suspend fun getmobileVerify(@Path("mobile")mobile: String): MobileNumberExistCheck
     @POST("productAll")
-    suspend fun getSearchProductPassingString(@Body searchingPassingData: SearchingPassingData): SerchingResponse
+    suspend fun <T:Any>getSearchProductPassingString(@Body searchingPassingData: T): SerchingResponse
 }

@@ -15,15 +15,15 @@
 
     >
 
-<!--        <androidx.appcompat.widget.Toolbar-->
-<!--            android:id="@+id/toolbar_home"-->
-<!--            android:visibility="invisible"-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_home"
+            android:visibility="invisible"
 
 
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="?attr/actionBarSize"-->
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
 
-<!--            app:menu="@menu/menu" />-->
+            app:menu="@menu/menu" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchlistView"
             android:visibility="gone"

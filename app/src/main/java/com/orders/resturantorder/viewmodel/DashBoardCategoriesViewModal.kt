@@ -76,7 +76,7 @@ class DashBoardCategoriesViewModal @Inject constructor(private val mainRepositor
 
 
 
-   suspend fun getCallingSearchApi(searchingPassingData: SearchingPassingData) = withContext(Dispatchers.IO){
+   suspend fun <T:Any>getCallingSearchApi(searchingPassingData: T) = withContext(Dispatchers.IO){
         searchResult.value = ApiState.Loading
         mainRepository.SearchProductPassingString(searchingPassingData)
             .catch { e->

@@ -27,11 +27,14 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
     //,DashBoardCategories.passingclick
 
 
+
     private lateinit var mActivityMainBinding: ActivityMainBinding
+    private  var dashboard= DashBoardCategories()
 
     private val mainViewModel: Mainactivityviewmodel by viewModels()
 
     override fun getBindingVariable(): Int = 2
+    private lateinit var delegate: passingInterface
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
@@ -48,6 +51,23 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mActivityMainBinding = getViewDataBinding()
+        dashboard.SendSearchResponse(object :DashBoardCategories.passingclick{
+            override fun passingvalue(boolean: Boolean) {
+                Log.d("clling","callll")
+                     if(boolean)
+     {
+         supportActionBar!!.show();
+         supportActionBar!!.setDisplayShowTitleEnabled(true);
+         view.isIconifiedByDefault = true;
+         view.isFocusable = true;
+         view.isIconified = false;
+         mActivityMainBinding.bottombar.visibility=View.GONE
+         view.requestFocusFromTouch();
+
+     }
+            }
+
+        })
 
 
         database= ProductDatabase.getInstance(this@MainActivity)
@@ -57,6 +77,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
        setupActionBarWithNavController(navController)
         supportActionBar!!.hide();
         setupSmoothBottomMenu()
+        delegate.passing("akshay")
 
       //  mainViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
@@ -143,13 +164,18 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
 
 
     }
-
+    fun setOnPassingListner(passinginterface: passingInterface) {
+        delegate = passinginterface
+    }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
     interface passingSearchText{
         public fun sendingText(item: String)
+    }
+    interface passingInterface{
+        public fun passing(item: String)
     }
 
 //    override fun passingvalue(boolean: Boolean) {

@@ -7,14 +7,15 @@ import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -28,11 +29,11 @@ import com.meetSuccess.FoodResturant.Util.ApiState
 import com.orders.resturantorder.MainActivity
 import com.orders.resturantorder.R
 import com.orders.resturantorder.databinding.FragmentBlankBinding
+import com.orders.resturantorder.model.BR
 import com.orders.resturantorder.viewmodel.BaseFragment
 import com.orders.resturantorder.viewmodel.DashBoardCategoriesViewModal
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_blank.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
@@ -40,23 +41,42 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategoriesViewModal>() {
+class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategoriesViewModal>() ,MainActivity.passingInterface {
     private var passingclicwk: passingclick? = null
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var headerpart: CategoryHeaderAdapter
     private val mHomeViewModel: DashBoardCategoriesViewModal by viewModels()
     private var fragmentHomeViewBinding: FragmentBlankBinding? = null
     lateinit var database: ProductDatabase
-    override fun getBindingVariable(): Int = 2
+    override fun getBindingVariable(): Int = BR.viewModel
     override fun getLayoutId(): Int = R.layout.fragment_blank
     override fun getViewModel(): DashBoardCategoriesViewModal = mHomeViewModel
     override fun getLifeCycleOwner(): LifecycleOwner = this
     lateinit var list: ArrayList<String>
     lateinit var searchAdapter: SearchAdapter
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         database = ProductDatabase.getInstance(requireContext())
+        onBackPressed()
+
+    }
+
+    public fun SendSearchResponse(param: DashBoardCategories.passingclick) {
+        passingclicwk=param
+
+    }
+
+    private fun onBackPressed() {
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() {
+                // Handle the back button event
+                NavHostFragment.findNavController(this@DashBoardCategories).navigateUp();
+                return
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     companion object {
@@ -69,21 +89,22 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     override fun onAttach(context: Context) {
         super.onAttach(context)
         appContext = context
-        if (context is passingclick) {
-            passingclicwk = context as passingclick
-        } else {
-//            throw RuntimeException(
-//                context.toString()
-//                        + " must implement OnFragmentInteractionListener"
-//            )
-        }
+
+//        if (context is passingclick) {
+//            passingclicwk = context as passingclick
+//        } else {
+////            throw RuntimeException(
+////                context.toString()
+////                        + " must implement OnFragmentInteractionListener"
+////            )
+//        }
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentHomeViewBinding = getViewDataBinding()
-
+        (requireActivity() as MainActivity?)?.setOnPassingListner(this)
         if (arguments != null) {
             val str: String = requireArguments().getString("typeDataSend").toString()
             Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
@@ -98,7 +119,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
             mHomeViewModel.getCloseButtonStataus().observe(requireActivity(), Observer {
                 fragmentHomeViewBinding!!.scrollview.visibility = View.VISIBLE
-//            toolbar_home.visibility=View.VISIBLE
+          toolbar_home.visibility=View.VISIBLE
                 fragmentHomeViewBinding!!.searchlistView.visibility = View.GONE
 
             })
@@ -116,7 +137,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
         mHomeViewModel.getItemClicked().observe(requireActivity(), Observer {
             if (it) {
                 scrollview.visibility = View.VISIBLE
-//            toolbar_home.visibility=View.VISIBLE
+            toolbar_home.visibility=View.VISIBLE
                 fragmentHomeViewBinding!!.searchlistView.visibility = View.GONE
             }
 
@@ -128,7 +149,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
             mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
                 passingclicwk?.passingvalue(true)
                 scrollview.visibility = View.GONE
-//            toolbar_home.visibility=View.VISIBLE
+          toolbar_home.visibility=View.VISIBLE
                 fragmentHomeViewBinding!!.searchlistView.visibility = View.VISIBLE
             } }
 
@@ -343,6 +364,12 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     interface passingclick {
         public fun passingvalue(boolean: Boolean)
 
+    }
+
+
+
+    override fun passing(item: String) {
+      Log.d("passing",item)
     }
 
 }
