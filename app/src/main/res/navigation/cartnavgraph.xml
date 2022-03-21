@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cartfragment"
+    app:startDestination="@id/CartFragment">
+    <fragment
+        android:id="@+id/CartFragment"
+        android:name="com.orders.resturantorder.Fragments.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_CartFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment"
+            app:enterAnim="@anim/slide_out_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_in_left" />
+    </fragment>
+
+</navigation>
