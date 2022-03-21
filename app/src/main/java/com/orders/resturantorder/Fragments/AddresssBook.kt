@@ -22,9 +22,10 @@ import com.orders.resturantorder.databinding.FragmentAddresssBookBinding
 import com.orders.resturantorder.viewmodel.AddressViewModal
 import com.orders.resturantorder.viewmodel.BaseFragment
 import com.orders.resturantorder.viewmodel.CartFragmentViewModal
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_proceed_to_address2.*
 
-
+@AndroidEntryPoint
 class AddresssBook  : BaseFragment<FragmentAddresssBookBinding, AddressViewModal>()  {
     private val mHomeViewModel: AddressViewModal by viewModels()
 

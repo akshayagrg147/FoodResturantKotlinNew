@@ -36,7 +36,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding, FragmentProfileView
         // AddressBook_layout=view.findViewById(R.id.AddressBook_layout)
         AddressBook_layout?.let {
             it.setOnClickListener(View.OnClickListener {
-                Navigation.findNavController(view).navigate(R.id.addressBookFragment);
+                Navigation.findNavController(view).navigate(R.id.action_ProfileFragment_to_addressBookFragment);
                 //   Navigation.findNavController(view).navigate(R.id.settingsFragment, bundle, AppUtils.getNavOptions())
 
             })

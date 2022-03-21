@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/dashBoardCategories"
+        android:id="@+id/dashboardcategories"
         android:title="Home"
         android:icon="@drawable/home"/>
     <item
-        android:id="@+id/MyOrderFragment"
+        android:id="@+id/MyOrdernavgraph"
         android:title="Type"
         android:icon="@drawable/type"/>
     <item
-        android:id="@+id/CartFragment"
+        android:id="@+id/cartfragment"
         android:title="Checkout"
         android:icon="@drawable/checkout"/>
     <item
-        android:id="@+id/ProfileFragment"
+        android:id="@+id/profilefragment"
         android:title="Account"
         android:icon="@drawable/account"/>
 </menu>

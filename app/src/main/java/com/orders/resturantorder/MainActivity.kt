@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.meetSuccess.Database.ProductDatabase
@@ -72,16 +73,20 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
 
         database= ProductDatabase.getInstance(this@MainActivity)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
+        mActivityMainBinding.bottombar.setupWithNavController(navController)
 
-        navController = findNavController(R.id.my_nav_host_fragment)
-       setupActionBarWithNavController(navController)
+
+
         supportActionBar!!.hide();
         setupSmoothBottomMenu()
-        delegate.passing("akshay")
+       //
 
       //  mainViewModel = ViewModelProvider(this).get(MainActivityViewModel::class.java)
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.menu, menu)
@@ -166,6 +171,7 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
     }
     fun setOnPassingListner(passinginterface: passingInterface) {
         delegate = passinginterface
+        delegate.passing("akshay")
     }
 
     override fun onSupportNavigateUp(): Boolean {

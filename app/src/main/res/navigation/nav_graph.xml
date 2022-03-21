@@ -3,73 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/dashBoardCategories">
+    app:startDestination="@id/dashboardcategories">
 
-    <fragment
-        android:id="@+id/dashBoardCategories"
-        android:name="com.orders.resturantorder.Fragments.DashBoardCategories"
-        android:label="MyOrderFragment"
-        tools:layout="@layout/fragment_blank">
-        <action
-            android:id="@+id/action_dashBoardCategories_to_MyOrderFragment"
-            app:destination="@id/MyOrderFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-    </fragment>
-    <fragment
-        android:id="@+id/MyOrderFragment"
-        android:name="com.orders.resturantorder.Fragments.MyOrdersFragment"
-        android:label="MyOrderFragment"
-        tools:layout="@layout/fragment_my_orders">
-        <action
-            android:id="@+id/action_MyOrder_to_Dashboard"
-            app:destination="@id/dashBoardCategories"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-    </fragment>
-    <fragment
-        android:id="@+id/CartFragment"
-        android:name="com.orders.resturantorder.Fragments.CartFragment"
-        android:label="CartFragment"
-        tools:layout="@layout/fragment_cart">
-        <action
-            android:id="@+id/action_CartFragment_to_ProfileFragment"
-            app:destination="@id/ProfileFragment"
-            app:enterAnim="@anim/slide_out_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_in_left" />
-    </fragment>
+    <include app:graph="@navigation/dashboardcategories" />
 
-    <fragment
-        android:id="@+id/ProfileFragment"
-        android:name="com.orders.resturantorder.Fragments.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_ProfileFragment_to_addressBookFragment"
-            app:destination="@id/addressBookFragment"
-            app:enterAnim="@anim/item_animation_fall_down"
-            app:exitAnim="@anim/item_animation_from_bottom"
-            app:popEnterAnim="@anim/item_animation_from_right"
-            app:popExitAnim="@anim/layout_animation_from_bottom" />
-    </fragment>
+    <include app:graph="@navigation/myordernavgraph" />
 
-    <fragment
-        android:id="@+id/addressBookFragment"
-        android:name="com.orders.resturantorder.Fragments.AddresssBook"
-        android:label="AddressBookFragment"
-        tools:layout="@layout/fragment_addresss_book">
-        <action
-            android:id="@+id/action_Address_to_dashboard"
-            app:destination="@id/dashBoardCategories"
-            app:enterAnim="@anim/item_animation_fall_down"
-            app:exitAnim="@anim/item_animation_from_left"
-            app:popEnterAnim="@anim/layout_animation_from_left"
-            app:popExitAnim="@anim/slide_in_left" />
-    </fragment>
+    <include app:graph="@navigation/cartnavgraph" />
+
+    <include app:graph="@navigation/profilenavgraph" />
+
 </navigation>

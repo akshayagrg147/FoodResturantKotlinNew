@@ -1,11 +1,13 @@
 package com.orders.resturantorder.viewmodel
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.meetSuccess.FoodResturant.Model.SearchingPassingData
 import com.orders.resturantorder.network.RetroRepository
 import com.meetSuccess.FoodResturant.Util.ApiState
+import com.orders.resturantorder.Base.AppUtils
 import com.orders.resturantorder.Base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 
@@ -32,7 +34,7 @@ class Mainactivityviewmodel @Inject constructor(private val mainRepository: Retr
 
 
 
-
+    fun tapOnActivity(view: View) = AppUtils.hideKeyboard(view)
 
     fun getCallingSearchApi(searchingPassingData: SearchingPassingData ) = viewModelScope.launch {
         searchResult.value = ApiState.Loading
