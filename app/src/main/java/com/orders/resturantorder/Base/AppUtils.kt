@@ -25,6 +25,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker
 import androidx.navigation.NavOptions
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -92,7 +93,13 @@ class AppUtils {
         }
 
         fun setUpRecyclerItemLayout(context: Context, recyclerView: RecyclerView) {
-            val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context)
+            val mLayoutManager: RecyclerView.LayoutManager = LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false)
+            recyclerView.layoutManager = mLayoutManager
+            setRecyclerItemAnimation(context, recyclerView)
+        }
+        fun setUpRecyclerItemLayoutStaggered(context: Context, recyclerView: RecyclerView) {
+
+            val mLayoutManager: RecyclerView.LayoutManager = GridLayoutManager(context,3)
             recyclerView.layoutManager = mLayoutManager
             setRecyclerItemAnimation(context, recyclerView)
         }

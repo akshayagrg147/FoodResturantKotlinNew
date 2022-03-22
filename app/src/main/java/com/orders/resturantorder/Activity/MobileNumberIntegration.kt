@@ -266,7 +266,8 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
         else
         {
             progressBar!!.visibility = View.GONE
-            btnSignIn.visibility=View.VISIBLE
+
+            showMessageOKCancel("Maximum tried reached", { dialog, _ ->goToHome()}, false)
             Toast.makeText(
                 this@MobileNumberIntegration,
                 "Maximum tried reached",
@@ -274,6 +275,10 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
             ).show()
         }
 
+    }
+
+    private fun goToHome() {
+        btnSignIn.visibility=View.VISIBLE
     }
 
     private fun signIn(credential: PhoneAuthCredential) {
@@ -289,6 +294,7 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
 
                             }
                             is ApiState.Failure -> {
+
                                 Log.d("callingtest", "falure"+it.msg)
 
                             }

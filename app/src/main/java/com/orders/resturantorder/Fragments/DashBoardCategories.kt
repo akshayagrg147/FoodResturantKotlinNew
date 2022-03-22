@@ -18,6 +18,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.meetSuccess.Database.CartItems
 import com.meetSuccess.Database.ProductDatabase
@@ -26,6 +27,8 @@ import com.meetSuccess.FoodResturant.Adapter.CategoryHeaderAdapter
 import com.meetSuccess.FoodResturant.Adapter.SearchAdapter
 import com.meetSuccess.FoodResturant.Model.*
 import com.meetSuccess.FoodResturant.Util.ApiState
+import com.orders.resturantorder.Base.AppUtils
+import com.orders.resturantorder.Base.MyDividerItemDecoration
 import com.orders.resturantorder.MainActivity
 import com.orders.resturantorder.R
 import com.orders.resturantorder.databinding.FragmentBlankBinding
@@ -38,10 +41,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 @AndroidEntryPoint
-class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategoriesViewModal>() ,MainActivity.passingInterface {
+class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategoriesViewModal>(),
+    MainActivity.passingInterface {
     private var passingclicwk: passingclick? = null
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var headerpart: CategoryHeaderAdapter
@@ -64,40 +69,27 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     }
 
     public fun SendSearchResponse(param: DashBoardCategories.passingclick) {
-        passingclicwk=param
+        passingclicwk = param
 
     }
 
     private fun onBackPressed() {
-        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true /* enabled by default */) {
-            override fun handleOnBackPressed() {
-                // Handle the back button event
-                NavHostFragment.findNavController(this@DashBoardCategories).navigateUp();
-                return
+        val callback: OnBackPressedCallback =
+            object : OnBackPressedCallback(true /* enabled by default */) {
+                override fun handleOnBackPressed() {
+                    // Handle the back button event
+                    NavHostFragment.findNavController(this@DashBoardCategories).navigateUp();
+                    return
+                }
             }
-        }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     companion object {
-        lateinit var appContext: Context
+
         fun newInstance(): DashBoardCategories {
             return DashBoardCategories()
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        appContext = context
-
-//        if (context is passingclick) {
-//            passingclicwk = context as passingclick
-//        } else {
-////            throw RuntimeException(
-////                context.toString()
-////                        + " must implement OnFragmentInteractionListener"
-////            )
-//        }
     }
 
 
@@ -111,15 +103,13 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
         }
         list = ArrayList()
 
-        initRecyclerviewMeals()
-        initRecyclerview()
+
+
         initSearchRecyclerView()
-        mHomeViewModel.viewModelScope.launch(Dispatchers.Main){
-
-
+        mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
             mHomeViewModel.getCloseButtonStataus().observe(requireActivity(), Observer {
                 fragmentHomeViewBinding!!.scrollview.visibility = View.VISIBLE
-          toolbar_home.visibility=View.VISIBLE
+                toolbar_home.visibility = View.VISIBLE
                 fragmentHomeViewBinding!!.searchlistView.visibility = View.GONE
 
             })
@@ -127,17 +117,17 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
         }
 
-            mHomeViewModel.getSelectedItem().observe(requireActivity(), Observer {
-                val modalclass = SearchingPassingData(it)
-                mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
-                    mHomeViewModel.getCallingSearchApi(modalclass)
-                }
+        mHomeViewModel.getSelectedItem().observe(requireActivity(), Observer {
+            val modalclass = SearchingPassingData(it)
+            mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
+                mHomeViewModel.getCallingSearchApi(modalclass)
+            }
 
-            })
+        })
         mHomeViewModel.getItemClicked().observe(requireActivity(), Observer {
             if (it) {
                 scrollview.visibility = View.VISIBLE
-            toolbar_home.visibility=View.VISIBLE
+                toolbar_home.visibility = View.VISIBLE
                 fragmentHomeViewBinding!!.searchlistView.visibility = View.GONE
             }
 
@@ -149,175 +139,248 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
             mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
                 passingclicwk?.passingvalue(true)
                 scrollview.visibility = View.GONE
-          toolbar_home.visibility=View.VISIBLE
+                toolbar_home.visibility = View.VISIBLE
                 fragmentHomeViewBinding!!.searchlistView.visibility = View.VISIBLE
-            } }
-
-//   CoroutineScope(Dispatchers.IO).launch
-        val parentjob =  mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
-            val headercategory = async {
-
-                mHomeViewModel._postStateFlowHeader.collect { it ->
-                    when (it) {
-                        is ApiState.Loading -> {
-
-                            // framelayout.setVisibility(View.VISIBLE)
-
-                        }
-                        is ApiState.Failure -> {
-                            //framelayout.setVisibility(View.VISIBLE)
-
-                        }
-                        is ApiState.SuccessCategories <*>-> {
-                            val response =
-                                (it.data as CategoriesHeader)
-
-                            //framelayout.setVisibility(View.GONE)
-
-
-                            (appContext as MainActivity).runOnUiThread {
-                                headerpart.setData(response.categories)
-                                shimmer_view_containerheader.isVisible = false
-                                headerpart.notifyDataSetChanged()
-                            }
-//                            ContextCompat.getMainExecutor(appContext).execute {
-//
-//                                // do something
-//                            }
-
-                            recyclerView.post(Runnable { // Call smooth scroll
-                                recyclerView.smoothScrollToPosition(it.data.categories.size - 1);
-                            })
-
-
-                        }
-                        is ApiState.Empty -> {
-
-                        }
-                    }
-                }
             }
+        }
 
 
+        val parentjob = mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
+            val headercategoryR: Pair<*, Any>?
+
+            val lowercategoryR: Pair<*, Any>?
+            val searchingR: Pair<*, Any>?
+            val headercategory = async {
+              gettingResponseForheader()
+            }
             val lowercategory = async {
-                mHomeViewModel._postStateFlowLower.collect { it ->
-                    when (it) {
-                        is ApiState.Loading -> {
-
-                        }
-                        is ApiState.Failure -> {
-
-                        }
-                        is ApiState.SuccessCategories<*> -> {
-                            val response =
-                                (it.data as Categories)
-                          shimmerCategory.isVisible=false
-
-                            (appContext as MainActivity).runOnUiThread {
-                                categoryAdapter.setData(response.categories)
-                                shimmerCategory.isVisible = false
-
-
-                                categoryAdapter.notifyDataSetChanged()
-                            }
-
-
-                        }
-                        is ApiState.Empty -> {
-
-                        }
-                    }
-                }
+                gettingResponseForLower()
             }
             val searching = async {
-                mHomeViewModel._searchStateFlow.collect { it ->
-                    when (it) {
-                        is ApiState.Loading -> {
-
-                        }
-                        is ApiState.Failure -> {
-
-                        }
-                        is ApiState.SuccessCategories<*> -> {
-                            val response =
-                                (it.data as SerchingResponse)
-//                        shimmerCategory.isVisible=false
-                            ContextCompat.getMainExecutor(appContext).execute {
-
-                                val mainViewModel: DashBoardCategoriesViewModal =
-                                    ViewModelProvider((appContext as MainActivity)).get(
-                                        DashBoardCategoriesViewModal::class.java
-                                    )
-                                searchAdapter.setData(response, mainViewModel)
+                searchingResponse()
+            }
+            headercategoryR = try {
+                headercategory.await()
+            } catch (ex: Exception) {
+                null
+            }
 
 
-                                searchAdapter.notifyDataSetChanged()
-                                // do something
-                            }
+            lowercategoryR = try {
+                lowercategory.await()
+            } catch (ex: Exception) {
+                null
+            }
+            searchingR = try {
+                searching.await()
+            } catch (ex: Exception) {
+                null
+            }
+
+
+            if(headercategoryR!!.first==1)
+            {
+                headerpart(headercategoryR.second as List<CategoriesHeader.Category>)
+                shimmer_view_containerheader.isVisible = false
+
+//                recyclerView.post(Runnable { // Call smooth scroll
+//                    recyclerView.smoothScrollToPosition((headercategoryR.second as List<CategoriesHeader.Category>).size - 1);
+//                })
+
+
+            }
+//            if(lowercategoryR!!.first==1)
+//            {
+//                lowerpart(headercategoryR.second as List<Categories.Category>)
+//                shimmer_view_containerheader.isVisible = false
+//
+////                recyclerView.post(Runnable { // Call smooth scroll
+////                    recyclerView.smoothScrollToPosition((headercategoryR.second as List<CategoriesHeader.Category>).size - 1);
+////                })
+//
+//
+//            }
+//            if(searchingR!!.first==1)
+//            {
+//                ContextCompat.getMainExecutor(getBaseActivity()).execute {
+//
+//
+//                    searchAdapter.setData(searchingR.second as SerchingResponse, mHomeViewModel)
+//
+//
+//                    searchAdapter.notifyDataSetChanged()
+//                    // do something
+//                }
 //                            appContext .runOnUiThread {
 //
 //                            }
 
-
-                        }
-                        is ApiState.Empty -> {
-
-                        }
-                    }
-                }
-            }
-
-            ////  headercategory.await()
-            searching.await()
-            print("both api get called")
-
-
+      //      }
         }
+
         parentjob.invokeOnCompletion { print("api call completion") }
     }
 
-    private fun initRecyclerviewMeals() {
-        headerpart = CategoryHeaderAdapter(ArrayList(), requireContext())
-        recyclerView.apply {
-            setHasFixedSize(true)
+    suspend fun searchingResponse(): Pair<*, Any> {
+        return withContext(Dispatchers.IO) {
+            var msg: Pair<Int, Any>
+            msg = Pair(0, "")
+            mHomeViewModel._searchStateFlow.collect { it ->
+             msg=   when (it) {
+                    is ApiState.Loading -> {
+                        Pair(0, "")
+                    }
+                    is ApiState.Failure -> {
+                        Pair(0, "")
+                    }
+                    is ApiState.SuccessCategories<*> -> {
 
-            //animation
-            val list = listOf(
-                R.anim.layout_animation_fall_down,
-                R.anim.layout_animation_from_bottom,
-                R.anim.layout_animation_from_left,
-                R.anim.layout_animation_from_right
-            )
-            val animation = AnimationUtils.loadLayoutAnimation(context, list.random())
-            layoutAnimation = animation
-            scheduleLayoutAnimation()
+                        val response =
+                            (it.data as SerchingResponse)
+                        Pair(1, response)
+//                        shimmerCategory.isVisible=false
 
-            layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
-            adapter = headerpart
 
+                    }
+                    is ApiState.Empty -> {
+                        Pair(0, "")
+
+                    }
+                }
+            }
+            return@withContext msg
         }
     }
 
-    private fun initRecyclerview() {
-        categoryAdapter =
-            CategoryAdapter(ArrayList(), requireContext())
-        fragmentHomeViewBinding!!.recyclerCategory.apply {
-            setHasFixedSize(true)
-            //animation
-            val list = listOf(
-                R.anim.layout_animation_fall_down,
-                R.anim.layout_animation_from_bottom,
-                R.anim.layout_animation_from_left,
-                R.anim.layout_animation_from_right
-            )
-            val animation = AnimationUtils.loadLayoutAnimation(context, list.random())
-            layoutAnimation = animation
-            scheduleLayoutAnimation()
+    suspend fun gettingResponseForLower(): Pair<*, Any> {
+        return withContext(Dispatchers.IO) {
+            val msg: Pair<Int, Any>
+            msg = Pair(0, "")
+            mHomeViewModel._postStateFlowLower.collect { it ->
+                when (it) {
+                    is ApiState.Loading -> {
 
-            layoutManager = GridLayoutManager(requireContext(), 3)
-            adapter = categoryAdapter
+                    }
+                    is ApiState.Failure -> {
+                        //showMessageOKCancel("Apistate faliure", { dialog, _ -> dialog.dismiss() }, false)
+                    }
+                    is ApiState.SuccessCategories<*> -> {
+                        val response =
+                            (it.data as Categories)
+
+
+                        getBaseActivity()?.runOnUiThread {
+
+
+                            lowerpart(response.categories as List<Categories.Category>)
+                            shimmerCategory.isVisible = false
+                        }
+
+
+                    }
+                    is ApiState.Empty -> {
+
+                    }
+                }
+            }
+            msg
         }
     }
+
+    suspend fun gettingResponseForheader(): Pair<*, Any> {
+
+        return withContext(Dispatchers.IO) {
+            var msg: Pair<Int, Any>
+            msg = Pair(0, "")
+            mHomeViewModel._postStateFlowHeader.collect { it ->
+                msg= when (it) {
+                    is ApiState.Loading -> {
+                        Pair(0, "")
+                    }
+                    is ApiState.Failure -> {
+                        Pair(0, "")
+
+                    }
+                    is ApiState.SuccessCategories<*> -> {
+                        val response = (it.data as CategoriesHeader)
+                        getBaseActivity()?.runOnUiThread{
+                            headerpart(response.categories as List<CategoriesHeader.Category>)
+                            shimmer_view_containerheader.isVisible = false
+
+                        }
+                        Pair(0, "")
+
+                    }
+                    is ApiState.Empty -> {
+                        Pair(0, "")
+
+                    }
+                }
+
+
+            }
+            msg
+
+        }
+    }
+    private fun headerpart(listAccountData: List<CategoriesHeader.Category>) {
+        AppUtils.setUpRecyclerItemLayout(requireActivity(), fragmentHomeViewBinding!!.recyclerView)
+        headerpart = CategoryHeaderAdapter(listAccountData,requireActivity())
+       // StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
+        fragmentHomeViewBinding!!.recyclerView.adapter = headerpart
+    }
+    private fun lowerpart(listAccountData: List<Categories.Category>) {
+        Log.d("sizeofcategory",listAccountData.size.toString())
+
+        AppUtils.setUpRecyclerItemLayoutStaggered(requireActivity(), fragmentHomeViewBinding!!.recyclerCategory)
+        categoryAdapter = CategoryAdapter(listAccountData,requireActivity())
+      //  fragmentHomeViewBinding!!.recyclerCategory.addItemDecoration(SpaceItemDecorator())
+
+        fragmentHomeViewBinding!!.recyclerCategory.adapter = categoryAdapter
+    }
+//    private fun initRecyclerviewMeals() {
+//        headerpart = CategoryHeaderAdapter(ArrayList(), requireContext())
+//        fragmentHomeViewBinding?.recyclerView.apply {
+//
+//           this?. setHasFixedSize(true)
+//
+//            //animation
+//            val list = listOf(
+//                R.anim.layout_animation_fall_down,
+//                R.anim.layout_animation_from_bottom,
+//                R.anim.layout_animation_from_left,
+//                R.anim.layout_animation_from_right
+//            )
+//            val animation = AnimationUtils.loadLayoutAnimation(context, list.random())
+//            layoutAnimation = animation
+//            scheduleLayoutAnimation()
+//
+//            layoutManager = StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
+//            adapter = headerpart
+//
+//        }
+//    }
+
+//    private fun initRecyclerview() {
+//        categoryAdapter =
+//            CategoryAdapter(ArrayList(), requireContext())
+//        fragmentHomeViewBinding!!.recyclerCategory.apply {
+//            setHasFixedSize(true)
+//            //animation
+//            val list = listOf(
+//                R.anim.layout_animation_fall_down,
+//                R.anim.layout_animation_from_bottom,
+//                R.anim.layout_animation_from_left,
+//                R.anim.layout_animation_from_right
+//            )
+//            val animation = AnimationUtils.loadLayoutAnimation(context, list.random())
+//            layoutAnimation = animation
+//            scheduleLayoutAnimation()
+//
+//            layoutManager = GridLayoutManager(requireContext(), 3)
+//            adapter = categoryAdapter
+//        }
+ //   }
 
 
     private fun initSearchRecyclerView() {
@@ -367,9 +430,8 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     }
 
 
-
     override fun passing(item: String) {
-      Log.d("passing",item)
+        Log.d("passing", item)
     }
 
 }
