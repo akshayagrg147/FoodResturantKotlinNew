@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/afterselectionfragment">
+
+
+    <fragment
+        android:id="@+id/afterselectionfragment"
+        android:name="com.orders.resturantorder.Fragments.AfterSelectionCategoryFragment"
+        android:label="AfterSelectionCategory" >
+
+        <action
+            android:id="@+id/action_afterselectionfragment_to_cartfragment"
+            app:destination="@id/cartfragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartfragment"
+        android:name="com.orders.resturantorder.Fragments.CartFragment"
+        android:label="Cart Fragment" >
+
+        <action
+            app:popUpTo="@id/afterselectionfragment"
+            app:popUpToInclusive="true"
+            app:popUpToSaveState="true"
+            android:id="@+id/action_cartfragment_to_afterselectionfragment"
+            app:destination="@id/afterselectionfragment" />
+    </fragment>
+
+</navigation>
