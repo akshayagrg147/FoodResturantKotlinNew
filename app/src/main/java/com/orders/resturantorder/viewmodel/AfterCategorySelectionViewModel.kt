@@ -20,23 +20,6 @@ class AfterCategorySelectionViewModel @Inject constructor(private val mainReposi
     : BaseViewModel(mainRepository){
 
 
-    private val postStateFlowAfterSelection: MutableStateFlow<ApiState>
-            = MutableStateFlow(ApiState.Empty)
 
-    val _postStateflowAfterSelection: StateFlow<ApiState> = postStateFlowAfterSelection
-
-    //suspend function always called with courtines
-
-    fun getProductsAfterSelection( productid: Int) = viewModelScope.launch {
-        postStateFlowAfterSelection.value = ApiState.Loading
-        mainRepository.getcateogryAfterSelectionMeals(productid)
-                .catch { e->
-                    postStateFlowAfterSelection.value=ApiState.Failure(e)
-                }.collect {
-
-                    data->
-                    postStateFlowAfterSelection.value=ApiState.SuccessCategories(data)
-                }
-    }
 
 }

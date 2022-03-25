@@ -14,9 +14,10 @@ import com.orders.resturantorder.databinding.FragmentMyOrdersBinding
 import com.orders.resturantorder.viewmodel.BaseFragment
 import com.orders.resturantorder.viewmodel.DashBoardCategoriesViewModal
 import com.orders.resturantorder.viewmodel.FragmentMyOrderViewModal
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_my_orders.*
 
-
+@AndroidEntryPoint
 class MyOrdersFragment : BaseFragment<FragmentMyOrdersBinding, FragmentMyOrderViewModal>(){
     private val mHomeViewModel: FragmentMyOrderViewModal by activityViewModels()
     override fun getBindingVariable(): Int = 2
@@ -27,6 +28,7 @@ class MyOrdersFragment : BaseFragment<FragmentMyOrdersBinding, FragmentMyOrderVi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 

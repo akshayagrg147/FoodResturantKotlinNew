@@ -13,4 +13,54 @@
     <color name="blue_200">#4284ed</color>
     <color name="blue_accent_300">#02d5ee</color>
     <color name="gold">#FFD770</color>
+    <color name="purple_200">@color/windows_blue</color>
+    <color name="purple_500">#1c3144</color>
+    <color name="purple_700">#1c3144</color>
+    <color name="teal_200">#0f9ca9</color>
+    <color name="teal_700">#FF018786</color>
+
+    <color name="pale_red">#d85531</color>
+
+    <color name="login_bg">#f1f5fb</color>
+
+
+
+    <color name="charcoal_grey">#3c4852</color>
+    <color name="main_bg">#f6f8fb</color>
+    <color name="windows_blue">#0f9ca9</color>
+    <color name="windows_blue_">#3382bb</color>
+    <color name="divider_grey">#e9e8e7</color>
+    <color name="dark_blue_">#385d7e</color>
+
+    <color name="silver_white">#e9e8e7</color>
+    <color name="pale_white">#f6f8fb</color>
+    <color name="shamrock_green">#00af66</color>
+    <color name="tomato_red">#df2e2e</color>
+    <color name="greyish">#ababab</color>
+    <color name="dusty_orange">#f3633f</color>
+    <color name="transparent_dusty_orange">#51F3633F</color>
+    <color name="pale_grey">#f6f8fb</color>
+    <color name="pinkish_grey">#c4c4c4</color>
+    <color name="pale_grey_two">#f6f8fb</color>
+    <color name="squash">#f6b719</color>
+    <color name="Green">#00af66</color>
+    <color name="Orange">#0f9ca9</color>
+    <color name="Red">#d85531</color>
+    <color name="Blue">#3382bb</color>
+    <color name="light_yellow">#fff3d1</color>
+    <color name="transparent_windows_blue">#e1edf5</color>
+    <color name="sky_blue">#ebf3f9</color>
+
+    <color name="charcol_Grey">#3c4852</color>
+    <color name="disabled_grey">#f3f3f3</color>
+    <color name="search_grey">#281C3144</color>
+    <color name="windows_blue_bordered">#263382bb</color>
+    <color name="windows_blue_border">#D8E8F6</color>
+    <color name="light_red">#D7F9D5D5</color>
+    <color name="light_blue">#4A6CCAD3</color>
+    <color name="transparent">#00000000</color>
+    <color name="blue_light">#328DD5</color>
+    <color name="black_light">#afafaf</color>
+    <color name="light_pink">#fbeeea</color>
+    <color name="light_water_blue">#e7f5f6</color>
 </resources>

@@ -52,24 +52,21 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
         database= ProductDatabase.getInstance(requireContext())
         view.findViewById<TextView>(R.id.reply_textview).setOnClickListener {
 
-            database.contactDao().getAllAddress().observe(requireActivity(),{
-                if((it!=null)&&(it.size>0))
-                {
+            database.contactDao().getAllAddress().observe(requireActivity()
+            ) {
+                if ((it != null) && (it.size > 0)) {
                     val intent = Intent(requireContext(), ProceedToAddress::class.java);
                     this.startActivity(intent);
 
-                }
-                else
-                {
+                } else {
                     val intent = Intent(requireContext(), AddNewAddressActivity::class.java);
                     this.startActivity(intent);
                 }
 
             }
-            )
         }
         // initRecyclerview()
-        database.contactDao().getTotalProductItems().observe(viewLifecycleOwner,{
+        database.contactDao().getTotalProductItems().observe(viewLifecycleOwner){
             if(it!=null) {
                 totalquantity.setText(it.toString())
                 if (it <= 0) {
@@ -98,35 +95,35 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
             }
 
 
-        })
+        }
 
     }
 
     private fun callingIfItemThere() {
-        database.contactDao().getTotalPrice().observe(viewLifecycleOwner,{
-            if(it!=null) {
-                val totaltaxvalue=it-10;
-                priceAmount.setText("₹$it")
-                item_total_price1.setText("₹$it")
-                item_total_price1.setText("₹"+totaltaxvalue)
-                toPay_amount1.setText((it+totaltaxvalue+12).toString())
+        database.contactDao().getTotalPrice().observe(viewLifecycleOwner) {
+            if (it != null) {
+                val totaltaxvalue = it - 10;
+                priceAmount.text = "₹$it"
+                item_total_price1.text = "₹$it"
+                item_total_price1.text = "₹" + totaltaxvalue
+                toPay_amount1.text = (it + totaltaxvalue + 12).toString()
             }
 
-        })
+        }
 
 
-        database.contactDao().getContact().observe(viewLifecycleOwner,{
-            categorySelectAdapter= CartItemssAdapter(it,this,database)
+        database.contactDao().getContact().observe(viewLifecycleOwner) {
+            categorySelectAdapter = CartItemssAdapter(it, this, database)
 
             //  binding.recyclerCategory.isVisible = true
             //  binding.shimmerCategoryListItems.shimmerCategory.isVisible = false
 
             recyclerCategory.apply {
                 setHasFixedSize(true)
-                layoutManager= LinearLayoutManager(requireContext())
-                adapter=categorySelectAdapter
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = categorySelectAdapter
             }
-        })
+        }
     }
 
     override fun onCreateView(

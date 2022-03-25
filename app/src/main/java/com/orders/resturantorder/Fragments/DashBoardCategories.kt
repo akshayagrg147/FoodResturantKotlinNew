@@ -60,10 +60,19 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     lateinit var list: ArrayList<String>
     lateinit var searchAdapter: SearchAdapter
 
+    var con: Context?=null
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        con=context
+    }
 
+    override fun onDetach() {
+        super.onDetach()
+        con=null
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        database = ProductDatabase.getInstance(requireContext())
+        database = ProductDatabase.getInstance(con!!)
         onBackPressed()
 
     }
@@ -96,7 +105,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         fragmentHomeViewBinding = getViewDataBinding()
-        (requireActivity() as MainActivity?)?.setOnPassingListner(this)
+        (con!! as MainActivity?)?.setOnPassingListner(this)
         if (arguments != null) {
             val str: String = requireArguments().getString("typeDataSend").toString()
             Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
@@ -324,16 +333,16 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
         }
     }
     private fun headerpart(listAccountData: List<CategoriesHeader.Category>) {
-        AppUtils.setUpRecyclerItemLayout(requireActivity(), fragmentHomeViewBinding!!.recyclerView)
-        headerpart = CategoryHeaderAdapter(listAccountData,requireActivity())
+        AppUtils.setUpRecyclerItemLayout(con!!, fragmentHomeViewBinding!!.recyclerView)
+        headerpart = CategoryHeaderAdapter(listAccountData,con!!)
        // StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
         fragmentHomeViewBinding!!.recyclerView.adapter = headerpart
     }
     private fun lowerpart(listAccountData: List<Categories.Category>) {
         Log.d("sizeofcategory",listAccountData.size.toString())
 
-        AppUtils.setUpRecyclerItemLayoutStaggered(requireActivity(), fragmentHomeViewBinding!!.recyclerCategory)
-        categoryAdapter = CategoryAdapter(listAccountData,requireActivity())
+        AppUtils.setUpRecyclerItemLayoutStaggered(con!!, fragmentHomeViewBinding!!.recyclerCategory)
+        categoryAdapter = CategoryAdapter(listAccountData,con!!)
       //  fragmentHomeViewBinding!!.recyclerCategory.addItemDecoration(SpaceItemDecorator())
 
         fragmentHomeViewBinding!!.recyclerCategory.adapter = categoryAdapter
@@ -385,7 +394,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
     private fun initSearchRecyclerView() {
         searchAdapter =
-            SearchAdapter(ArrayList(), requireContext(), object : SearchAdapter.onclick {
+            SearchAdapter(ArrayList(), con!!, object : SearchAdapter.onclick {
                 override fun itemclicked(
                     value: Boolean,
                     item: SerchingResponse.SearchResponseModal
@@ -418,7 +427,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
             })
         fragmentHomeViewBinding!!.searchlistView.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = LinearLayoutManager(con!!)
             adapter = searchAdapter
         }
     }
