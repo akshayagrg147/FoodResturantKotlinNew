@@ -10,6 +10,7 @@ import android.widget.SearchView
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -26,6 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
     //,DashBoardCategories.passingclick
+    private lateinit var connectivityLiveData:ConnectivityLiveData
 
 
 
@@ -52,29 +54,43 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mActivityMainBinding = getViewDataBinding()
-        dashboard.SendSearchResponse(object :DashBoardCategories.passingclick{
-            override fun passingvalue(boolean: Boolean) {
-                Log.d("clling","callll")
-                     if(boolean)
-     {
-         supportActionBar!!.show();
-         supportActionBar!!.setDisplayShowTitleEnabled(true);
-         view.isIconifiedByDefault = true;
-         view.isFocusable = true;
-         view.isIconified = false;
-         mActivityMainBinding.bottombar.visibility=View.GONE
-         view.requestFocusFromTouch();
+        connectivityLiveData= ConnectivityLiveData(application)
+        connectivityLiveData.observe(this, Observer {isAvailable->
+            when(isAvailable)
+            {
+                true->{
+                    Navigation.findNavController(view).popBackStack()
+                }
+                false->{
 
-     }
+                }
             }
-
         })
+
+//        dashboard.SendSearchResponse(object :DashBoardCategories.passingclick{
+//            override fun passingvalue(boolean: Boolean) {
+//                Log.d("clling","callll")
+//                     if(boolean)
+//     {
+//         supportActionBar!!.show();
+//         supportActionBar!!.setDisplayShowTitleEnabled(true);
+//         view.isIconifiedByDefault = true;
+//         view.isFocusable = true;
+//         view.isIconified = false;
+//         mActivityMainBinding.bottombar.visibility=View.GONE
+//         view.requestFocusFromTouch();
+//
+//     }
+//            }
+//
+//        })
 
 
         database= ProductDatabase.getInstance(this@MainActivity)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+        setupActionBarWithNavController(navController)
         mActivityMainBinding.bottombar.setupWithNavController(navController)
 
 
@@ -136,10 +152,11 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
                     return false
                 }
                 override fun onQueryTextChange(newText: String): Boolean {
+                    delegate.passing(newText)
 
 
                     Log.d("calling","callingdone")
-                    mainViewModel?.passingValue(newText)
+//                    mainViewModel?.passingValue(newText)
 
 
                    // passingSearchObject.sendingText(newText)
@@ -184,17 +201,17 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
         public fun passing(item: String)
     }
 
-//    override fun passingvalue(boolean: Boolean) {
-//     if(boolean)
-//     {
-//         supportActionBar!!.show();
-//         supportActionBar!!.setDisplayShowTitleEnabled(false);
-//         view.isIconifiedByDefault = true;
-//         view.isFocusable = true;
-//         view.isIconified = false;
-//         mActivityMainBinding.bottombar.visibility=View.GONE
-//         view.requestFocusFromTouch();
-//
-//     }
-//    }
+     fun passingvalue(boolean: Boolean) {
+     if(boolean)
+     {
+         supportActionBar!!.show();
+         supportActionBar!!.setDisplayShowTitleEnabled(false);
+         view.isIconifiedByDefault = true;
+         view.isFocusable = true;
+         view.isIconified = false;
+         mActivityMainBinding.bottombar.visibility=View.GONE
+         view.requestFocusFromTouch();
+
+     }
+    }
 }

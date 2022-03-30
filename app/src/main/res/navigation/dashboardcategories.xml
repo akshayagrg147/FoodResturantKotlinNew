@@ -16,6 +16,33 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_dashBoardCategories_to_afterSelectionCategoryFragment"
+            app:destination="@id/afterSelectionCategoryFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
     </fragment>
+    <fragment
+        android:id="@+id/afterSelectionCategoryFragment"
+        android:name="com.orders.resturantorder.Fragments.AfterSelectionCategoryFragment"
+        android:label="AfterSelectionCategoryFragment" >
+        <action
+            android:id="@+id/action_dashBoardCategories_to_MyOrderFragment"
+            app:destination="@id/MyOrderFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_afterSelectionCategoryFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.orders.resturantorder.Fragments.CartFragment"
+        android:label="CartFragment" />
 
 </navigation>

@@ -1,35 +1,33 @@
 package com.orders.resturantorder.Fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.coroutineScope
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.Navigation
 import com.meetSuccess.Database.CartItems
 import com.meetSuccess.Database.ProductDatabase
-import com.meetSuccess.FoodResturant.Adapter.CategoryAdapter
-import com.meetSuccess.FoodResturant.Model.Categories
 import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
 import com.meetSuccess.FoodResturant.Util.ApiState
+import com.orders.resturantorder.Activity.CartItemss
 import com.orders.resturantorder.Base.AppUtils
 import com.orders.resturantorder.R
 import com.orders.resturantorder.adapter.ListItemsAfterCategorySelectionAdapter
 import com.orders.resturantorder.databinding.FragmentAfterSelectionCategoryBinding
-
 import com.orders.resturantorder.model.BR
 import com.orders.resturantorder.viewmodel.AfterSelectionFragmentViewModal
 import com.orders.resturantorder.viewmodel.BaseFragment
-import com.orders.resturantorder.viewmodel.DashBoardCategoriesViewModal
 import com.rowland.cartcounter.view.CartCounterActionView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -37,11 +35,12 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
+
 @AndroidEntryPoint
 class AfterSelectionCategoryFragment : BaseFragment<FragmentAfterSelectionCategoryBinding, AfterSelectionFragmentViewModal>(){
     private val mHomeViewModel: AfterSelectionFragmentViewModal by activityViewModels()
 
-
+    private  lateinit var actionView:CartCounterActionView
     lateinit var database: ProductDatabase
     override fun getBindingVariable(): Int = BR.viewModel
     override fun getLayoutId(): Int = R.layout.fragment_after_selection_category
@@ -63,8 +62,17 @@ class AfterSelectionCategoryFragment : BaseFragment<FragmentAfterSelectionCatego
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         fragmentHomeViewBinding = getViewDataBinding()
         database= ProductDatabase.getInstance(con!!)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+        if (arguments != null) {
+            val str: String = requireArguments().getString("categoryId").toString()
+            mHomeViewModel.viewModelScope.launch(Dispatchers.Main){
+                mHomeViewModel.sendData(str)
+            }
+            Toast.makeText(context, str, Toast.LENGTH_SHORT).show()
+        }
         //mHomeViewModel.getProductsAfterSelection(Integer.parseInt(mHomeViewModel.stringvalue.value))
         val parentjob= mHomeViewModel.viewModelScope.launch(Dispatchers.Main){
 
@@ -256,6 +264,56 @@ class AfterSelectionCategoryFragment : BaseFragment<FragmentAfterSelectionCatego
         //  fragmentHomeViewBinding!!.recyclerCategory.addItemDecoration(SpaceItemDecorator())
 
         fragmentHomeViewBinding!!.recyclerCategory.adapter = categorySelectAdapter
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        val itemData = menu?.findItem(R.id.action_addcart)
+        actionView = itemData?.actionView as CartCounterActionView
+        actionView.setItemData(menu, itemData)
+        database.contactDao().getTotalProductItems().observe(requireActivity()) {
+            if (it != null)
+                actionView.count = it.toString().toIntOrNull()!!
+            else
+                actionView.count = 0
+        }
+        actionView.setCount(0)
+        super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.cartmenu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+
+        return when(item.itemId){
+            R.id.action_addcart -> {
+                Navigation.findNavController(view!!).navigate(R.id.action_afterSelectionCategoryFragment_to_cartFragment);
+
+//                val intent = Intent(this, CartItemss::class.java);
+//                this.startActivity(intent);
+                true
+
+            }
+            R.id.byPrice-> {
+
+//                Collections.sort(categorySelectAdapter.getData(), object : Comparator() {
+//                    fun compare(o1: Any, o2: Any): Int {
+//                        val p1: cateogryAfterSelectionModal.cateogryAfterSelectionModal1 = o1 as cateogryAfterSelectionModal.cateogryAfterSelectionModal1
+//                        val p2: cateogryAfterSelectionModal.cateogryAfterSelectionModal1 = o2 as cateogryAfterSelectionModal.cateogryAfterSelectionModal1
+//                        return p1.getdprice()!!.compareTo(p2.getdprice()?)
+//                    }
+//                })
+
+
+                true
+
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 

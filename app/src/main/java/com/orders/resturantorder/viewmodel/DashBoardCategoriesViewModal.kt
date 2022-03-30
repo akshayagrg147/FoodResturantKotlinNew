@@ -1,5 +1,6 @@
 package com.orders.resturantorder.viewmodel
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -76,11 +77,12 @@ class DashBoardCategoriesViewModal @Inject constructor(private val mainRepositor
 
 
 
-   suspend fun <T:Any>getCallingSearchApi(searchingPassingData: T) = withContext(Dispatchers.IO){
+   suspend fun getCallingSearchApi(searchingPassingData: String) = withContext(Dispatchers.IO){
         searchResult.value = ApiState.Loading
         mainRepository.SearchProductPassingString(searchingPassingData)
             .catch { e->
                 searchResult.value= ApiState.Failure(e)
+                Log.d("passing","fail"+e.message)
             }.collect {
                     data->
                 searchResult.value= ApiState.SuccessCategories(data)

@@ -2,12 +2,14 @@ package com.meetSuccess.FoodResturant.Adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.orders.resturantorder.R
 
@@ -39,12 +41,15 @@ class CategoryAdapter(private var categories1: List<Categories.Category>, val co
         holder.itemView.setOnClickListener{
 Toast.makeText(context,categories1.get(position).getIdCategory().toString(),Toast.LENGTH_SHORT).show()
 
+            val bundle = Bundle()
+            bundle.putString("categoryId", categories1.get(position).getIdCategory().toString())
+            Navigation.findNavController(it).navigate(R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,bundle);
 
-            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
-            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
-
-
-            context.startActivity(intent);
+//            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
+//            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
+//
+//
+//            context.startActivity(intent);
 
         }
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -47,7 +48,7 @@ import kotlinx.coroutines.withContext
 @AndroidEntryPoint
 class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategoriesViewModal>(),
     MainActivity.passingInterface {
-    private var passingclicwk: passingclick? = null
+
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var headerpart: CategoryHeaderAdapter
     private val mHomeViewModel: DashBoardCategoriesViewModal by viewModels()
@@ -66,21 +67,26 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
         con=context
     }
 
+    override fun onResume() {
+        super.onResume()
+
+    }
+
     override fun onDetach() {
         super.onDetach()
         con=null
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         database = ProductDatabase.getInstance(con!!)
+
         onBackPressed()
 
-    }
-
-    public fun SendSearchResponse(param: DashBoardCategories.passingclick) {
-        passingclicwk = param
 
     }
+
+
 
     private fun onBackPressed() {
         val callback: OnBackPressedCallback =
@@ -104,6 +110,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
         fragmentHomeViewBinding = getViewDataBinding()
         (con!! as MainActivity?)?.setOnPassingListner(this)
         if (arguments != null) {
@@ -127,12 +134,15 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
         }
 
         mHomeViewModel.getSelectedItem().observe(requireActivity(), Observer {
-            val modalclass = SearchingPassingData(it)
-            mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
-                mHomeViewModel.getCallingSearchApi(modalclass)
-            }
+            Log.d("calling","callingdone   "+it)
 
-        })
+            val modalclass = SearchingPassingData(it)
+//            mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
+//                mHomeViewModel.getCallingSearchApi(modalclass)
+//            }
+//
+        }
+      )
         mHomeViewModel.getItemClicked().observe(requireActivity(), Observer {
             if (it) {
                 scrollview.visibility = View.VISIBLE
@@ -146,7 +156,8 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
         fragmentHomeViewBinding!!.cardSearch.setOnClickListener {
             mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
-                passingclicwk?.passingvalue(true)
+
+                (requireActivity() as MainActivity).passingvalue(true)
                 scrollview.visibility = View.GONE
                 toolbar_home.visibility = View.VISIBLE
                 fragmentHomeViewBinding!!.searchlistView.visibility = View.VISIBLE
@@ -154,7 +165,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
         }
 
 
-        val parentjob = mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
+        val parentjob = mHomeViewModel.viewModelScope.launch(Dispatchers.IO) {
             val headercategoryR: Pair<*, Any>?
 
             val lowercategoryR: Pair<*, Any>?
@@ -209,22 +220,20 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 //
 //
 //            }
-//            if(searchingR!!.first==1)
-//            {
-//                ContextCompat.getMainExecutor(getBaseActivity()).execute {
-//
-//
-//                    searchAdapter.setData(searchingR.second as SerchingResponse, mHomeViewModel)
-//
-//
-//                    searchAdapter.notifyDataSetChanged()
-//                    // do something
-//                }
-//                            appContext .runOnUiThread {
-//
-//                            }
+            if(searchingR!!.first==1)
+            {
+                ContextCompat.getMainExecutor(getBaseActivity()).execute {
 
-      //      }
+
+                    searchAdapter.setData(searchingR.second as SerchingResponse, mHomeViewModel)
+
+
+                    searchAdapter.notifyDataSetChanged()
+                    // do something
+                }
+
+
+            }
         }
 
         parentjob.invokeOnCompletion { print("api call completion") }
@@ -240,12 +249,15 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                         Pair(0, "")
                     }
                     is ApiState.Failure -> {
+                        Log.d("passing", "fail")
                         Pair(0, "")
                     }
-                    is ApiState.SuccessCategories<*> -> {
+                    is ApiState.SuccessCategories<*>-> {
+                        Log.d("passing", "pass")
 
                         val response =
                             (it.data as SerchingResponse)
+                        searchpart(response.searchResponse as List<SerchingResponse.SearchResponseModal>)
                         Pair(1, response)
 //                        shimmerCategory.isVisible=false
 
@@ -255,14 +267,15 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                         Pair(0, "")
 
                     }
-                }
+                 else -> { Pair(0, "")}
+             }
             }
             return@withContext msg
         }
     }
 
     suspend fun gettingResponseForLower(): Pair<*, Any> {
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Main) {
             val msg: Pair<Int, Any>
             msg = Pair(0, "")
             mHomeViewModel._postStateFlowLower.collect { it ->
@@ -278,12 +291,12 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                             (it.data as Categories)
 
 
-                        getBaseActivity()?.runOnUiThread {
+
 
 
                             lowerpart(response.categories as List<Categories.Category>)
                             shimmerCategory.isVisible = false
-                        }
+
 
 
                     }
@@ -298,7 +311,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
     suspend fun gettingResponseForheader(): Pair<*, Any> {
 
-        return withContext(Dispatchers.IO) {
+        return withContext(Dispatchers.Main) {
             var msg: Pair<Int, Any>
             msg = Pair(0, "")
             mHomeViewModel._postStateFlowHeader.collect { it ->
@@ -312,11 +325,12 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                     }
                     is ApiState.SuccessCategories<*> -> {
                         val response = (it.data as CategoriesHeader)
-                        getBaseActivity()?.runOnUiThread{
+
                             headerpart(response.categories as List<CategoriesHeader.Category>)
                             shimmer_view_containerheader.isVisible = false
 
-                        }
+
+
                         Pair(0, "")
 
                     }
@@ -324,6 +338,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                         Pair(0, "")
 
                     }
+                    else ->  Pair(0, "")
                 }
 
 
@@ -347,6 +362,47 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
         fragmentHomeViewBinding!!.recyclerCategory.adapter = categoryAdapter
     }
+    private fun searchpart(listAccountData: List<SerchingResponse.SearchResponseModal>) {
+        AppUtils.setUpRecyclerItemLayout(con!!, fragmentHomeViewBinding!!.searchlistView)
+
+        searchAdapter =
+            SearchAdapter(listAccountData, con!!, object : SearchAdapter.onclick {
+                override fun itemclicked(
+                    value: Boolean,
+                    item: SerchingResponse.SearchResponseModal
+                ) {
+                    if (value) {
+                        val intger: Int = database.contactDao()
+                            .getProductBasedIdCount(item.getidMeal().toString())
+                        if (intger == 0) {
+                            database.contactDao()
+                                .insertCartItem(
+                                    CartItems(
+                                        item.getidMeal().toString(),
+                                        item.getstrimage(),
+                                        intger + 1,
+                                        Integer.parseInt(item.getsale_price()),
+                                        item.getstrname()
+                                    )
+                                )
+
+                        } else if (intger >= 1) {
+
+                            database.contactDao()
+                                .updateCartItem(intger + 1, item.getidMeal().toString())
+                        }
+                        mHomeViewModel.itemclicked(true)
+                    }
+
+                }
+
+            })
+        // StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
+        fragmentHomeViewBinding!!.recyclerView.adapter = searchAdapter
+
+
+    }
+
 //    private fun initRecyclerviewMeals() {
 //        headerpart = CategoryHeaderAdapter(ArrayList(), requireContext())
 //        fragmentHomeViewBinding?.recyclerView.apply {
@@ -433,14 +489,16 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     }
 
 
-    interface passingclick {
-        public fun passingvalue(boolean: Boolean)
 
-    }
 
 
     override fun passing(item: String) {
-        Log.d("passing", item)
+        mHomeViewModel.viewModelScope.launch(Dispatchers.IO){
+            mHomeViewModel.getCallingSearchApi(item)
+
+        }
+
+
     }
 
 }
