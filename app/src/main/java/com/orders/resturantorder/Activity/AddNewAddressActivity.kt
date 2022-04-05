@@ -1,21 +1,18 @@
 package com.orders.resturantorder.Activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBar
-import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.coroutineScope
 import com.meetSuccess.Database.AddressItems
 import com.meetSuccess.Database.ProductDatabase
 import com.orders.resturantorder.Base.BaseActivity
 import com.orders.resturantorder.R
 import com.orders.resturantorder.databinding.ActivityAddNewAddressBinding
-import com.orders.resturantorder.databinding.ActivityMainBinding
-import com.orders.resturantorder.viewmodel.Mainactivityviewmodel
+import com.orders.resturantorder.viewmodel.AddNewAddressViewModal
 import kotlinx.coroutines.launch
 
 class AddNewAddressActivity  : BaseActivity<ActivityAddNewAddressBinding, AddNewAddressViewModal>(){

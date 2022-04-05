@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_proceed_to_address2.*
 @AndroidEntryPoint
 class ProceedToAddress :  AppCompatActivity(),AddressItemssAdapter.AddressChosen{
     lateinit var database: ProductDatabase
-    lateinit var ListAddress: List<AddressItems>
+    private lateinit var ListAddress: List<AddressItems>
     lateinit var addnewaddress:TextView
     lateinit var confirmorder:TextView
 
@@ -51,19 +51,19 @@ class ProceedToAddress :  AppCompatActivity(),AddressItemssAdapter.AddressChosen
         // initRecyclerview()
 
 
-        database.contactDao().getAllAddress().observe(this@ProceedToAddress,{
-            ListAddress=it
-            categorySelectAdapter= AddressItemssAdapter(it,this)
+        database.contactDao().getAllAddress().observe(this@ProceedToAddress) {
+            ListAddress = it
+            categorySelectAdapter = AddressItemssAdapter(it, this)
 
-          recyclerCategory.isVisible = true
+            recyclerCategory.isVisible = true
             //  binding.shimmerCategoryListItems.shimmerCategory.isVisible = false
 
-          recyclerCategory.apply {
+            recyclerCategory.apply {
                 setHasFixedSize(true)
-                layoutManager= LinearLayoutManager(this@ProceedToAddress)
-                adapter=categorySelectAdapter
+                layoutManager = LinearLayoutManager(this@ProceedToAddress)
+                adapter = categorySelectAdapter
             }
-        })
+        }
 
 
     }

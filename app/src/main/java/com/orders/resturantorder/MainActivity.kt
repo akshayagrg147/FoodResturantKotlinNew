@@ -54,18 +54,18 @@ class MainActivity : BaseActivity<ActivityMainBinding,Mainactivityviewmodel>(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mActivityMainBinding = getViewDataBinding()
-        connectivityLiveData= ConnectivityLiveData(application)
-        connectivityLiveData.observe(this, Observer {isAvailable->
-            when(isAvailable)
-            {
-                true->{
-                    Navigation.findNavController(view).popBackStack()
-                }
-                false->{
-
-                }
-            }
-        })
+//        connectivityLiveData= ConnectivityLiveData(application)
+//        connectivityLiveData.observe(this, Observer {isAvailable->
+//            when(isAvailable)
+//            {
+//                true->{
+//                    Navigation.findNavController(view).popBackStack()
+//                }
+//                false->{
+//
+//                }
+//            }
+//        })
 
 //        dashboard.SendSearchResponse(object :DashBoardCategories.passingclick{
 //            override fun passingvalue(boolean: Boolean) {

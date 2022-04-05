@@ -1,4 +1,4 @@
-package com.orders.resturantorder.Activity
+package com.orders.resturantorder.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

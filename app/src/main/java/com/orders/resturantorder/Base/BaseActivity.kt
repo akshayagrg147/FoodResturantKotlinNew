@@ -21,6 +21,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.navigation.NavController
 import com.google.android.material.snackbar.Snackbar
 import com.orders.resturantorder.R
+import com.orders.resturantorder.Util.AppUtils
 import com.orders.resturantorder.viewmodel.BaseFragment
 
 

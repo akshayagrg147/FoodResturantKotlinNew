@@ -1,4 +1,4 @@
-package com.orders.resturantorder.Base
+package com.orders.resturantorder.Util
 
 import android.R
 import android.content.Context

@@ -1,11 +1,8 @@
-package com.orders.resturantorder.Base
+package com.orders.resturantorder.Util
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
-import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -21,9 +18,6 @@ import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.PermissionChecker
 import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager

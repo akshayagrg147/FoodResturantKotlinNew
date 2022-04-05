@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -14,13 +13,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.NavHostFragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.meetSuccess.Database.CartItems
 import com.meetSuccess.Database.ProductDatabase
 import com.meetSuccess.FoodResturant.Adapter.CategoryAdapter
@@ -28,8 +23,7 @@ import com.meetSuccess.FoodResturant.Adapter.CategoryHeaderAdapter
 import com.meetSuccess.FoodResturant.Adapter.SearchAdapter
 import com.meetSuccess.FoodResturant.Model.*
 import com.meetSuccess.FoodResturant.Util.ApiState
-import com.orders.resturantorder.Base.AppUtils
-import com.orders.resturantorder.Base.MyDividerItemDecoration
+import com.orders.resturantorder.Util.AppUtils
 import com.orders.resturantorder.MainActivity
 import com.orders.resturantorder.R
 import com.orders.resturantorder.databinding.FragmentBlankBinding

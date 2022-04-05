@@ -1,4 +1,4 @@
-package com.orders.resturantorder.Activity
+package com.orders.resturantorder.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class ProceedToAddressViewModal @Inject constructor(private val mainRepository: RetroRepository)
+class SplashScreenViewModal @Inject constructor(mainRepository: RetroRepository)
     : BaseViewModel(mainRepository){
 
 }

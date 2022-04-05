@@ -1,7 +1,6 @@
 package com.orders.resturantorder.Fragments
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -20,8 +19,7 @@ import com.meetSuccess.Database.CartItems
 import com.meetSuccess.Database.ProductDatabase
 import com.meetSuccess.FoodResturant.Model.cateogryAfterSelectionModal
 import com.meetSuccess.FoodResturant.Util.ApiState
-import com.orders.resturantorder.Activity.CartItemss
-import com.orders.resturantorder.Base.AppUtils
+import com.orders.resturantorder.Util.AppUtils
 import com.orders.resturantorder.R
 import com.orders.resturantorder.adapter.ListItemsAfterCategorySelectionAdapter
 import com.orders.resturantorder.databinding.FragmentAfterSelectionCategoryBinding

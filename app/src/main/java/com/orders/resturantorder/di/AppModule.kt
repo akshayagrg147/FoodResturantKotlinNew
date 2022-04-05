@@ -14,6 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 
+//SingletonComponent remains until start your application and end with your application
+
+
 @Module
 @InstallIn(SingletonComponent::class)
 class AppModule {
