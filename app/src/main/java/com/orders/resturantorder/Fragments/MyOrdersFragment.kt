@@ -28,8 +28,6 @@ class MyOrdersFragment : BaseFragment<FragmentMyOrdersBinding, FragmentMyOrderVi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
     }
 
 

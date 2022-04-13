@@ -25,7 +25,8 @@ import com.orders.resturantorder.Util.AppUtils
 import com.orders.resturantorder.viewmodel.BaseFragment
 
 
-abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatActivity(),BaseFragment.Callback{
+abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatActivity(),
+    BaseFragment.Callback {
 
     var mProgressDialog: Dialog? = null
     private lateinit var mViewDataBinding: T
@@ -59,7 +60,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
     fun showLoading() {
         if (isNetworkConnected()) {
             hideLoading()
-         //   mProgressDialog = AppUtils.showLoadingDialog(this)
+            //   mProgressDialog = AppUtils.showLoadingDialog(this)
         } else {
             redSnackBar()
         }
@@ -110,7 +111,7 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
         if (message != null) {
             showSnackBar(message)
         } else {
-           // showSnackBar(getString(R.string.some_error))
+            // showSnackBar(getString(R.string.some_error))
         }
     }
 
@@ -180,10 +181,12 @@ abstract class BaseActivity<T : ViewDataBinding, V : BaseViewModel> : AppCompatA
         okListener: DialogInterface.OnClickListener,
         cancelButton: Boolean
     ) {
-       val dialog = AlertDialog.Builder(this)
-            dialog.setMessage(message).setPositiveButton("OK", okListener)
-            if (cancelButton) { dialog.setNegativeButton("Cancel", null) }
-            dialog.create().show()
+        val dialog = AlertDialog.Builder(this)
+        dialog.setMessage(message).setPositiveButton("OK", okListener)
+        if (cancelButton) {
+            dialog.setNegativeButton("Cancel", null)
+        }
+        dialog.create().show()
     }
 
 //    fun showActionSheet(title: String, msg: String, actionList: List<ActionItem>) {

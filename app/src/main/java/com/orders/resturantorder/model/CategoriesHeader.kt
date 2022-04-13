@@ -16,9 +16,9 @@ data class CategoriesHeader(
             @SerializedName("id")
             private val idCategory: Int,
             @SerializedName("name")
-            private val name: String,
+             val name: String,
             @SerializedName("product_category_id")
-            private val product_category_id: String,
+            public val product_category_id: String,
             @SerializedName("price")
             private val price: String ,
 
@@ -26,7 +26,7 @@ data class CategoriesHeader(
             private val description: String ,
 
             @SerializedName("image")
-            private var image: String,
+             var image: String,
 
             @SerializedName("created_at")
             private var created_at: String,
@@ -37,34 +37,7 @@ data class CategoriesHeader(
 
 
     )
-    {
-        fun getIdCategory(): String {
-            return product_category_id
-        }
 
-
-
-        fun getname(): String {
-            return name
-        }
-
-
-
-        fun getdescription(): String {
-            return description
-        }
-        fun getPrice(): String {
-            return description
-        }
-
-
-
-        fun getStrimage(): String {
-            return image
-        }
-
-
-    }
 
 }
 

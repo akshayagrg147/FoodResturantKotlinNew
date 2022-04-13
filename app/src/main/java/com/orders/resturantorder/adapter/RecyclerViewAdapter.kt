@@ -9,7 +9,7 @@ import com.orders.resturantorder.R
 import com.orders.resturantorder.model.RepositoryData
 import kotlinx.android.synthetic.main.reporitory_list_row.view.*
 
-class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
+class RecyclerViewAdapter() : RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder>() {
 
     private var listData: List<RepositoryData>? = null
     fun setListData(listData: List<RepositoryData>?) {
@@ -20,7 +20,8 @@ class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.MyViewHold
         parent: ViewGroup,
         viewType: Int
     ): RecyclerViewAdapter.MyViewHolder {
-        val view  = LayoutInflater.from(parent.context).inflate(R.layout.reporitory_list_row, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.reporitory_list_row, parent, false)
 
         return MyViewHolder(view)
     }
@@ -30,12 +31,12 @@ class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.MyViewHold
     }
 
     override fun getItemCount(): Int {
-        if(listData == null )return 0
+        if (listData == null) return 0
         return listData?.size!!
     }
 
-   inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-       fun bind(data: RepositoryData) {
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(data: RepositoryData) {
             itemView.tvName.text = data.name
             itemView.tvDesc.text = data.description
 

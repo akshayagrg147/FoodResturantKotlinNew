@@ -40,10 +40,9 @@ import java.util.concurrent.TimeUnit
 
 
 @AndroidEntryPoint
-class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBinding, MobileNumberIntegrationViewModel>(){
+class MobileNumberIntegration :
+    BaseActivity<ActivityMobileNumberIntegrationBinding, MobileNumberIntegrationViewModel>() {
     //,DashBoardCategories.passingclick
-
-
     private lateinit var mActivityMainBinding: ActivityMobileNumberIntegrationBinding
 
     private val mainViewModel: MobileNumberIntegrationViewModel by viewModels()
@@ -56,7 +55,8 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
     private var verificationId: String? = null
     private var firebaseAuth: FirebaseAuth? = null
     private var progressBar: ProgressBar? = null
-//    private var editText: EditText? = null
+
+    //    private var editText: EditText? = null
     private var phonenumber: String? = null
 
 
@@ -67,56 +67,59 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mActivityMainBinding = getViewDataBinding()
-       // getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-       // getActionBar()?.hide();
+        // getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        // getActionBar()?.hide();
 
         firebaseAuth = FirebaseAuth.getInstance()
         progressBar = findViewById(R.id.progressbar)
-       // editText = findViewById(R.id.editTextCode)
+        // editText = findViewById(R.id.editTextCode)
         container_mobileNumber.visibility = View.VISIBLE
         //   profile_info.visibility=View.VISIBLE
 
         val cal = Calendar.getInstance()
 
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-            cal.set(Calendar.YEAR, year)
-            cal.set(Calendar.MONTH, monthOfYear)
-            cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+        val dateSetListener =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
-            val myFormat = "yyyy/MM/dd" // mention the format you need
-            val sdf = SimpleDateFormat(myFormat, Locale.US)
-            dob.text = sdf.format(cal.time)
+                val myFormat = "yyyy/MM/dd" // mention the format you need
+                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                dob.text = sdf.format(cal.time)
 
-        }
+            }
         dob.setOnClickListener {
-            DatePickerDialog(this@MobileNumberIntegration, dateSetListener,
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)).show()
+            DatePickerDialog(
+                this@MobileNumberIntegration, dateSetListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH)
+            ).show()
         }
 
         GetOtp.setOnClickListener {
             if (name_editText.text.isEmpty()) {
                 Toast.makeText(
-                        this@MobileNumberIntegration,
-                        "Name should not be null",
-                        Toast.LENGTH_SHORT
+                    this@MobileNumberIntegration,
+                    "Name should not be null",
+                    Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
 
             } else if (dob.text.isEmpty()) {
                 Toast.makeText(
-                        this@MobileNumberIntegration,
-                        "Name should not be null",
-                        Toast.LENGTH_SHORT
+                    this@MobileNumberIntegration,
+                    "Name should not be null",
+                    Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
 
             } else if (name_editText.text.isEmpty()) {
                 Toast.makeText(
-                        this@MobileNumberIntegration,
-                        "Name should not be null",
-                        Toast.LENGTH_SHORT
+                    this@MobileNumberIntegration,
+                    "Name should not be null",
+                    Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
 
@@ -126,13 +129,18 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
             val gender = findViewById(selected) as RadioButton
             if (gender.isSelected) {
                 Toast.makeText(
-                        this@MobileNumberIntegration,
-                        "Gender should be null",
-                        Toast.LENGTH_SHORT
+                    this@MobileNumberIntegration,
+                    "Gender should be null",
+                    Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
             }
-            val mobileNumberData: MobileNumberPassingData = MobileNumberPassingData(name_editText.text.toString(), gender.text.toString(), phonenumber, dob.text.toString())
+            val mobileNumberData: MobileNumberPassingData = MobileNumberPassingData(
+                name_editText.text.toString(),
+                gender.text.toString(),
+                phonenumber,
+                dob.text.toString()
+            )
 
             mainViewModel!!.SaveUserInformations(mobileNumberData)
 
@@ -171,8 +179,8 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
 
         }
 
-        resendsms.setOnClickListener{
-            sendCode("+91"+phonenumber!!)
+        resendsms.setOnClickListener {
+            sendCode("+91" + phonenumber!!)
         }
         btnSignIn.setOnClickListener {
 
@@ -182,7 +190,7 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
                 return@setOnClickListener
             }
             progressBar!!.visibility = View.VISIBLE
-            btnSignIn.visibility=View.GONE
+            btnSignIn.visibility = View.GONE
             verifyCode(code)
         }
 
@@ -190,11 +198,16 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
 
 
 
-        mActivityMainBinding.spinnerCountries!!.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, CountryData.countryNames)
+        mActivityMainBinding.spinnerCountries!!.adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            CountryData.countryNames
+        )
 
         btnCont.setOnClickListener {
-            val code = CountryData.countryAreaCodes[   mActivityMainBinding.spinnerCountries!!.selectedItemPosition]
-            val number =  mActivityMainBinding.inputMbl!!.text.toString()
+            val code =
+                CountryData.countryAreaCodes[mActivityMainBinding.spinnerCountries!!.selectedItemPosition]
+            val number = mActivityMainBinding.inputMbl!!.text.toString()
 
             if (number.isEmpty() || number.length < 10) {
                 Toast.makeText(this, "Invalid Number", Toast.LENGTH_SHORT).show()
@@ -204,28 +217,23 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
             mActivityMainBinding.waitingsms.visibility = View.VISIBLE
 
             val phnum = number
-            phonenumber =  phnum
-            sendCode("+91"+phonenumber!!)
-
-
+            phonenumber = phnum
+            sendCode("+91" + phonenumber!!)
         }
-
-
     }
-
-
 
     private fun sendCode(number: String) {
 
         PhoneAuthProvider.getInstance()
-                .verifyPhoneNumber(
-                        number,
-                        60,
-                        TimeUnit.SECONDS,
-                      this,
-                        mCallBack
-                )
+            .verifyPhoneNumber(
+                number,
+                60,
+                TimeUnit.SECONDS,
+                this,
+                mCallBack
+            )
     }
+
     private val mCallBack = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
 //        override fun onCodeSent(p0: String?, p1: PhoneAuthProvider.ForceResendingToken?) {
@@ -241,33 +249,29 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
                 mActivityMainBinding.editTextCode!!.setText(code)
                 verifyCode(code)
             }
-            TODO("Not yet implemented")
+
         }
 
         override fun onVerificationFailed(p0: FirebaseException) {
             mActivityMainBinding.editTextCode!!.setText("")
             progressBar!!.visibility = View.GONE
-            btnSignIn.visibility=View.VISIBLE
+            btnSignIn.visibility = View.VISIBLE
 
-            Toast.makeText(this@MobileNumberIntegration, p0?.localizedMessage,Toast.LENGTH_SHORT).show()
-            Log.d("verification","varification faile")
+            Toast.makeText(this@MobileNumberIntegration, p0?.localizedMessage, Toast.LENGTH_SHORT)
+                .show()
+            Log.d("verification", "varification faile")
         }
 
     }
 
 
-
     private fun verifyCode(code: String) {
-        if(verificationId!=null)
-        {
+        if (verificationId != null) {
             val credential = PhoneAuthProvider.getCredential(verificationId!!, code)
             signIn(credential)
-        }
-        else
-        {
+        } else {
             progressBar!!.visibility = View.GONE
-
-            showMessageOKCancel("Maximum tried reached", { dialog, _ ->goToHome()}, false)
+            showMessageOKCancel("Maximum tried reached", { dialog, _ -> goToHome() }, false)
             Toast.makeText(
                 this@MobileNumberIntegration,
                 "Maximum tried reached",
@@ -278,14 +282,14 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
     }
 
     private fun goToHome() {
-        btnSignIn.visibility=View.VISIBLE
+        btnSignIn.visibility = View.VISIBLE
     }
 
     private fun signIn(credential: PhoneAuthCredential) {
         firebaseAuth!!.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
 
-                phoneno_editText.setText("+91"+phonenumber!!)
+                phoneno_editText.setText("+91" + phonenumber!!)
                 mainViewModel?.CheckMobileNumberExist(phonenumber!!)
                 CoroutineScope(Dispatchers.IO).launch {
                     mainViewModel?.mobilenumberCheckFlowstate?.collect { it ->
@@ -295,29 +299,35 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
                             }
                             is ApiState.Failure -> {
 
-                                Log.d("callingtest", "falure"+it.msg)
+                                Log.d("callingtest", "falure" + it.msg)
 
                             }
-                            is ApiState.SuccessCategories <*>-> {
+                            is ApiState.SuccessCategories<*> -> {
                                 val response =
                                     (it.data as MobileNumberExistCheck)
-                                Log.d("callingtest", "falure"+response.existance)
+                                Log.d("callingtest", "falure" + response.existance)
 
                                 if (response.existance) {
-                                    sharedpreferenceCommon(this@MobileNumberIntegration).setUserData(phonenumber!!)
+                                    sharedpreferenceCommon(this@MobileNumberIntegration).setUserData(
+                                        phonenumber!!
+                                    )
 
-                                    startActivity(Intent(this@MobileNumberIntegration, MainActivity::class.java))
+                                    startActivity(
+                                        Intent(
+                                            this@MobileNumberIntegration,
+                                            MainActivity::class.java
+                                        )
+                                    )
                                 } else {
-                                   // profile_info.visibility = View.VISIBLE
-                                    findViewById<RelativeLayout>(R.id.profile_info).visibility = View.VISIBLE
-                                    findViewById<RelativeLayout>(R.id.container_mobileNumber).visibility = View.GONE
-                                   findViewById<RelativeLayout>(R.id.waitingsms).visibility = View.GONE
+                                    // profile_info.visibility = View.VISIBLE
+                                    findViewById<RelativeLayout>(R.id.profile_info).visibility =
+                                        View.VISIBLE
+                                    findViewById<RelativeLayout>(R.id.container_mobileNumber).visibility =
+                                        View.GONE
+                                    findViewById<RelativeLayout>(R.id.waitingsms).visibility =
+                                        View.GONE
 
                                 }
-
-
-
-
                             }
                             is ApiState.Empty -> {
 

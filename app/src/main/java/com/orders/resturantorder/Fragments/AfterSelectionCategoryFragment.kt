@@ -128,34 +128,34 @@ class AfterSelectionCategoryFragment : BaseFragment<FragmentAfterSelectionCatego
 
                     lifecycle.coroutineScope.launch {
                         // database.contactDao().getProductBasedId(1212).observe(this@AfterCategorySelectionActivity,{})
-                        val intger: Int = database.contactDao().getProductBasedIdCount(item.getidMeal().toString())
+                        val intger: Int = database.contactDao().getProductBasedIdCount(item.idMeal.toString())
                         if (intger == 0) {
                             database.contactDao()
                                 .insertCartItem(
                                     CartItems(
-                                        item.getidMeal().toString(),
-                                        item.getstrimage(),
+                                        item.idMeal.toString(),
+                                        item.image,
                                         intger + 1,
-                                        Integer.parseInt(item.getsale_price()),
-                                        item.getstrname()
+                                        Integer.parseInt(item.sale_price),
+                                        item.name
                                     )
                                 )
 
                         } else if (intger >= 1) {
 
                             database.contactDao()
-                                .updateCartItem(intger + 1,  item.getidMeal().toString())
+                                .updateCartItem(intger + 1,  item.idMeal.toString())
                         }
 
-                        Log.d("countis",database.contactDao().getProductBasedIdCount( item.getidMeal().toString()).toString())
+                        Log.d("countis",database.contactDao().getProductBasedIdCount( item.idMeal.toString()).toString())
 
 
                     }
                     database.contactDao().getTotalProductItems()
-                        .observe(requireActivity(), {
-                        //    if (it != null)
-                             //   actionView.count = it.toString().toIntOrNull()!!
-                        })
+                        .observe(requireActivity()) {
+                            //    if (it != null)
+                            //   actionView.count = it.toString().toIntOrNull()!!
+                        }
 //                    val dialog = BottomSheetDialog(this@AfterCategorySelectionActivity)
 //
 //                    val inflater = LayoutInflater.from(this@AfterCategorySelectionActivity)
@@ -195,27 +195,27 @@ class AfterSelectionCategoryFragment : BaseFragment<FragmentAfterSelectionCatego
                 override fun ClickedPlusButton(cartitems: cateogryAfterSelectionModal.cateogryAfterSelectionModal1) {
                     lifecycle.coroutineScope.launch {
                         // database.contactDao().getProductBasedId(1212).observe(this@AfterCategorySelectionActivity,{})
-                        val intger: Int = database.contactDao().getProductBasedIdCount(cartitems.getidMeal().toString())
+                        val intger: Int = database.contactDao().getProductBasedIdCount(cartitems.idMeal.toString())
                         Log.d("jdjdjd",intger.toString());
                         if (intger == 0) {
                             database.contactDao()
                                 .insertCartItem(
                                     CartItems(
-                                        cartitems.getidMeal().toString(),
-                                        cartitems.getstrimage(),
+                                        cartitems.idMeal.toString(),
+                                        cartitems.image,
                                         intger + 1,
-                                        Integer.parseInt(cartitems.getsale_price()),
-                                        cartitems.getstrname()
+                                        Integer.parseInt(cartitems.sale_price),
+                                        cartitems.name
                                     )
                                 )
 
                         } else if (intger >= 1) {
 
                             database.contactDao()
-                                .updateCartItem(intger + 1,  cartitems.getidMeal().toString())
+                                .updateCartItem(intger + 1,  cartitems.idMeal.toString())
                         }
 
-                        Log.d("countis",database.contactDao().getProductBasedIdCount( cartitems.getidMeal().toString()).toString())
+                        Log.d("countis",database.contactDao().getProductBasedIdCount( cartitems.idMeal.toString()).toString())
 
 
                     }
@@ -230,13 +230,13 @@ class AfterSelectionCategoryFragment : BaseFragment<FragmentAfterSelectionCatego
                     lifecycle.coroutineScope.launch {
                         // database.contactDao().getProductBasedId(1212).observe(this@AfterCategorySelectionActivity,{})
 
-                        var intger: Int = database.contactDao().getProductBasedIdCount(cartitems.getidMeal().toString())
+                        var intger: Int = database.contactDao().getProductBasedIdCount(cartitems.idMeal.toString())
 
                         intger=intger - 1
 
                         if(intger>=1) {
                             database.contactDao()
-                                .updateCartItem(intger, cartitems.getidMeal().toString())
+                                .updateCartItem(intger, cartitems.idMeal.toString())
 
 
 
@@ -245,7 +245,7 @@ class AfterSelectionCategoryFragment : BaseFragment<FragmentAfterSelectionCatego
                         else if(intger==0)
                         {
                             database.contactDao()
-                                .deleteCartItem(cartitems.getidMeal().toString())
+                                .deleteCartItem(cartitems.idMeal.toString())
 //                            linearlayout.visibility = View.GONE
 //                            table_invoice.visibility= View.GONE
 //                            linearLayoutButton.visibility = View.GONE

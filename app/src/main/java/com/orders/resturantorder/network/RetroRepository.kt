@@ -9,10 +9,6 @@ import javax.inject.Inject
 
 class RetroRepository @Inject constructor(private val apiServiceImpl: ApiServiceImpl,
                                       ) {
-
-
-
-
     suspend fun getPost(): Flow<CategoriesHeader> = flow {
         emit(apiServiceImpl.getPost())
     }.flowOn(Dispatchers.IO)

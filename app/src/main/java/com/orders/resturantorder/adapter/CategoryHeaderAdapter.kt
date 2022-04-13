@@ -14,14 +14,15 @@ import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.item_recycler_category.view.*
 
 
-class CategoryHeaderAdapter(private var categories1: List<CategoriesHeader.Category>, val context: Context)
-    : RecyclerView.Adapter<CategoryHeaderAdapter.PostViewHolder>() {
-
+class CategoryHeaderAdapter(
+    private var categories1: List<CategoriesHeader.Category>,
+    val context: Context
+) : RecyclerView.Adapter<CategoryHeaderAdapter.PostViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_recycler_category, parent, false)
+            .inflate(R.layout.item_recycler_category, parent, false)
         return PostViewHolder(view)
     }
 
@@ -31,15 +32,19 @@ class CategoryHeaderAdapter(private var categories1: List<CategoriesHeader.Categ
 
 //    override fun getItemCount(): Int = categories1.size
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun OnBind(categories1: CategoriesHeader.Category) {
-            itemView.categoryName.text=categories1.getname()
-            Picasso.get().load(categories1.getStrimage()).placeholder(R.drawable.clock_my_time_in_button)
+            itemView.categoryName.text = categories1.name
+            Picasso.get().load(categories1.image)
+                .placeholder(R.drawable.clock_my_time_in_button)
                 .into(itemView.categoryThumb)
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putString("categoryId", categories1.getIdCategory())
-                Navigation.findNavController(it).navigate(R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,bundle);
+                bundle.putString("categoryId", categories1.product_category_id)
+                Navigation.findNavController(it).navigate(
+                    R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,
+                    bundle
+                );
 
 //            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
 //            intent.putExtra("categoryId",categories1.get(position).getIdCategory())
@@ -47,14 +52,8 @@ class CategoryHeaderAdapter(private var categories1: List<CategoriesHeader.Categ
 //            context.startActivity(intent);
 
             }
-
-
-
         }
-
-
     }
-
 
 
     override fun getItemCount(): Int {

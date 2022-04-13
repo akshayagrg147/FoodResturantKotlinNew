@@ -14,15 +14,16 @@ data class Categories(
     data class Category(
 
             @SerializedName("id")
-            private val idCategory: Int,
+             public val idCategory: Int,
+
             @SerializedName("name")
-            private val name: String,
+             val name: String,
 
             @SerializedName("description")
             private val description: String ,
 
             @SerializedName("image")
-            private var image: String,
+             var image: String,
 
             @SerializedName("created_at")
             private var created_at: String,
@@ -34,31 +35,6 @@ data class Categories(
 
     )
     {
-        fun getIdCategory(): Int {
-            return idCategory
-        }
-
-
-
-        fun getname(): String {
-            return name
-        }
-
-
-
-        fun getdescription(): String {
-            return description
-        }
-        fun getPrice(): String {
-            return description
-        }
-
-
-
-        fun getStrimage(): String {
-            return image
-        }
-
 
     }
 

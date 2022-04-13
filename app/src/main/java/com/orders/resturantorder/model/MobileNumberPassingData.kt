@@ -6,48 +6,24 @@ import com.google.gson.annotations.SerializedName
 
 
 
-    data class MobileNumberPassingData(
+data class MobileNumberPassingData(
 
             @SerializedName("name")
-            private val name: String,
+            public val name: String,
             @SerializedName("gender")
-            private val gender: String,
+            public val gender: String,
 
             @SerializedName("mobile")
-            private val mobile: String? ,
+            public val mobile: String? ,
 
             @SerializedName("dob")
-            private var dob: String,
+            public var dob: String,
 
 
 
 
     )
-    {
-        fun getname(): String {
-            return name
-        }
 
-
-
-        fun getgender(): String {
-            return gender
-        }
-
-
-
-        fun getmobile(): String? {
-            return mobile
-        }
-        fun getdob(): String {
-            return dob
-        }
-
-
-
-
-
-    }
 
 
 

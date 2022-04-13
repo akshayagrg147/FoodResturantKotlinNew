@@ -27,9 +27,11 @@ class AddressItemssAdapter(
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         holder.onbind(categories1[position])
     }
+
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onbind(addressItems: AddressItems) {
-            itemView.nameSection.text = addressItems.customer_name.toString() + "\n" + addressItems.Address1.toString() + "," + addressItems.Address2.toString() + "," + addressItems.PinCode.toString() + "," + addressItems.customer_PhoneNumber.toString()
+            itemView.nameSection.text =
+                addressItems.customer_name.toString() + "\n" + addressItems.Address1.toString() + "," + addressItems.Address2.toString() + "," + addressItems.PinCode.toString() + "," + addressItems.customer_PhoneNumber.toString()
             itemView.radioButton1.tag = position;
             itemView.radioButton1.setOnClickListener(View.OnClickListener { v ->
                 itemCheckChanged(v)
@@ -48,6 +50,7 @@ class AddressItemssAdapter(
         itemChossen.itemChossen(selectedPosition)
         //notifyDataSetChanged()
     }
+
     interface AddressChosen {
         fun itemChossen(int: Int)
     }

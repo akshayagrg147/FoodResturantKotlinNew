@@ -35,8 +35,8 @@ class SearchAdapter(
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun OnBind(item: SerchingResponse.SearchResponseModal) {
 
-            itemView.categoryName.text = item.getname()
-            if (!item.getis_category().equals("No")) {
+            itemView.categoryName.text = item.name
+            if (!item.is_category.equals("No")) {
                 itemView.cartImage.visibility = View.GONE
                 itemView.rightarrow.visibility = View.VISIBLE
             } else {
@@ -45,10 +45,10 @@ class SearchAdapter(
 
             }
             itemView.setOnClickListener {
-                if (!item.getis_category().equals("No")) {
+                if (!item.is_category.equals("No")) {
 
                     val intent = Intent(context, AfterCategorySelectionActivity::class.java);
-                    intent.putExtra("categoryId", item.getIdCategory().toString())
+                    intent.putExtra("categoryId", item.idMeal.toString())
                     context.startActivity(intent);
                 } else {
                     onitemClicked.itemclicked(true, item)
@@ -59,7 +59,8 @@ class SearchAdapter(
     }
 
     fun setData(
-        categoriesList: SerchingResponse) {
+        categoriesList: SerchingResponse
+    ) {
         categories1 = categoriesList.searchResponse
 
         //  notifyDataSetChanged()

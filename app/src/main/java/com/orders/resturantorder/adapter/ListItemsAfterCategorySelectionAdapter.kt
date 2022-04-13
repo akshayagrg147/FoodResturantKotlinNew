@@ -44,18 +44,18 @@ class ListItemsAfterCategorySelectionAdapter(
 
     inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun onBind(category: cateogryAfterSelectionModal.cateogryAfterSelectionModal1) {
-            itemView.address.text = category.getstrname()
-            itemView.priceCategory.text = "₹ ${category.getsale_price()}"
-            itemView.priceMrp.text = "₹" + category.getstrprice()
-            itemView.description.text = category.getdescription()
+            itemView.address.text = category.name
+            itemView.priceCategory.text = "₹ ${category.sale_price}"
+            itemView.priceMrp.text = "₹" + category.price
+            itemView.description.text = category.description
             val intger: Int? =
-                database?.contactDao()?.getProductBasedIdCount(category.getidMeal().toString())
+                database?.contactDao()?.getProductBasedIdCount(category.idMeal.toString())
             if (intger != null) {
                 if (intger > 0) {
                     itemView.AddButton.visibility = View.GONE
                     itemView.ItemAdded.visibility = View.VISIBLE
                     val intger: Int? = database?.contactDao()
-                        ?.getProductBasedIdCount(category.getidMeal().toString())
+                        ?.getProductBasedIdCount(category.idMeal.toString())
                     itemView.totalquantity.text = intger.toString()
                 }
             }
@@ -65,7 +65,7 @@ class ListItemsAfterCategorySelectionAdapter(
                 itemView.AddButton.visibility = View.GONE
                 itemView.ItemAdded.visibility = View.VISIBLE
                 val intger: Int? = database?.contactDao()
-                    ?.getProductBasedIdCount(category.getidMeal().toString())
+                    ?.getProductBasedIdCount(category.idMeal.toString())
 
                 itemView.totalquantity.text = intger.toString()
 
@@ -76,7 +76,7 @@ class ListItemsAfterCategorySelectionAdapter(
 
                 val intger: Int? =
                     database?.contactDao()
-                        ?.getProductBasedIdCount(category.getidMeal().toString())
+                        ?.getProductBasedIdCount(category.idMeal.toString())
 
                 if (intger == 0) {
                     itemView.AddButton.visibility = View.VISIBLE
@@ -91,7 +91,7 @@ class ListItemsAfterCategorySelectionAdapter(
             itemView.plusButton.setOnClickListener {
                 onitemClicked.ClickedPlusButton(category)
                 val intger: Int? = database?.contactDao()
-                    ?.getProductBasedIdCount(category.getidMeal().toString())
+                    ?.getProductBasedIdCount(category.idMeal.toString())
 
                 if (intger != null) {
                     itemView.totalquantity.text = (intger).toString()
@@ -102,7 +102,7 @@ class ListItemsAfterCategorySelectionAdapter(
 
 
 //
-            Picasso.get().load(category.getstrimage())
+            Picasso.get().load(category.image)
                 .placeholder(R.drawable.ic_circle)
                 .into(itemView.image)
 

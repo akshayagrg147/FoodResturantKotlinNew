@@ -15,10 +15,10 @@ import com.orders.resturantorder.databinding.ActivityAddNewAddressBinding
 import com.orders.resturantorder.viewmodel.AddNewAddressViewModal
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-@AndroidEntryPoint
-class AddNewAddressActivity  : BaseActivity<ActivityAddNewAddressBinding, AddNewAddressViewModal>(){
-    //,DashBoardCategories.passingclick
 
+@AndroidEntryPoint
+class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding, AddNewAddressViewModal>() {
+    //,DashBoardCategories.passingclick
 
     private lateinit var mActivityMainBinding: ActivityAddNewAddressBinding
 
@@ -36,7 +36,7 @@ class AddNewAddressActivity  : BaseActivity<ActivityAddNewAddressBinding, AddNew
 
         mActivityMainBinding = getViewDataBinding()
 
-        database= ProductDatabase.getInstance(this@AddNewAddressActivity)
+        database = ProductDatabase.getInstance(this@AddNewAddressActivity)
 
         val actionBar: ActionBar? = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -46,74 +46,67 @@ class AddNewAddressActivity  : BaseActivity<ActivityAddNewAddressBinding, AddNew
 
         mActivityMainBinding.addressUpdateButton.setOnClickListener {
             lifecycle.coroutineScope.launch {
-                if((mActivityMainBinding.nameEditText.getText()
-                        .isEmpty()))
-                {
+                if ((mActivityMainBinding.nameEditText.getText()
+                        .isEmpty())
+                ) {
                     Toast.makeText(
                         this@AddNewAddressActivity,
                         "Name should not be null",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@launch
-                }
-                else if((mActivityMainBinding.phonenoEditText.getText()
-                        .isEmpty()))
-                {
+                } else if ((mActivityMainBinding.phonenoEditText.getText()
+                        .isEmpty())
+                ) {
                     Toast.makeText(
                         this@AddNewAddressActivity,
                         "address1 should not be null",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@launch
-                }
-                else  if((mActivityMainBinding.pincodeEditText.getText()
-                        .isEmpty()))
-                {
+                } else if ((mActivityMainBinding.pincodeEditText.getText()
+                        .isEmpty())
+                ) {
                     Toast.makeText(
                         this@AddNewAddressActivity,
                         "address2 should not be null",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@launch
-                }
-                else  if((mActivityMainBinding.address1EditText.getText()
-                        .isEmpty()))
-                {
+                } else if ((mActivityMainBinding.address1EditText.getText()
+                        .isEmpty())
+                ) {
                     Toast.makeText(
                         this@AddNewAddressActivity,
                         "LandMark should not be null",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@launch
-                }
-                else  if((mActivityMainBinding.address2EditText.getText()
-                        .isEmpty()))
-                {
+                } else if ((mActivityMainBinding.address2EditText.getText()
+                        .isEmpty())
+                ) {
                     Toast.makeText(
                         this@AddNewAddressActivity,
                         "Phone number should not be null",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@launch
-                }
-                else  if((mActivityMainBinding.lanMark.getText()
-                        .isEmpty()))
-                {
+                } else if ((mActivityMainBinding.lanMark.getText()
+                        .isEmpty())
+                ) {
                     Toast.makeText(
                         this@AddNewAddressActivity,
                         "Pincode should not be null",
                         Toast.LENGTH_SHORT
                     ).show()
                     return@launch
-                }
-                else
-                {
+                } else {
 
 
                     database.contactDao().insertAddressItem(
                         AddressItems(
-                            mActivityMainBinding.  nameEditText.text.toString(),
-                            mActivityMainBinding. phonenoEditText.text.toString(),
+                            mActivityMainBinding.nameEditText.text.toString(),
+                            mActivityMainBinding.phonenoEditText.text.toString(),
                             Integer.parseInt(mActivityMainBinding.pincodeEditText.text.toString()),
                             mActivityMainBinding.address1EditText.text.toString(),
                             mActivityMainBinding.address2EditText.text.toString(),
@@ -136,6 +129,7 @@ class AddNewAddressActivity  : BaseActivity<ActivityAddNewAddressBinding, AddNew
 
         }
     }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true

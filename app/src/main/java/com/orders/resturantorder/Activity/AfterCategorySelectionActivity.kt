@@ -34,9 +34,10 @@ import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
-class AfterCategorySelectionActivity :  BaseActivity<ActivityAfterCategorySelectionBinding, AfterSelectionFragmentViewModal>(){
+class AfterCategorySelectionActivity :
+    BaseActivity<ActivityAfterCategorySelectionBinding, AfterSelectionFragmentViewModal>() {
     //,DashBoardCategories.passingclick
-    private  lateinit var actionView:CartCounterActionView
+    private lateinit var actionView: CartCounterActionView
 
     private val mainViewModel: AfterSelectionFragmentViewModal by viewModels()
 
@@ -51,39 +52,36 @@ class AfterCategorySelectionActivity :  BaseActivity<ActivityAfterCategorySelect
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        database= ProductDatabase.getInstance(this@AfterCategorySelectionActivity)
+        database = ProductDatabase.getInstance(this@AfterCategorySelectionActivity)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.my_nav) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.my_nav) as NavHostFragment
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
 
-      //  supportActionBar!!.hide();
+        //  supportActionBar!!.hide();
 
         val stringId: String? = intent.getStringExtra("categoryId")
-        if(stringId!=null)
-            mainViewModel.viewModelScope.launch(Dispatchers.Main){
-               mainViewModel.sendData(stringId)
+        if (stringId != null)
+            mainViewModel.viewModelScope.launch(Dispatchers.Main) {
+                mainViewModel.sendData(stringId)
             }
-
-
-
 
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp()||super.onSupportNavigateUp()
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-
-        return when(item.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
             R.id.action_addcart -> {
                 val intent = Intent(this, CartItemss::class.java);
                 this.startActivity(intent);
                 true
 
             }
-            R.id.byPrice-> {
+            R.id.byPrice -> {
 
 //                Collections.sort(categorySelectAdapter.getData(), object : Comparator() {
 //                    fun compare(o1: Any, o2: Any): Int {
@@ -100,6 +98,7 @@ class AfterCategorySelectionActivity :  BaseActivity<ActivityAfterCategorySelect
             else -> super.onOptionsItemSelected(item)
         }
     }
+
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         val itemData = menu?.findItem(R.id.action_addcart)
         actionView = itemData?.actionView as CartCounterActionView

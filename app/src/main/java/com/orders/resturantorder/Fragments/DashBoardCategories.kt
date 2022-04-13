@@ -55,10 +55,10 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     lateinit var list: ArrayList<String>
     lateinit var searchAdapter: SearchAdapter
 
-    var con: Context?=null
+    var con: Context? = null
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        con=context
+        con = context
     }
 
     override fun onResume() {
@@ -68,8 +68,9 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
     override fun onDetach() {
         super.onDetach()
-        con=null
+        con = null
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,7 +80,6 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
 
     }
-
 
 
     private fun onBackPressed() {
@@ -128,7 +128,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
         }
 
         mHomeViewModel.getSelectedItem().observe(requireActivity(), Observer {
-            Log.d("calling","callingdone   "+it)
+            Log.d("calling", "callingdone   " + it)
 
             val modalclass = SearchingPassingData(it)
 //            mHomeViewModel.viewModelScope.launch(Dispatchers.Main) {
@@ -136,7 +136,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 //            }
 //
         }
-      )
+        )
         mHomeViewModel.getItemClicked().observe(requireActivity(), Observer {
             if (it) {
                 scrollview.visibility = View.VISIBLE
@@ -165,7 +165,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
             val lowercategoryR: Pair<*, Any>?
             val searchingR: Pair<*, Any>?
             val headercategory = async {
-              gettingResponseForheader()
+                gettingResponseForheader()
             }
             val lowercategory = async {
                 gettingResponseForLower()
@@ -192,8 +192,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
             }
 
 
-            if(headercategoryR!!.first==1)
-            {
+            if (headercategoryR!!.first == 1) {
                 headerpart(headercategoryR.second as List<CategoriesHeader.Category>)
                 shimmer_view_containerheader.isVisible = false
 
@@ -214,8 +213,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 //
 //
 //            }
-            if(searchingR!!.first==1)
-            {
+            if (searchingR!!.first == 1) {
                 ContextCompat.getMainExecutor(getBaseActivity()).execute {
                     searchAdapter.setData(searchingR.second as SerchingResponse)
                     searchAdapter.notifyDataSetChanged()
@@ -234,7 +232,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
             var msg: Pair<Int, Any>
             msg = Pair(0, "")
             mHomeViewModel._searchStateFlow.collect { it ->
-             msg=   when (it) {
+                msg = when (it) {
                     is ApiState.Loading -> {
                         Pair(0, "")
                     }
@@ -242,7 +240,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                         Log.d("passing", "fail")
                         Pair(0, "")
                     }
-                    is ApiState.SuccessCategories<*>-> {
+                    is ApiState.SuccessCategories<*> -> {
                         Log.d("passing", "pass")
 
                         val response =
@@ -257,8 +255,10 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                         Pair(0, "")
 
                     }
-                 else -> { Pair(0, "")}
-             }
+                    else -> {
+                        Pair(0, "")
+                    }
+                }
             }
             return@withContext msg
         }
@@ -284,9 +284,8 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 
 
 
-                            lowerpart(response.categories as List<Categories.Category>)
-                            shimmerCategory.isVisible = false
-
+                        lowerpart(response.categories as List<Categories.Category>)
+                        shimmerCategory.isVisible = false
 
 
                     }
@@ -300,58 +299,52 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     }
 
     suspend fun gettingResponseForheader(): Pair<*, Any> {
-
         return withContext(Dispatchers.Main) {
             var msg: Pair<Int, Any>
             msg = Pair(0, "")
             mHomeViewModel._postStateFlowHeader.collect { it ->
-                msg= when (it) {
+                msg = when (it) {
                     is ApiState.Loading -> {
                         Pair(0, "")
                     }
                     is ApiState.Failure -> {
                         Pair(0, "")
-
                     }
                     is ApiState.SuccessCategories<*> -> {
                         val response = (it.data as CategoriesHeader)
-
-                            headerpart(response.categories as List<CategoriesHeader.Category>)
-                            shimmer_view_containerheader.isVisible = false
-
-
-
+                        headerpart(response.categories as List<CategoriesHeader.Category>)
+                        shimmer_view_containerheader.isVisible = false
                         Pair(0, "")
 
                     }
                     is ApiState.Empty -> {
                         Pair(0, "")
-
                     }
-                    else ->  Pair(0, "")
+                    else -> Pair(0, "")
                 }
-
-
             }
             msg
 
         }
     }
+
     private fun headerpart(listAccountData: List<CategoriesHeader.Category>) {
         AppUtils.setUpRecyclerItemLayout(con!!, fragmentHomeViewBinding!!.recyclerView)
-        headerpart = CategoryHeaderAdapter(listAccountData,con!!)
-       // StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
+        headerpart = CategoryHeaderAdapter(listAccountData, con!!)
+        // StaggeredGridLayoutManager(1, LinearLayoutManager.HORIZONTAL)
         fragmentHomeViewBinding!!.recyclerView.adapter = headerpart
     }
+
     private fun lowerpart(listAccountData: List<Categories.Category>) {
-        Log.d("sizeofcategory",listAccountData.size.toString())
+        Log.d("sizeofcategory", listAccountData.size.toString())
 
         AppUtils.setUpRecyclerItemLayoutStaggered(con!!, fragmentHomeViewBinding!!.recyclerCategory)
-        categoryAdapter = CategoryAdapter(listAccountData,con!!)
-      //  fragmentHomeViewBinding!!.recyclerCategory.addItemDecoration(SpaceItemDecorator())
+        categoryAdapter = CategoryAdapter(listAccountData, con!!)
+        //  fragmentHomeViewBinding!!.recyclerCategory.addItemDecoration(SpaceItemDecorator())
 
         fragmentHomeViewBinding!!.recyclerCategory.adapter = categoryAdapter
     }
+
     private fun searchpart(listAccountData: List<SerchingResponse.SearchResponseModal>) {
         AppUtils.setUpRecyclerItemLayout(con!!, fragmentHomeViewBinding!!.searchlistView)
 
@@ -363,23 +356,22 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                 ) {
                     if (value) {
                         val intger: Int = database.contactDao()
-                            .getProductBasedIdCount(item.getidMeal().toString())
+                            .getProductBasedIdCount(item.idMeal.toString())
                         if (intger == 0) {
                             database.contactDao()
                                 .insertCartItem(
                                     CartItems(
-                                        item.getidMeal().toString(),
-                                        item.getstrimage(),
+                                        item.idMeal.toString(),
+                                        item.image,
                                         intger + 1,
-                                        Integer.parseInt(item.getsale_price()),
-                                        item.getstrname()
+                                        Integer.parseInt(item.sale_price),
+                                        item.name
                                     )
                                 )
-
                         } else if (intger >= 1) {
 
                             database.contactDao()
-                                .updateCartItem(intger + 1, item.getidMeal().toString())
+                                .updateCartItem(intger + 1, item.idMeal.toString())
                         }
                         mHomeViewModel.itemclicked(true)
                     }
@@ -435,7 +427,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
 //            layoutManager = GridLayoutManager(requireContext(), 3)
 //            adapter = categoryAdapter
 //        }
- //   }
+    //   }
 
 
     private fun initSearchRecyclerView() {
@@ -447,23 +439,23 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
                 ) {
                     if (value) {
                         val intger: Int = database.contactDao()
-                            .getProductBasedIdCount(item.getidMeal().toString())
+                            .getProductBasedIdCount(item.idMeal.toString())
                         if (intger == 0) {
                             database.contactDao()
                                 .insertCartItem(
                                     CartItems(
-                                        item.getidMeal().toString(),
-                                        item.getstrimage(),
+                                        item.idMeal.toString(),
+                                        item.image,
                                         intger + 1,
-                                        Integer.parseInt(item.getsale_price()),
-                                        item.getstrname()
+                                        Integer.parseInt(item.sale_price),
+                                        item.name
                                     )
                                 )
 
                         } else if (intger >= 1) {
 
                             database.contactDao()
-                                .updateCartItem(intger + 1, item.getidMeal().toString())
+                                .updateCartItem(intger + 1, item.idMeal.toString())
                         }
                         mHomeViewModel.itemclicked(true)
                     }
@@ -479,11 +471,8 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
     }
 
 
-
-
-
     override fun passing(item: String) {
-        mHomeViewModel.viewModelScope.launch(Dispatchers.IO){
+        mHomeViewModel.viewModelScope.launch(Dispatchers.IO) {
             mHomeViewModel.getCallingSearchApi(item)
 
         }

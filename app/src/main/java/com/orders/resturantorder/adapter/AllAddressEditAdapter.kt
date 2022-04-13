@@ -37,7 +37,8 @@ class AllAddressEditAdapter(
             itemView.deleteAddress.setOnClickListener(View.OnClickListener {
                 database.contactDao()
                     .deleteAddressItems(
-                        addressItems.customer_name, addressItems.Address1, addressItems.Address2)
+                        addressItems.customer_name, addressItems.Address1, addressItems.Address2
+                    )
                 notifyDataSetChanged()
 
             })

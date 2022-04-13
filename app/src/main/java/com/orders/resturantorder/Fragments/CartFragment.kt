@@ -51,14 +51,12 @@ class CartFragment : Fragment(), CartItemssAdapter.cartItemClickListner {
         super.onViewCreated(view, savedInstanceState)
         database = ProductDatabase.getInstance(requireContext())
         view.findViewById<TextView>(R.id.reply_textview).setOnClickListener {
-
             database.contactDao().getAllAddress().observe(
                 requireActivity()
             ) {
                 if ((it != null) && (it.size > 0)) {
                     val intent = Intent(requireContext(), ProceedToAddress::class.java);
                     this.startActivity(intent);
-
                 } else {
                     val intent = Intent(requireContext(), AddNewAddressActivity::class.java);
                     this.startActivity(intent);
@@ -71,13 +69,11 @@ class CartFragment : Fragment(), CartItemssAdapter.cartItemClickListner {
             if (it != null) {
                 totalquantity.setText(it.toString())
                 if (it <= 0) {
-
                     recyclerCategory.visibility = View.GONE
                     emptyLayout.visibility = View.VISIBLE
                     linearlayout.visibility = View.GONE
                     table_invoice1.visibility = View.GONE
                     linearLayoutButton.visibility = View.GONE
-
 
                 } else {
                     callingIfItemThere();
@@ -89,8 +85,6 @@ class CartFragment : Fragment(), CartItemssAdapter.cartItemClickListner {
                 table_invoice1.visibility = View.GONE
                 linearLayoutButton.visibility = View.GONE
             }
-
-
         }
 
     }
@@ -140,7 +134,8 @@ class CartFragment : Fragment(), CartItemssAdapter.cartItemClickListner {
             database.contactDao()
                 .updateCartItem(intger + 1, cartitems.ProductIdNumber)
 
-            Log.d("coundddtis",
+            Log.d(
+                "coundddtis",
                 cartitems.ProductIdNumber + "--" + cartitems.strCategoryThumb + "--" + "--" + intger + "--" + database.contactDao()
                     .getProductBasedIdCount(cartitems.ProductIdNumber).toString()
             )
@@ -157,7 +152,7 @@ class CartFragment : Fragment(), CartItemssAdapter.cartItemClickListner {
             var intger: Int =
                 database.contactDao().getProductBasedIdCount(cartitems.ProductIdNumber)
 
-            intger = intger - 1
+            intger -= 1
             Log.d(
                 "coundddtis",
                 cartitems.ProductIdNumber + "--" + cartitems.strCategoryThumb + "--" + "--" + intger + "--" + database.contactDao()

@@ -6,11 +6,7 @@ import com.google.gson.annotations.SerializedName
 data class Meals(
         @SerializedName("meals") @Expose
     public var meals: List<Meal>
-
-
 ) {
-
-
     data class Meal(
         @SerializedName("idMeal")
         private val idMeal: String? = null,
@@ -19,10 +15,6 @@ data class Meals(
 
         @SerializedName("strDescription")
         private val strDescription: String? = null,
-
-
-    )
-
-
+        )
 }
 
