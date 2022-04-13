@@ -1,27 +1,22 @@
 package com.meetSuccess.FoodResturant.Adapter
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.orders.resturantorder.R
 
 import com.meetSuccess.FoodResturant.Model.Categories
-import com.orders.resturantorder.Activity.AfterCategorySelectionActivity
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_recycler_category.view.*
 
 
 class CategoryAdapter(private var categories1: List<Categories.Category>, val context: Context)
     : RecyclerView.Adapter<CategoryAdapter.PostViewHolder>() {
-
-  //  private lateinit var binding:ItemRecyclerCategoryBinding
+    var tempPosition = 0
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -31,19 +26,35 @@ class CategoryAdapter(private var categories1: List<Categories.Category>, val co
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.categoryName.text=categories1.get(position).getname()
+        holder.onBind(categories1.get(position),position)
+        holder.onItemClick(position)
 
 
+    }
 
-//categories1.get(position).getStrimage()
-        Picasso.get().load(categories1.get(position).getStrimage()).placeholder(R.drawable.clock_my_time_in_button)
-            .into(holder.imageView)
-        holder.itemView.setOnClickListener{
-Toast.makeText(context,categories1.get(position).getIdCategory().toString(),Toast.LENGTH_SHORT).show()
 
-            val bundle = Bundle()
-            bundle.putString("categoryId", categories1.get(position).getIdCategory().toString())
-            Navigation.findNavController(it).navigate(R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,bundle);
+   inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+       fun onBind(subcategory: Categories.Category, position: Int) {
+           if (tempPosition == position) {
+               itemView.llParent.setBackgroundResource(R.drawable.rounded_corner_save_button)
+           } else {
+               itemView.llParent.setBackgroundResource(R.drawable.rounded_corner_save_buttonwhite)
+           }
+
+           itemView.categoryName.text = subcategory.getname()
+
+           Picasso.get().load(subcategory.getStrimage())
+               .placeholder(R.drawable.clock_my_time_in_button)
+               .into(itemView.categoryThumb)
+
+           itemView.setOnClickListener {
+
+               val bundle = Bundle()
+               bundle.putString("categoryId", subcategory.getIdCategory().toString())
+               Navigation.findNavController(it).navigate(
+                   R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,
+                   bundle
+               );
 
 //            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
 //            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
@@ -51,27 +62,24 @@ Toast.makeText(context,categories1.get(position).getIdCategory().toString(),Toas
 //
 //            context.startActivity(intent);
 
-        }
+           }
+       }
 
-    }
+       fun onItemClick(position: Int) {
+           itemView.setOnClickListener {
+               tempPosition = position
+               notifyDataSetChanged()
 
-//    override fun getItemCount(): Int = categories1.size
+           }
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val imageView: ImageView = itemView.findViewById(R.id.categoryThumb)
-        val categoryName: TextView = itemView.findViewById(R.id.categoryName)
+       }
 
-    }
-
-    fun setData(categoriesList: List<Categories.Category>)
-    {
-        categories1=categoriesList
-      //  notifyDataSetChanged()
-    }
+   }
 
     override fun getItemCount(): Int {
         return categories1.size
 
     }
+
 
 }

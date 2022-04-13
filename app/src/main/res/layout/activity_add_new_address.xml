@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.orders.resturantorder.viewmodel.FragmentMyOrderViewModal" />
+            type="com.orders.resturantorder.viewmodel.AddNewAddressViewModal" />
     </data>
 
 <androidx.coordinatorlayout.widget.CoordinatorLayout

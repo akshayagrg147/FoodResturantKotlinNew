@@ -301,9 +301,9 @@ class MobileNumberIntegration  : BaseActivity<ActivityMobileNumberIntegrationBin
                             is ApiState.SuccessCategories <*>-> {
                                 val response =
                                     (it.data as MobileNumberExistCheck)
-                                Log.d("callingtest", "falure"+response.getexistance())
+                                Log.d("callingtest", "falure"+response.existance)
 
-                                if (response.getexistance()) {
+                                if (response.existance) {
                                     sharedpreferenceCommon(this@MobileNumberIntegration).setUserData(phonenumber!!)
 
                                     startActivity(Intent(this@MobileNumberIntegration, MainActivity::class.java))

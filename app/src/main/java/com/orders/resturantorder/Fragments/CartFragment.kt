@@ -38,7 +38,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [CartFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
+class CartFragment : Fragment(), CartItemssAdapter.cartItemClickListner {
 
     lateinit var database: ProductDatabase
     private lateinit var categorySelectAdapter: CartItemssAdapter
@@ -49,10 +49,11 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        database= ProductDatabase.getInstance(requireContext())
+        database = ProductDatabase.getInstance(requireContext())
         view.findViewById<TextView>(R.id.reply_textview).setOnClickListener {
 
-            database.contactDao().getAllAddress().observe(requireActivity()
+            database.contactDao().getAllAddress().observe(
+                requireActivity()
             ) {
                 if ((it != null) && (it.size > 0)) {
                     val intent = Intent(requireContext(), ProceedToAddress::class.java);
@@ -66,31 +67,26 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
             }
         }
         // initRecyclerview()
-        database.contactDao().getTotalProductItems().observe(viewLifecycleOwner){
-            if(it!=null) {
+        database.contactDao().getTotalProductItems().observe(viewLifecycleOwner) {
+            if (it != null) {
                 totalquantity.setText(it.toString())
                 if (it <= 0) {
 
                     recyclerCategory.visibility = View.GONE
                     emptyLayout.visibility = View.VISIBLE
                     linearlayout.visibility = View.GONE
-                    table_invoice1.visibility=View.GONE
+                    table_invoice1.visibility = View.GONE
                     linearLayoutButton.visibility = View.GONE
 
 
-
-                }
-                else
-                {
+                } else {
                     callingIfItemThere();
                 }
-            }
-            else
-            {
+            } else {
                 recyclerCategory.visibility = View.GONE
                 emptyLayout.visibility = View.VISIBLE
                 linearlayout.visibility = View.GONE
-                table_invoice1.visibility=View.GONE
+                table_invoice1.visibility = View.GONE
                 linearLayoutButton.visibility = View.GONE
             }
 
@@ -105,7 +101,7 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
                 val totaltaxvalue = it - 10;
                 priceAmount.text = "₹$it"
                 item_total_price1.text = "₹$it"
-                item_total_price1.text = "₹" + totaltaxvalue
+                item_total_price1.text = "₹$totaltaxvalue"
                 toPay_amount1.text = (it + totaltaxvalue + 12).toString()
             }
 
@@ -113,7 +109,7 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
 
 
         database.contactDao().getContact().observe(viewLifecycleOwner) {
-            categorySelectAdapter = CartItemssAdapter(it, this, database)
+
 
             //  binding.recyclerCategory.isVisible = true
             //  binding.shimmerCategoryListItems.shimmerCategory.isVisible = false
@@ -121,6 +117,7 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
             recyclerCategory.apply {
                 setHasFixedSize(true)
                 layoutManager = LinearLayoutManager(requireContext())
+                categorySelectAdapter = CartItemssAdapter(it, this@CartFragment, database)
                 adapter = categorySelectAdapter
             }
         }
@@ -138,11 +135,15 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
         lifecycle.coroutineScope.launch {
             // database.contactDao().getProductBasedId(1212).observe(this@AfterCategorySelectionActivity,{})
 
-            val intger: Int = database.contactDao().getProductBasedIdCount(cartitems.ProductIdNumber)
+            val intger: Int =
+                database.contactDao().getProductBasedIdCount(cartitems.ProductIdNumber)
             database.contactDao()
-                    .updateCartItem(intger+1,cartitems.ProductIdNumber)
+                .updateCartItem(intger + 1, cartitems.ProductIdNumber)
 
-            Log.d("coundddtis",cartitems.ProductIdNumber+"--"+cartitems.strCategoryThumb+"--"+"--"+intger+"--"+database.contactDao().getProductBasedIdCount(cartitems.ProductIdNumber).toString())
+            Log.d("coundddtis",
+                cartitems.ProductIdNumber + "--" + cartitems.strCategoryThumb + "--" + "--" + intger + "--" + database.contactDao()
+                    .getProductBasedIdCount(cartitems.ProductIdNumber).toString()
+            )
 
 
         }
@@ -153,31 +154,30 @@ class CartFragment : Fragment() ,CartItemssAdapter.cartItemClickListner {
         lifecycle.coroutineScope.launch {
             // database.contactDao().getProductBasedId(1212).observe(this@AfterCategorySelectionActivity,{})
 
-            var intger: Int = database.contactDao().getProductBasedIdCount(cartitems.ProductIdNumber)
+            var intger: Int =
+                database.contactDao().getProductBasedIdCount(cartitems.ProductIdNumber)
 
-            intger=intger - 1
-            Log.d("coundddtis",
-                    cartitems.ProductIdNumber + "--" + cartitems.strCategoryThumb + "--" + "--" + intger + "--" + database.contactDao()
-                            .getProductBasedIdCount(cartitems.ProductIdNumber).toString()
+            intger = intger - 1
+            Log.d(
+                "coundddtis",
+                cartitems.ProductIdNumber + "--" + cartitems.strCategoryThumb + "--" + "--" + intger + "--" + database.contactDao()
+                    .getProductBasedIdCount(cartitems.ProductIdNumber).toString()
             )
-            if(intger>=1) {
+            if (intger >= 1) {
                 database.contactDao()
-                        .updateCartItem(intger, cartitems.ProductIdNumber)
+                    .updateCartItem(intger, cartitems.ProductIdNumber)
 
 
-
-
-            }
-            else if(intger==0)
-            {   database.contactDao()
-                        .deleteCartItem(cartitems.ProductIdNumber)
+            } else if (intger == 0) {
+                database.contactDao()
+                    .deleteCartItem(cartitems.ProductIdNumber)
 //                linearlayout.visibility = View.GONE
 //                table_invoice1.visibility=View.GONE
 //                linearLayoutButton.visibility = View.GONE
 //                emptyLayout.visibility = View.VISIBLE
 
                 //  binding.recyclerCategory.visibility = View.GONE
-               // categorySelectAdapter.notifyDataSetChanged()
+                // categorySelectAdapter.notifyDataSetChanged()
             }
         }
     }

@@ -13,77 +13,64 @@ import com.orders.resturantorder.R
 import com.meetSuccess.FoodResturant.Model.SerchingResponse
 import com.orders.resturantorder.Activity.AfterCategorySelectionActivity
 import com.orders.resturantorder.viewmodel.DashBoardCategoriesViewModal
+import kotlinx.android.synthetic.main.item_search_category.view.*
 
 
-class SearchAdapter(private var categories1: List<SerchingResponse.SearchResponseModal>, val context: Context,onitemClicked1: SearchAdapter.onclick)
-    : RecyclerView.Adapter<SearchAdapter.PostViewHolder>() {
-
-    private  var onitemClicked: SearchAdapter.onclick=onitemClicked1
-
-  //  private lateinit var binding:ItemRecyclerCategoryBinding
-
+class SearchAdapter(
+    private var categories1: List<SerchingResponse.SearchResponseModal>,
+    var context: Context,
+    onitemClicked1: SearchAdapter.onclick
+) : RecyclerView.Adapter<SearchAdapter.PostViewHolder>() {
+    private var onitemClicked: SearchAdapter.onclick = onitemClicked1
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
-
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_search_category, parent, false)
+            .inflate(R.layout.item_search_category, parent, false)
         return PostViewHolder(view)
-
-
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-
-        holder.categoryName.text=categories1.get(position).getname()
-        if(!categories1.get(position).getis_category().equals("No")) {
-            holder.cartImage.visibility = View.GONE
-            holder.arrowimage.visibility = View.VISIBLE
-        }
-        else{
-            holder.cartImage.visibility=View.VISIBLE
-            holder.arrowimage.visibility=View.GONE
-
-        }
-        holder.itemView.setOnClickListener{
-            if(!categories1.get(position).getis_category().equals("No"))
-            {
-
-            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
-            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
-                context.startActivity(intent);
-            }
-            else
-            {
-
-                onitemClicked.itemclicked(true,categories1.get(position))
-
-            }
-
-
-        }
-
+        holder.OnBind(categories1.get(position))
     }
 
-//    override fun getItemCount(): Int = categories1.size
+    inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun OnBind(item: SerchingResponse.SearchResponseModal) {
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-       val cartImage: ImageView = itemView.findViewById(R.id.cartImage)
-        val arrowimage: ImageView = itemView.findViewById(R.id.rightarrow)
-        val categoryName: TextView = itemView.findViewById(R.id.categoryName)
+            itemView.categoryName.text = item.getname()
+            if (!item.getis_category().equals("No")) {
+                itemView.cartImage.visibility = View.GONE
+                itemView.rightarrow.visibility = View.VISIBLE
+            } else {
+                itemView.cartImage.visibility = View.VISIBLE
+                itemView.rightarrow.visibility = View.GONE
 
+            }
+            itemView.setOnClickListener {
+                if (!item.getis_category().equals("No")) {
+
+                    val intent = Intent(context, AfterCategorySelectionActivity::class.java);
+                    intent.putExtra("categoryId", item.getIdCategory().toString())
+                    context.startActivity(intent);
+                } else {
+                    onitemClicked.itemclicked(true, item)
+
+                }
+            }
+        }
     }
 
-    fun setData(categoriesList: SerchingResponse,mainActivityViewModel: DashBoardCategoriesViewModal)
-    {
-        categories1=categoriesList.searchResponse
+    fun setData(
+        categoriesList: SerchingResponse) {
+        categories1 = categoriesList.searchResponse
 
-      //  notifyDataSetChanged()
+        //  notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int {
         return categories1.size
 
     }
-    interface onclick{
+
+    interface onclick {
         public fun itemclicked(value: Boolean, get: SerchingResponse.SearchResponseModal)
     }
 

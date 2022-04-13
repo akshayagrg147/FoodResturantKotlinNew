@@ -11,20 +11,14 @@ import com.meetSuccess.Database.AddressItems
 import com.meetSuccess.Database.ProductDatabase
 
 import com.orders.resturantorder.R
+import kotlinx.android.synthetic.main.saved_editaddress.view.*
 
 
 class AllAddressEditAdapter(
     private var categories1: List<AddressItems>,
     var database: ProductDatabase,
     requireContext: Context
-
-
-)
-    : RecyclerView.Adapter<AllAddressEditAdapter.PostViewHolder>() {
-
-
-
-
+) : RecyclerView.Adapter<AllAddressEditAdapter.PostViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.saved_editaddress, parent, false)
@@ -32,45 +26,28 @@ class AllAddressEditAdapter(
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-
-        holder.nameSection.setText(
-            categories1.get(position).customer_name.toString() + "\n" + categories1.get(
-                position
-            ).Address1.toString() + "," + categories1.get(position).Address2.toString() + "," + categories1.get(
-                position
-            ).PinCode.toString() + "," + categories1.get(position).customer_PhoneNumber.toString()
-        )
-
-        holder.deleteAddress.setOnClickListener(View.OnClickListener {
-
-            database.contactDao()
-                .deleteAddressItems( categories1.get(position).customer_name,categories1.get(
-                    position
-                ).Address1,categories1.get(position).Address2)
-
-                   notifyDataSetChanged()
-
-        })
-
-
+        holder.onbind(categories1[position])
 
     }
 
+    inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun onbind(addressItems: AddressItems) {
+            itemView.nameSection.text =
+                addressItems.customer_name.toString() + "\n" + addressItems.Address1.toString() + "," + addressItems.Address2.toString() + "," + addressItems.PinCode.toString() + "," + addressItems.customer_PhoneNumber.toString()
+            itemView.deleteAddress.setOnClickListener(View.OnClickListener {
+                database.contactDao()
+                    .deleteAddressItems(
+                        addressItems.customer_name, addressItems.Address1, addressItems.Address2)
+                notifyDataSetChanged()
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
-
-        val nameSection: TextView = itemView.findViewById(R.id.nameSection)
-        val deleteAddress:TextView=itemView.findViewById(R.id.deleteAddress)
-
+            })
+        }
     }
 
     override fun getItemCount(): Int {
-        Log.d("calllllllll", categories1.size.toString());
         return categories1.size
 
     }
-
 
 
 }

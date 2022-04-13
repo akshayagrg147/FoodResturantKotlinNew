@@ -10,18 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.meetSuccess.Database.AddressItems
 
 import com.orders.resturantorder.R
+import kotlinx.android.synthetic.main.saved_address.view.*
 
 
 class AddressItemssAdapter(
-    private var categories1: List<AddressItems>,itemChossen1:AddressItemssAdapter.AddressChosen
-
-
-)
-    : RecyclerView.Adapter<AddressItemssAdapter.PostViewHolder>() {
-
-    var selectedPosition:Int  = -1
-     val itemChossen:AddressItemssAdapter.AddressChosen=itemChossen1
-
+    private var categories1: List<AddressItems>, val itemChossen: AddressItemssAdapter.AddressChosen
+) : RecyclerView.Adapter<AddressItemssAdapter.PostViewHolder>() {
+    var selectedPosition: Int = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,43 +25,32 @@ class AddressItemssAdapter(
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-
-        holder.nameSection.setText(
-            categories1.get(position).customer_name.toString() + "\n" + categories1.get(
-                position
-            ).Address1.toString() + "," + categories1.get(position).Address2.toString() + "," + categories1.get(
-                position
-            ).PinCode.toString() + "," + categories1.get(position).customer_PhoneNumber.toString()
-        )
-
-        holder.radioButton.setTag(position);
-        holder.radioButton.setOnClickListener(View.OnClickListener { v ->
-            itemCheckChanged(v)
-        })
-
+        holder.onbind(categories1[position])
     }
+    inner class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun onbind(addressItems: AddressItems) {
+            itemView.nameSection.text = addressItems.customer_name.toString() + "\n" + addressItems.Address1.toString() + "," + addressItems.Address2.toString() + "," + addressItems.PinCode.toString() + "," + addressItems.customer_PhoneNumber.toString()
+            itemView.radioButton1.tag = position;
+            itemView.radioButton1.setOnClickListener(View.OnClickListener { v ->
+                itemCheckChanged(v)
+            })
 
-
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-
-        val radioButton: RadioButton = itemView.findViewById(R.id.radioButton1)
-        val nameSection: TextView = itemView.findViewById(R.id.nameSection)
-
+        }
     }
 
     override fun getItemCount(): Int {
-        Log.d("calllllllll", categories1.size.toString());
         return categories1.size
 
     }
+
     private fun itemCheckChanged(v: View) {
         selectedPosition = v.getTag() as Int
         itemChossen.itemChossen(selectedPosition)
         //notifyDataSetChanged()
     }
-interface AddressChosen{
-    fun itemChossen( int: Int)
-}
+    interface AddressChosen {
+        fun itemChossen(int: Int)
+    }
 
 }
 

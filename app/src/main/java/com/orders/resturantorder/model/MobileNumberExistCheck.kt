@@ -15,24 +15,5 @@ public var message:String,
 public var existance:Boolean
 
 
-) {
-    fun getstatus(): Int {
-        return status
-    }
-    fun getsuccess(): Boolean {
-        return success
-    }
-    fun getnmessage(): String {
-        return message
-    }
-    fun getexistance(): Boolean {
-        return existance
-    }
-
-
-
-
-
-
-}
+)
 

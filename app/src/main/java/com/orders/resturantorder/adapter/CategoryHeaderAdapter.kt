@@ -1,24 +1,21 @@
 package com.meetSuccess.FoodResturant.Adapter
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.orders.resturantorder.R
 
 import com.meetSuccess.FoodResturant.Model.CategoriesHeader
-import com.orders.resturantorder.Activity.AfterCategorySelectionActivity
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.item_recycler_category.view.*
 
 
 class CategoryHeaderAdapter(private var categories1: List<CategoriesHeader.Category>, val context: Context)
-    : RecyclerView.Adapter<com.meetSuccess.FoodResturant.Adapter.CategoryHeaderAdapter.PostViewHolder>() {
+    : RecyclerView.Adapter<CategoryHeaderAdapter.PostViewHolder>() {
 
 
 
@@ -29,39 +26,36 @@ class CategoryHeaderAdapter(private var categories1: List<CategoriesHeader.Categ
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-       // binding.mealName.text=categories1.get(position).getStrCategory()
+        holder.OnBind(categories1[position])
+    }
 
-        holder.categoryName.text=categories1.get(position).getname()
-//categories1.get(position).getStrimage()
-        Picasso.get().load(categories1.get(position).getStrimage()).placeholder(R.drawable.clock_my_time_in_button)
-            .into(holder.imageView)
-        holder.itemView.setOnClickListener{
+//    override fun getItemCount(): Int = categories1.size
 
-            val bundle = Bundle()
-            bundle.putString("categoryId", categories1.get(position).getIdCategory())
-            Navigation.findNavController(it).navigate(R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,bundle);
+    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+        fun OnBind(categories1: CategoriesHeader.Category) {
+            itemView.categoryName.text=categories1.getname()
+            Picasso.get().load(categories1.getStrimage()).placeholder(R.drawable.clock_my_time_in_button)
+                .into(itemView.categoryThumb)
+            itemView.setOnClickListener{
+                val bundle = Bundle()
+                bundle.putString("categoryId", categories1.getIdCategory())
+                Navigation.findNavController(it).navigate(R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,bundle);
 
 //            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
 //            intent.putExtra("categoryId",categories1.get(position).getIdCategory())
 //
 //            context.startActivity(intent);
 
+            }
+
+
+
         }
 
+
     }
 
-//    override fun getItemCount(): Int = categories1.size
 
-    class PostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val imageView: ImageView = itemView.findViewById(R.id.categoryThumb)
-        val categoryName: TextView = itemView.findViewById(R.id.categoryName)
-    }
-
-    fun setData(categoriesList: List<CategoriesHeader.Category>)
-    {
-        categories1=categoriesList
-      //  notifyDataSetChanged()
-    }
 
     override fun getItemCount(): Int {
         return categories1.size

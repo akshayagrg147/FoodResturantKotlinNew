@@ -13,8 +13,9 @@ import com.orders.resturantorder.Base.BaseActivity
 import com.orders.resturantorder.R
 import com.orders.resturantorder.databinding.ActivityAddNewAddressBinding
 import com.orders.resturantorder.viewmodel.AddNewAddressViewModal
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
+@AndroidEntryPoint
 class AddNewAddressActivity  : BaseActivity<ActivityAddNewAddressBinding, AddNewAddressViewModal>(){
     //,DashBoardCategories.passingclick
 
@@ -29,12 +30,6 @@ class AddNewAddressActivity  : BaseActivity<ActivityAddNewAddressBinding, AddNew
 
     override fun getViewModel(): AddNewAddressViewModal = mainViewModel
     lateinit var database: ProductDatabase
-    lateinit var name_editText:EditText
-    lateinit var phoneno_editText:EditText
-    lateinit var pincode_editText:EditText
-    lateinit var address1_editText:EditText
-    lateinit var address2_editText:EditText
-    lateinit var lanMark:EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,12 +112,12 @@ class AddNewAddressActivity  : BaseActivity<ActivityAddNewAddressBinding, AddNew
 
                     database.contactDao().insertAddressItem(
                         AddressItems(
-                            name_editText.getText().toString(),
-                            phoneno_editText.getText().toString(),
-                            Integer.parseInt(pincode_editText.getText().toString()),
-                            address1_editText.text.toString(),
-                            address2_editText.text.toString(),
-                            lanMark.text.toString()
+                            mActivityMainBinding.  nameEditText.text.toString(),
+                            mActivityMainBinding. phonenoEditText.text.toString(),
+                            Integer.parseInt(mActivityMainBinding.pincodeEditText.text.toString()),
+                            mActivityMainBinding.address1EditText.text.toString(),
+                            mActivityMainBinding.address2EditText.text.toString(),
+                            mActivityMainBinding.lanMark.text.toString()
                         )
                     )
                     Toast.makeText(

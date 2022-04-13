@@ -22,26 +22,7 @@ data class Meals(
 
 
     )
-    {
-        fun getIdMeal(): String? {
-            return idMeal
-        }
 
-
-
-        fun getstrMeal(): String {
-            return strMeal
-        }
-
-
-
-        fun getstrDescription(): String? {
-            return strDescription
-        }
-
-
-
-    }
 
 }
 

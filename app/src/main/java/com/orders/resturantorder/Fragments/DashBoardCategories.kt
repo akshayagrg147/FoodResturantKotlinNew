@@ -217,11 +217,7 @@ class DashBoardCategories : BaseFragment<FragmentBlankBinding, DashBoardCategori
             if(searchingR!!.first==1)
             {
                 ContextCompat.getMainExecutor(getBaseActivity()).execute {
-
-
-                    searchAdapter.setData(searchingR.second as SerchingResponse, mHomeViewModel)
-
-
+                    searchAdapter.setData(searchingR.second as SerchingResponse)
                     searchAdapter.notifyDataSetChanged()
                     // do something
                 }

@@ -34,18 +34,14 @@ class RecyclerViewAdapter(): RecyclerView.Adapter<RecyclerViewAdapter.MyViewHold
         return listData?.size!!
     }
 
-    class MyViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val image_avatar_url = view.image_avatar_url
-        val tvName = view.tvName
-        val tvDesc = view.tvDesc
+   inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+       fun bind(data: RepositoryData) {
+            itemView.tvName.text = data.name
+            itemView.tvDesc.text = data.description
 
-        fun bind(data: RepositoryData) {
-            tvName.text = data.name
-            tvDesc.text = data.description
-
-            Glide.with(image_avatar_url)
+            Glide.with(itemView.image_avatar_url.image_avatar_url)
                 .load(data.owner?.avatar_url)
-                .into(image_avatar_url)
+                .into(itemView.image_avatar_url.image_avatar_url)
         }
     }
 }

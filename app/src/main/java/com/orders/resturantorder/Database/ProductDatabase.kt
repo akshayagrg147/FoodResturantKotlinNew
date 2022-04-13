@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 abstract class ProductDatabase:RoomDatabase(){
     abstract fun contactDao(): com.meetSuccess.Database.Dao
     companion object{
-
+//juat make to visible to other threads
         @Volatile
         private var INSTANCE: ProductDatabase?=null
         fun getInstance(context: Context):ProductDatabase{
