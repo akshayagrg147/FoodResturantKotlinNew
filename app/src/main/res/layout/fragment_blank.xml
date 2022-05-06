@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
         <data>
                 <variable
                     name="viewModel"
@@ -12,97 +11,92 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     >
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_home"
             android:visibility="invisible"
-
-
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-
             app:menu="@menu/menu" />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/searchlistView"
             android:visibility="gone"
-
-
             android:scrollbars="none"
             android:layout_marginTop="10dp"
             android:clipToPadding="false"
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="50dp" />
-
-        <ScrollView
+        <RelativeLayout
             android:layout_below="@+id/searchlistView"
             android:id="@+id/scrollview"
-
-
             android:fillViewport="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             tools:context="com.meetsuccess.resturantapp.FoodResturant.Fragment.DashBoardMenuPageFragment">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:background="@color/black" />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="16dp"
+                android:text="CHUIMUI"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardSearch"
+                android:layout_below="@id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="15dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="0dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="10dp"
+                    android:text="Search Receipies"
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_search_primary_light"
+                    android:drawableStart="@drawable/ic_search_primary_light"
+                    android:drawablePadding="10dp"/>
+            </androidx.cardview.widget.CardView>
+            <ScrollView
+                android:layout_below="@id/cardSearch"
+                android:id="@+id/headerView"
+
+
+                android:fillViewport="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                tools:context="com.meetsuccess.resturantapp.FoodResturant.Fragment.DashBoardMenuPageFragment">
                 <RelativeLayout
-                    android:id="@+id/headerView"
+
+
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
+                    android:layout_height="wrap_content">
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="130dp"
-                            android:background="@color/black" />
-
-
-                        <TextView
-                            android:id="@+id/title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginRight="16dp"
-                            android:text="CHUIMUI"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="25sp"
-                            android:textStyle="bold" />
-
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/cardSearch"
-                            android:layout_below="@id/title"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp"
-                            android:layout_marginRight="16dp"
-                            android:layout_marginTop="15dp"
-                            app:cardBackgroundColor="@color/white"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="0dp">
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="50dp"
-                                    android:padding="10dp"
-                                    android:text="Search Receipies"
-                                    android:textColor="@color/black"
-                                    android:gravity="center_vertical"
-                                    android:drawableLeft="@drawable/ic_search_primary_light"
-                                    android:drawableStart="@drawable/ic_search_primary_light"
-                                    android:drawablePadding="10dp"/>
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
+                    <TextView
                             android:id="@+id/mealtext"
 
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/cardSearch"
                             android:layout_marginLeft="16dp"
                             android:layout_marginTop="7dp"
                             android:layout_marginRight="16dp"
@@ -111,8 +105,8 @@
                             android:textColor="@color/black"
                             android:textSize="19sp"
                             android:textStyle="bold" />
-                        <androidx.recyclerview.widget.RecyclerView
 
+                        <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/recyclerView"
                             android:foregroundGravity="center"
                             android:overScrollMode="never"
@@ -122,11 +116,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="150dp" />
 
+                    <include
+                        android:id="@+id/shimmer_view_containerheader"
 
-                        <include
-                            android:id="@+id/shimmer_view_containerheader"
-
-                            layout="@layout/item_view_pager_header_shimmer" />
+                        layout="@layout/item_view_pager_header_shimmer" />
 
                         <TextView
                             android:id="@+id/titleCategory"
@@ -160,7 +153,8 @@
 
 
                 </RelativeLayout>
-        </ScrollView>
+            </ScrollView>
+        </RelativeLayout>
 
 
 </RelativeLayout>

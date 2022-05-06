@@ -63,6 +63,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="text"
                         android:lines="1"
+                        android:text="@={viewModel.userName}"
                         android:padding="@dimen/margin_min"
                         android:paddingStart="@dimen/margin_subunit"
                         android:paddingEnd="@dimen/margin_subunit"

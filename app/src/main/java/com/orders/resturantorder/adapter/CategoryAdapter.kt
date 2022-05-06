@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.item_recycler_category.view.*
 
 class CategoryAdapter(private var categories1: List<Categories.Category>, val context: Context) :
     RecyclerView.Adapter<CategoryAdapter.PostViewHolder>() {
-    var tempPosition = 0
+    var tempPosition = -1
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -26,8 +26,17 @@ class CategoryAdapter(private var categories1: List<Categories.Category>, val co
     }
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        holder.onBind(categories1.get(position), position)
-        holder.onItemClick(position)
+       // holder.onBind(categories1.get(position), position)
+       // holder.onItemClick(position)
+        holder.itemView.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putString("categoryId", categories1.get(position).idCategory.toString())
+            Navigation.findNavController(it).navigate(
+                R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,
+                bundle
+            );
+
+        }
 
 
     }
@@ -49,12 +58,7 @@ class CategoryAdapter(private var categories1: List<Categories.Category>, val co
 
             itemView.setOnClickListener {
 
-                val bundle = Bundle()
-                bundle.putString("categoryId", subcategory.idCategory.toString())
-                Navigation.findNavController(it).navigate(
-                    R.id.action_dashBoardCategories_to_afterSelectionCategoryFragment,
-                    bundle
-                );
+
 
 //            val intent = Intent(context, AfterCategorySelectionActivity::class.java);
 //            intent.putExtra("categoryId",categories1.get(position).getIdCategory().toString())
@@ -68,7 +72,7 @@ class CategoryAdapter(private var categories1: List<Categories.Category>, val co
         fun onItemClick(position: Int) {
             itemView.setOnClickListener {
                 tempPosition = position
-                notifyDataSetChanged()
+               // notifyDataSetChanged()
 
             }
 

@@ -9,8 +9,6 @@ data class Categories(
 
 
 ) {
-
-
     data class Category(
 
             @SerializedName("id")
@@ -29,14 +27,8 @@ data class Categories(
             private var created_at: String,
             @SerializedName("updated_at")
             private var updated_at: String
+            )
 
-
-
-
-    )
-    {
-
-    }
 
 }
 

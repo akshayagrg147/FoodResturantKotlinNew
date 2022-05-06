@@ -45,6 +45,7 @@ class AddNewAddressActivity : BaseActivity<ActivityAddNewAddressBinding, AddNewA
 
 
         mActivityMainBinding.addressUpdateButton.setOnClickListener {
+            mainViewModel.validatingAddress(view = it)
             lifecycle.coroutineScope.launch {
                 if ((mActivityMainBinding.nameEditText.getText()
                         .isEmpty())
