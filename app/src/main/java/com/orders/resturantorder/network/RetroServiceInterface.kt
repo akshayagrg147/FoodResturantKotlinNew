@@ -1,6 +1,7 @@
 package com.orders.resturantorder.network
 
 import com.meetSuccess.FoodResturant.Model.*
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -23,4 +24,7 @@ interface RetroServiceInterface {
     suspend fun getmobileVerify(@Path("mobile")mobile: String): MobileNumberExistCheck
     @POST("productAll")
     suspend fun <T:@JvmSuppressWildcards Any>getSearchProductPassingString(@Body searchingPassingData: @JvmSuppressWildcards T): SerchingResponse
+
+    @POST("testing")
+    suspend fun ApiInplement(@Body mobileNumberData:MobileNumberPassingData): Response<MobileNumberResponse>
 }

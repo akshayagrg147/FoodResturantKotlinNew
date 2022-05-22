@@ -1,6 +1,7 @@
 package com.orders.resturantorder.network
 
 import com.meetSuccess.FoodResturant.Model.*
+import com.orders.resturantorder.Util.toResultFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -30,4 +31,7 @@ class RetroRepository @Inject constructor(private val apiServiceImpl: ApiService
     suspend fun <T:Any> SearchProductPassingString(searchingPassingData: @JvmSuppressWildcards T): Flow<SerchingResponse> = flow {
         emit(apiServiceImpl.SearchProductPassingString(searchingPassingData))
     }.flowOn(Dispatchers.IO)
+
+
+
 }

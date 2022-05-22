@@ -43,7 +43,6 @@ class MobileNumberIntegrationViewModel @Inject constructor(private val mainRepos
                 .catch { e->
                     mobilenumberCheck.value=ApiState.Failure(e)
                 }.collect {
-
                     data->
                     mobilenumberCheck.value=ApiState.SuccessCategories(data)
                 }
